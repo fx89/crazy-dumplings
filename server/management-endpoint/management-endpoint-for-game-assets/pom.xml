@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>management-endpoint-for-game-assets</artifactId>
+    <name>REST interface for game asset management</name>
+    <description>REST endpoint through which administrators and game managers may add, remove or modify game assets</description>
+
+    <parent>
+        <groupId>com.desolatetimelines</groupId>
+        <artifactId>management-endpoint</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.desolatetimelines</groupId>
+            <artifactId>game-world-registry</artifactId>
+            <version>${own-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.desolatetimelines</groupId>
+            <artifactId>fx-utils-aop</artifactId>
+        </dependency>
+    </dependencies>
+</project>

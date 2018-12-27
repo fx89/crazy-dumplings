@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>common</artifactId>
+    <name>Crazy Dumplings Commons</name>
+    <description>Items which are commonly used by at least two application modules</description>
+
+    <parent>
+        <groupId>com.desolatetimelines</groupId>
+        <artifactId>crazy-dumplings</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        
+    </dependencies>
+</project>
