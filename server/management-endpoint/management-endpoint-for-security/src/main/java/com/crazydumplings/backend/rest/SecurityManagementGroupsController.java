@@ -3,6 +3,7 @@ package com.crazydumplings.backend.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.crazydumplings.backend.security.model.GroupPermissionMap;
 
 @RestController
 @RequestMapping("/groups")
+@PreAuthorize("hasAuthority('SECURITY_MANAGEMENT')")
 public class SecurityManagementGroupsController {
     @Autowired
     private SecurityService securityService;

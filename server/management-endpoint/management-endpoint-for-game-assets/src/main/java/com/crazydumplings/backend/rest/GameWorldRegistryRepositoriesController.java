@@ -24,7 +24,7 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 @RestController()
 @RequestMapping("/repositories")
 //@PreAuthorize("hasAuthority('ACCESS_EVERYTHING')")
-@PreAuthorize("hasAuthority('READ_ASSETS')")
+@PreAuthorize("hasAuthority('MANAGEMENT_CLIENT')")
 public class GameWorldRegistryRepositoriesController {
     @Autowired
     private GameWorldRegistryService registryService;

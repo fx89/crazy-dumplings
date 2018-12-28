@@ -17,7 +17,7 @@ import com.crazydumplings.backend.security.model.Permission;
 
 @RestController
 @RequestMapping("/permissions")
-@PreAuthorize("hasAuthority('ACCESS_EVERYTHING')")
+@PreAuthorize("hasAuthority('SECURITY_MANAGEMENT')")
 public class SecurityManagementPermissionsController {
     @Autowired
     private SecurityService securityService;

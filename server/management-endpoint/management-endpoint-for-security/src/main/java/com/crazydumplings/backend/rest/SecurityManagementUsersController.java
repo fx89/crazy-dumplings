@@ -21,7 +21,7 @@ import com.crazydumplings.backend.security.web.Md5DigestPasswordEncoder;
 
 @RestController
 @RequestMapping("/users")
-@PreAuthorize("hasAuthority('ACCESS_EVERYTHING')")
+@PreAuthorize("hasAuthority('SECURITY_MANAGEMENT')")
 public class SecurityManagementUsersController {
     @Autowired
     private SecurityService              securityService;
