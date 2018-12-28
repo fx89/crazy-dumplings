@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeAllowedAddonType" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeAllowedAddonType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="227" x="2224" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeStateTransition" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeStateTransition.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="206" x="2468" y="135"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeClass" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeClass.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1130" y="429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="com.crazydumplings.gameworldregistry.model.PlayableCharacterType" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/PlayableCharacterType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1009" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="5" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeInteraction" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeInteraction.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1251" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeProperty.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1493" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="com.crazydumplings.gameworldregistry.model.GameAssetsRepository" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameAssetsRepository.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1372" y="429"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="8" language="java" 
+    name="com.crazydumplings.gameworldregistry.model.GameObjectTypeStatePropertyModifier" project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeStatePropertyModifier.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="245" x="1593" y="135"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="com.crazydumplings.gameworldregistry.model.GameWorldCell" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameWorldCell.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1276" y="51"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" language="java" name="com.crazydumplings.gameworldregistry.model.GameWorldCellType" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameWorldCellType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="767" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="11" language="java" 
+    name="com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameAddonInteractionReceivingPropertyModifier.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="304" x="1878" y="135"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="12" language="java" name="com.crazydumplings.gameworldregistry.model.GameClientType" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameClientType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1977" y="331"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="13" language="java" name="com.crazydumplings.gameworldregistry.model.GameWorld" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameWorld.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1037" y="51"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="14" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeAutomation" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeAutomation.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="283" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="15" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectType" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1251" y="331"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="16" language="java" name="com.crazydumplings.gameworldregistry.model.AutomationObjectProvider" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/AutomationObjectProvider.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="283" y="331"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="17" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeInteractionProperty" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeInteractionProperty.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1354" y="164"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="18" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeState" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeState.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="1735" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="19" language="java" name="com.crazydumplings.gameworldregistry.model.GameObjectTypeRepresentation" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameObjectTypeRepresentation.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="207" x="1977" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="20" language="java" name="com.crazydumplings.gameworldregistry.model.GameWorldCellProperty" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameWorldCellProperty.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1513" y="51"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="21" language="java" name="com.crazydumplings.gameworldregistry.model.GameWorldSpawnPointType" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/GameWorldSpawnPointType.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="525" y="233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="22" language="java" name="com.crazydumplings.gameworldregistry.model.Action" 
+    project="game-world-registry" 
+    file="/game-world-registry/src/main/java/com/crazydumplings/gameworldregistry/model/Action.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="58" width="202" x="2472" y="331"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </interface>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="25">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="27">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="28">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="29">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="31">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="32">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="33">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="34">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="35">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="38">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="39">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="40">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="42">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="43">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="44">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="46">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="48">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="49">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="false" package="false" protected="false" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
