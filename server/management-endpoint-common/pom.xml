@@ -51,6 +51,12 @@
             <artifactId>security-springdata</artifactId>
             <version>${own-version}</version>
         </dependency>
+
+         <!-- FX-UTILS -->
+        <dependency>
+            <groupId>com.desolatetimelines</groupId>
+            <artifactId>fx-utils-springboot-data</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

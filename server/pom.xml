@@ -127,13 +127,18 @@
             <version>${fx-utils-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.desolatetimelines</groupId>
+            <artifactId>fx-utils-springboot-data</artifactId>
+            <version>${fx-utils-version}</version>
+        </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <!-- Common components -->
         <module>common</module>
-		<module>common-springboot-springdata</module>
 
         <!-- Game back-end -->
         <module>game-world-registry</module>

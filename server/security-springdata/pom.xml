@@ -18,8 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.desolatetimelines</groupId>
-            <artifactId>common-springboot-springdata</artifactId>
-            <version>${own-version}</version>
+            <artifactId>fx-utils-springboot-data</artifactId>
         </dependency>
     </dependencies>
 </project>
