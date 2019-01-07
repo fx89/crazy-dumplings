@@ -1,0 +1,231 @@
+//############################################################################################
+//                                                                                           #
+//                  Crazy Dumplings - Game assets repository structure                       #
+//                                                                                           #
+//############################################################################################
+
+
+
+//## REPOSITIROY IDENTIFICATION ##############################################################
+
+// The game may have more than one repository
+// Each repository can contain very different game objects, addons and maps for a totally different gaming experience
+// Repositories may be used as templates for other repositories --- a copy feature should be implemented in the management service
+game assets repository
+	unique name
+	description
+	picture ref path
+
+//############################################################################################
+
+
+
+//## GENERIC AREA ############################################################################
+
+// The repository contains a glossary of game object types
+// The game will dynamically create and remove objects of these types
+// A game object type class is used for grouping similar game object types
+// A game object can be configured to be accessed only in experimental mode
+// A game object type can be found in one and only one repository
+game object type
+	game assets repository
+	game object type class
+	unique name
+	is experimental
+
+// The repository contains a glossary of game object type classes
+game object type class
+	name
+
+// The repository contains a glossary of the properties relevant for objects of each type
+// These properties are to be used when creating objects such as weapons and other playable objects
+// A minimum and maximum value should be defined so that the game engine can implement overflow logic --- make these not nullable in the database constraints
+game object type property
+	game object type
+	property name
+	property default value
+	property min value
+	property max value
+
+// A game object type should have at least one state --- to be verified in the business layer
+// States are used mainly for representing game objects in various game clients
+game object type state
+	game object type
+	name
+
+// A game object type state might modify the properties of a given game object
+// A game object type state might temporarily add new properties to the object in question
+game object type state property modifier
+	game object type state
+	game object type property
+	property actual value
+
+// The game should support multiple client types (i.e. in-browser 2d client for low performance machines, in-browser 3d client for high performance machines, Open GL ES based client for android devices, and so forth)
+game client type
+	unique name
+
+// Each object needs to have a client-specific representation
+// --- to be validated in the business layer:
+//           > if an object is missing a representation for any given client type, then:
+//                     >> the management console should display a big warning
+//                     >> the affected game client should not start
+// The representation itself is client-specific and not of any concern to the server side service
+// The representation is stored as a hashed binary file which will be decoded and interpreted by the targeted client
+game object type representation
+	game object type
+	game client type
+	object hash
+
+
+
+//## ADDONS AND INTERACTIONS #################################################################
+
+// Game objects may interact with one another if they are within a given range of each other
+// An interaction is defined by a donating object type and a receiving object type (i.e. a rocket donates to a playable character or to a playable map cell)
+// A bi-directional interaction between two object types should be defined as two separate interactions
+game object type interaction
+	donating game object type
+	receiving game object type
+	radius : smallnumber
+
+// Upon interacting, a donating object donates proeprties to the receiving object
+// The values of the affected properties of the receiving object can be either overwritten with or incremented by the values of the properties of the donating object
+// The donated property values can be inverted before being applied to the property values of the receiving object (i.e. the health of the receiving object is incremented with the inverted value of the damage property of the donating object)
+// When a property value reaches the MAX or MIN as a result of an interaction, the value can overflow to another property
+game object type interaction property
+	game object type interaction
+	donating game object type property
+	receiving game object type property
+	overflow game object type property
+	is incremental
+	is inverted
+
+// Each game object type may use one or more addon types
+// Addons can be weapons, armour, upgrades and basically anything that can be conceived
+// The same addon type may be used by two or more game object types
+// Game objects may be equiped by default with one or more addons
+// An addon has its own ojbect type to be rendered in the game world
+// An addon may be incremental, meaning its property values are added to the object's property values upon procurement
+// If a game addon is not incremental, its properties will overwrite those of the game object to which it is assigned
+// An addon may be triggered, in which case the overwriting of properties will happen only upon the specified trigger action
+// An addon may spawn game objects of a given type (i.e. a gun spawns bullets)
+// Once applied, an addon may expire once its given duration is expired --- check in the business layer that the duration is not 0 or negative when the "has limited duration" flag is turned on
+game object type allowed addon type
+	unique name
+	addon game object type
+	applicable to game object type
+	is equiped by default
+	is incremental
+	is triggered
+	trigger action
+	is spawning
+	spawnable game object type
+	has limited duration
+	duration
+
+// An addon may affect interactions between objects by modifying the value of the donated property (multiplying it by the configured factor)
+//     >>> EXAMPLE: armor multiplies the donated damage value by 0.5d
+// Multiple interaction property modifiers may be assigned to the same addon
+game addon interaction receiving property modifier
+	game object type allowed addon type
+	affected game object type property
+	applied property value multiplier
+
+//############################################################################################
+
+
+
+//## STATE MACHINE FOR GAME OBJECT TYPE STATES ###############################################
+
+// The repository defines possible transitions between game object type states
+// A state transition might be triggered by a given action
+// A state transition might be triggered automatically when the previous state finishes cycling
+game object type state transition
+	source game object type state
+	target game object type state
+	is automatic
+	trigger action
+
+// The repository contains a glossary of actions that can be triggered in the game
+// Actions may be triggered either by users or automatically by game logic --- to be defined in the business layer
+action
+	unique name
+
+//############################################################################################
+
+
+
+//## AUTOMATIC DECISION MAKING FOR GAME OBJECTS - NOT AI #####################################
+
+// Administrators of the repository may map automation providers to game object types
+// Multiple automation providers may be mapped to the same game object type, in which case one is chosen at random
+game object type automation
+	game object type
+	automation object provider
+
+// The back end will keep a map of names to specific automation providers, so that it can inject automation objects of the required class into game objects upon construction
+// The repository also contains a glossary of these names so that they can be mapped to object types by configuration
+automation object provider
+	name
+
+//############################################################################################
+
+
+
+//## GAME WORLD ##############################################################################
+
+// A CrazyDumplings game world is a discrete bi-dimensional environment defined by a width and a height
+// Each position in the game world must contain a game world cell --- to be validated in the business layer
+game world
+	unique name
+	description
+	picture ref path
+	width
+	height
+
+// Game world cells fill the game world
+// There cannot be two cells for the same game world at the same X index an Y index --- add constraints in the database + validate in the business layer
+// Each game world cell has a type which will ultimately determine the cell looks and behaviour in the game
+// A game world cell may have an attached spawn point
+game world cell
+	game world
+	game world cell type
+	x index
+	y index
+	attached game world spawn point type
+
+// The game world cell type maps the cell to a given object type
+game world cell type
+	unique name
+	game object type
+
+// Upon construction, the game world cell will inherit its properties from the game object type referenced by its game world cell type
+// Each cell may have unique property values which can be different than the defaults
+game world cell property
+	game world cell
+	game object type property
+	property actual value
+
+// Spawn points can be attached to game world cells
+// A spawn point is mapped to an object type and it should be rendered on top of the game world cell from which it is referred to
+// Spawn points of a given type may only spawn objects of a certain type
+// Types may be defined by administrators using the configuration service
+game world spawn point type
+	spawn point game object type
+	spawned game object type
+
+//############################################################################################
+
+
+
+//## PLAYABLE CHARACTERS #####################################################################
+
+// Playable character types are defined by administrators using the configuration service
+// A playable character type is mapped to an object type and should be rendered on the top layer
+playable character type
+	unique character type name
+	game object type
+
+//############################################################################################
+
+
