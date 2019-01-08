@@ -1,8 +1,8 @@
-# crazy-dumplings
-Crazy Dumplings will be a top-down multiplayer shooter which runs on various platforms, including web browsers
+# About
+Crazy Dumplings will be a top-down multiplayer shooter which runs on various platforms, including web browsers. At this point, it consists only in a couple of web services and a schetch front end for the assets management application. 
 
 
-# usage
+# Usage
 The back end apps are Spring Boot applications which require application.properties files containing some wiring configuration, some data source properties, etc. To start either application, one must provide the paths to the proper application.properties files to the command line. For instance:
 ```
 --spring.config.location=~/work/crazy-dumplings/root/config/generic/application.properties
