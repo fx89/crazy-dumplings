@@ -15,5 +15,10 @@
             <groupId>com.desolatetimelines</groupId>
             <artifactId>fx-utils-lang</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.desolatetimelines</groupId>
+            <artifactId>management-endpoint-common-security</artifactId>
+            <version>${own-version}</version>
+        </dependency>
     </dependencies>
 </project>

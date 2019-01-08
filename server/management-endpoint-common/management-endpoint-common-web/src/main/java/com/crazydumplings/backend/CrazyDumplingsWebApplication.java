@@ -1,7 +1,9 @@
 package com.crazydumplings.backend;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -11,6 +13,7 @@ import com.crazydumplings.backend.security.SecurityDataService;
 import com.crazydumplings.backend.security.SecurityService;
 
 @SpringBootApplication
+@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = { "com.crazydumplings" })

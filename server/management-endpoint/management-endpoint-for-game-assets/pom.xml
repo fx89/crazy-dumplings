@@ -21,5 +21,11 @@
             <groupId>com.desolatetimelines</groupId>
             <artifactId>fx-utils-aop</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.desolatetimelines</groupId>
+            <artifactId>management-endpoint-common-web</artifactId>
+            <version>${own-version}</version>
+        </dependency>
     </dependencies>
 </project>

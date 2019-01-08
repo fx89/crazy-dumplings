@@ -17,7 +17,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = {"com.crazydumplings.backend.rest"})
 public class CommonResponseBodyEvelopeAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

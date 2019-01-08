@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.springframework.http.HttpStatus;
 
-public class ApiResponse {
+public class ApiResponse implements Serializable {
 
     private HttpStatus     status;
     private Serializable   payload;
@@ -30,4 +30,7 @@ public class ApiResponse {
         this.payload = message;
     }
 
+    public String toString() {
+        return "Status " + ((status == null) ? "UNKNOWN" : status.toString());
+    }
 }
