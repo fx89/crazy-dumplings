@@ -1,5 +1,7 @@
 package com.crazydumplings.backend.security.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +17,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private CrazyDumplingsUserDetailsService userDetailsService;
+    private CrazyDumplingsUserDetailsService   userDetailsService;
+
+    @Autowired
+    private List<AdditionalHttpSecurityConfig> additionalHttpConfig;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -26,6 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.exceptionHandling().accessDeniedPage("/403").and().authorizeRequests().antMatchers("/403").permitAll();
         http.csrf().disable();
+
+        for (AdditionalHttpSecurityConfig config : additionalHttpConfig)
+            config.configure(http);
+
         super.configure(http);
     }
 

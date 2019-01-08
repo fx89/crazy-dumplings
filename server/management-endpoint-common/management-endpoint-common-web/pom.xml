@@ -16,6 +16,10 @@
             <artifactId>fx-utils-lang</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.desolatetimelines</groupId>
             <artifactId>management-endpoint-common-security</artifactId>
             <version>${own-version}</version>
