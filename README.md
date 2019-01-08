@@ -38,11 +38,11 @@ Below is a listinf of the properties for the management endpoint for game assets
 server.port=8093
 crazydumplings.gameworldregistry.dataservice                               = SpringDataGameWorldRegistryDataService
 crazydumplings.gameworldregistry.dataservice.springdata.implementationtype = SPRING_JPA_HIBERNATE
-spring.datasource.gameworldregistry.jdbcUrl         = jdbc:mysql://localhost:3306/crazy_dumplings__game_world_registry
-spring.datasource.gameworldregistry.username        = root
-spring.datasource.gameworldregistry.password        = $handover0Z
-spring.datasource.gameworldregistry.driverClassName = com.mysql.cj.jdbc.Driver
-spring.datasource.gameworldregistry.dialect         = org.hibernate.dialect.MySQLDialect
-spring.datasource.gameworldregistry.show_sql        = true
+spring.datasource.gameworldregistry.jdbcUrl                                = jdbc:mysql://localhost:3306/crazy_dumplings__game_world_registry
+spring.datasource.gameworldregistry.username                               = root
+spring.datasource.gameworldregistry.password                               = $handover0Z
+spring.datasource.gameworldregistry.driverClassName                        = com.mysql.cj.jdbc.Driver
+spring.datasource.gameworldregistry.dialect                                = org.hibernate.dialect.MySQLDialect
+spring.datasource.gameworldregistry.show_sql                               = true
 ```
 
