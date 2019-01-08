@@ -8,7 +8,10 @@ The back end apps are Spring Boot applications which require application.propert
 --spring.config.location=~/work/crazy-dumplings/root/config/generic/application.properties
 --spring.config.location=~/work/crazy-dumplings/root/config/management-endpoint-for-game-assets/application.properties
 ```
-Yes, you can reference multiple application.properties files this way, the second instance of the argument will not overwrite the first. 
+Yes, you can reference multiple application.properties files this way, the second instance of the argument will not overwrite the first. Something like this:
+```
+java -classpath <<blah_blah>> com.crazydumplings.backend.CrazyDumplingsAssetManagementApplication --spring.config.location=~/work/crazy-dumplings/root/config/generic/application.properties --spring.config.location=~/work/crazy-dumplings/root/config/management-endpoint-for-game-assets/application.properties
+```
 
 It is reccommended to keep a generic application.properties file containing common properties for use in all of the applications, along with application-specific application.properties files, containing application-specific properties.
 
