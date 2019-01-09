@@ -1,4 +1,4 @@
-package com.crazydumplings.backend.security.web;
+package com.crazydumplings.backend.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

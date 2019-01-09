@@ -6,6 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.crazydumplings.backend.security.exception.AlreadyMappedException;
@@ -24,11 +25,14 @@ import com.crazydumplings.backend.security.model.UserGroupMap;
  */
 @Service
 public class SecurityService {
+    public static final PasswordEncoder passwordEncoder = new Md5DigestPasswordEncoder();
+
     private static final Function<String, Boolean> illegalStringDetector = (s) -> {                                  // TODO: Make injectable
                                                                              return s == null || s.trim().equals("");
                                                                          };
 
     private SecurityDataService                    securityDataService;
+
 
     public SecurityDataService getSecurityDataService() {
         return securityDataService;
@@ -71,7 +75,7 @@ public class SecurityService {
 
     private void createDefaultConfiguration() {
         this.addGroup("Administrators");
-        addUser("admin", "12345", "Administrator");
+        addUser("admin", passwordEncoder.encode("12345"), "Administrator");
         addUserToGroup("admin", "Administrators");
         addPermission("ACCESS_EVERYTHING");
         addPermissionToGroup("ACCESS_EVERYTHING", "Administrators");

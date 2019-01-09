@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +16,9 @@ import com.crazydumplings.backend.rest.model.UserPropertiesRequest;
 import com.crazydumplings.backend.security.SecurityService;
 import com.crazydumplings.backend.security.model.Permission;
 import com.crazydumplings.backend.security.model.User;
-import com.crazydumplings.backend.security.web.Md5DigestPasswordEncoder;
+
+
+import static com.crazydumplings.backend.security.SecurityService.passwordEncoder;
 
 @RestController
 @RequestMapping("/users")
@@ -25,8 +26,6 @@ import com.crazydumplings.backend.security.web.Md5DigestPasswordEncoder;
 public class SecurityManagementUsersController {
     @Autowired
     private SecurityService              securityService;
-
-    private static final PasswordEncoder passwordEncoder = new Md5DigestPasswordEncoder();
 
     @GetMapping("/list")
     public List<User> listUsers() {
