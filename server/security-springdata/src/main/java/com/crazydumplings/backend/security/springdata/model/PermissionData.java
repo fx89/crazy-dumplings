@@ -12,7 +12,7 @@ import com.crazydumplings.backend.security.model.Permission;
 @Table(name = "permissions")
 public class PermissionData implements Permission {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long  id;
 
     public String name;

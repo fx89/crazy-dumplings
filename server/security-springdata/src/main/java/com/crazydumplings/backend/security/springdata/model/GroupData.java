@@ -9,10 +9,10 @@ import javax.persistence.Table;
 import com.crazydumplings.backend.security.model.Group;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "`groups`")
 public class GroupData implements Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
 
     private String name;

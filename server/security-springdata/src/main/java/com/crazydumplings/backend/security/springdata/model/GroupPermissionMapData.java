@@ -17,7 +17,7 @@ import com.crazydumplings.backend.security.model.Permission;
 public class GroupPermissionMapData implements GroupPermissionMap {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long           Id;
 
     @ManyToOne

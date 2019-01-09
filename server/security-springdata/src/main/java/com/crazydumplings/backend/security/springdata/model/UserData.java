@@ -1,5 +1,6 @@
 package com.crazydumplings.backend.security.springdata.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,16 +10,19 @@ import javax.persistence.Table;
 import com.crazydumplings.backend.security.model.User;
 
 @Entity
-@Table(name = "users")
+@Table(name = "`users`")
 public class UserData implements User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
 
+    @Column(name="full_name")
     public String fullName;
 
+    @Column(name="user_name")
     public String userName;
 
+    @Column(name="encoded_password")
     public String encodedPassword;
 
     @Override

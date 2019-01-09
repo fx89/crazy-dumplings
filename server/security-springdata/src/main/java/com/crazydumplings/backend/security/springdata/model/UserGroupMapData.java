@@ -16,7 +16,7 @@ import com.crazydumplings.backend.security.model.UserGroupMap;
 @Table(name = "user_group_maps")
 public class UserGroupMapData implements UserGroupMap {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long      Id;
 
     @ManyToOne
