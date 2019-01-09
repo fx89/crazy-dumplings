@@ -79,6 +79,8 @@ public class SecurityService {
         addUserToGroup("admin", "Administrators");
         addPermission("ACCESS_EVERYTHING");
         addPermissionToGroup("ACCESS_EVERYTHING", "Administrators");
+        addPermission("MANAGEMENT_CLIENT");
+        addPermissionToGroup("MANAGEMENT_CLIENT", "Administrators");
     }
 
     /**
