@@ -81,12 +81,12 @@ public class SecurityService {
      * Returns a reference to the user having the provided user name, or fails catastrophically if the user doesn't exist
      */
     public User getUser(String userName) throws CrazyDumplingsSecurityException {
-        return exceptionTranslationAspectWithoutSpringAspect(() -> securityDataService.getUserByUserName(userName).get(),
+        return exceptionTranslationAspectWithoutSpringAspect(() -> securityDataService.getUserByUserName(userName).orElse(null),
                 "Unable to get a reference to user [" + userName + "]");
     }
 
     public User getUser(Long userId) throws CrazyDumplingsSecurityException {
-        return exceptionTranslationAspectWithoutSpringAspect(() -> securityDataService.getUserById(userId).get(),
+        return exceptionTranslationAspectWithoutSpringAspect(() -> securityDataService.getUserById(userId).orElse(null),
                 "Unable to get a reference to user with id [" + userId + "]");
     }
 
