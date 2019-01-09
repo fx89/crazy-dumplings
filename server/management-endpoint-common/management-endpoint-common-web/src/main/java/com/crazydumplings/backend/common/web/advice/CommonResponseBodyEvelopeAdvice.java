@@ -25,7 +25,7 @@ public class CommonResponseBodyEvelopeAdvice implements ResponseBodyAdvice<Objec
         return true;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
      // Compute the HTTP status:
      // If there's an error, then compute the http status based on the error message, otherwise assume the status is OK
