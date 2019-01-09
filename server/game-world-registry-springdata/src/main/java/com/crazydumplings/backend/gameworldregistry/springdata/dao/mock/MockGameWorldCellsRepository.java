@@ -92,8 +92,8 @@ public class MockGameWorldCellsRepository implements GameWorldCellsRepository {
 
     @Override
     public List<GameWorldCellEntity> findAllHavingTargetSmallnumberBetweenXIndexAndYIndex(Integer targetSmallnumber) {
-        return (List<GameWorldCellEntity>) gameWorldCells.stream().filter(item -> item.getXIndex() != null && item.getXIndex() <= targetSmallnumber
-                && (item.getYIndex() == null || item.getYIndex() >= targetSmallnumber)).findFirst().orElse(null);
+        return gameWorldCells.stream().filter(item -> item.getXIndex() != null && item.getXIndex() <= targetSmallnumber
+                && (item.getYIndex() == null || item.getYIndex() >= targetSmallnumber)).collect(Collectors.toList());
     }
 
     @Override
