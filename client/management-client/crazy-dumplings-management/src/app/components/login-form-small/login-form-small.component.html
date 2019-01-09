@@ -1,0 +1,14 @@
+{{userId}}
+
+<!-- When not logged in, the form must display the username and password fields along with the login button -->
+<div *ngIf="userId == -1">
+    <input type="text" pInputText [(ngModel)]="username" />
+    <input type="password" pPassword [(ngModel)]="password" />
+    <button pButton type="button" label="Login" (click)="login($event)"></button>
+</div>
+
+<!-- When logged in, the form must display the logout button -->
+<div *ngIf="userId != -1">
+    <button pButton type="button" label="Logout" ></button>
+</div>
+
