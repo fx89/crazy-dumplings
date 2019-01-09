@@ -16,6 +16,7 @@ import com.crazydumplings.backend.security.SecurityService;
 @EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @EnableAspectJAutoProxy
+
 @ComponentScan(basePackages = { "com.crazydumplings" })
 public class CrazyDumplingsWebApplication {
     public static void main(String[] args, CrazyDumplingsConfigurationRunnable<ApplicationContext> additionalConfiguration) {
@@ -35,4 +36,5 @@ public class CrazyDumplingsWebApplication {
                 .putSecurityDataService((SecurityDataService) applicationContext.getBean(securityDataServiceName)).justInstalledCheck();
     }
 
+  
 }

@@ -16,7 +16,6 @@ java -classpath <<blah_blah>> com.crazydumplings.backend.CrazyDumplingsAssetMana
 It is reccommended to keep a generic application.properties file containing common properties for use in all of the applications, along with application-specific application.properties files, containing application-specific properties.
 
 Below is an example of the generic application.properties file. The connection properties for the security database are contained in this file since the security module is a dependency of all back-end apps. 
-
 ```
 crazydumplings.security.dataservice              = SpringDataSecurityDataService
 spring.datasource.security.jdbcUrl               = jdbc:mysql://localhost:3306/crazy_dumplings__security
@@ -28,16 +27,15 @@ spring.datasource.security.show_sql              = true
 logging.level.org.springframework.web            = DEBUG
 logging.level.org.springframework.security       = DEBUG
 logging.level.org.springframework.data           = DEBUG
+cors.origins                                     = http://127.0.0.1:4200
 ```
 
 Below is a listing of the properties for the management endpoint for security. Actually, it's just the listening port for now:
-
 ```
 server.port=8092
 ```
 
 Below is a listinf of the properties for the management endpoint for game assets. This app needs the connection details for the game world registry database, as well as some wiring information to tell it which data service to use (MOCK or SPRING_JPA_HIBERNATE).
-
 ```
 server.port=8093
 crazydumplings.gameworldregistry.dataservice                               = SpringDataGameWorldRegistryDataService
