@@ -13,7 +13,7 @@
     <dependencies>
         <dependency>
             <groupId>com.desolatetimelines</groupId>
-            <artifactId>game-world-registry</artifactId>
+            <artifactId>game-world-registry-springdata</artifactId>
             <version>${own-version}</version>
         </dependency>
 
