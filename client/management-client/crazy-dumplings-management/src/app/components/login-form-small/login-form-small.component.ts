@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form-small',
@@ -28,23 +28,38 @@ export class LoginFormSmallComponent implements OnInit {
   }
 
   login() {
-      console.log("a = " + this.username);
+      const params = new HttpParams()
+            .set('username', this.username)
+            .set('password', this.password);
 
-      // Build form data
-      const formData: FormData = new FormData();
-      formData.append('username', this.username);
-      formData.append('password', this.password);
-      formData.append('submit', 'Login');
+      this.httpClient.post(
+            'http://127.0.0.1:8093/login',
+            params,
+            {
+                headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
+                responseType: 'text',
+                withCredentials: true
+            }
+      )
+      .subscribe(response => {
+                this.getUserId();
+            });
+  }
 
-      // Post form data
-      this.httpClient.post('http://127.0.0.1:8093/login', formData)
-            .subscribe(response => {
+  logout() {
+      this.httpClient.post('http://127.0.0.1:8093/logout', null,
+      {
+            responseType: 'text',
+            withCredentials: true
+      }
+      )
+      .subscribe(response => {
                 this.getUserId();
             });
   }
 
   getUserId() {
-    this.httpClient.get<Number>('http://127.0.0.1:8093/status/open/userid', )
+    this.httpClient.get<Number>('http://127.0.0.1:8093/status/open/userid', { withCredentials: true })
     .subscribe(response => {
         this.userId = response;
     }) ;

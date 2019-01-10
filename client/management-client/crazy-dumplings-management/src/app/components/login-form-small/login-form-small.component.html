@@ -9,6 +9,6 @@
 
 <!-- When logged in, the form must display the logout button -->
 <div *ngIf="userId != -1">
-    <button pButton type="button" label="Logout" ></button>
+    <button pButton type="button" label="Logout" (click)="logout($event)"></button>
 </div>
 
