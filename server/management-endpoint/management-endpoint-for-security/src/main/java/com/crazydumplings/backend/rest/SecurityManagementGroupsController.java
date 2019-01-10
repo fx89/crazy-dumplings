@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crazydumplings.backend.rest.model.GroupPermissionRequest;
@@ -23,12 +24,12 @@ public class SecurityManagementGroupsController {
     private SecurityService securityService;
 
     @GetMapping("/list")
-    private List<Group> listGroups() {
+    public List<Group> listGroups() {
         return securityService.getGroups();
     }
 
     @PostMapping("/addpermission")
-    private GroupPermissionMap addPermission(@RequestBody GroupPermissionRequest permissionAddRequest) {
+    public GroupPermissionMap addPermission(@RequestBody GroupPermissionRequest permissionAddRequest) {
         return securityService.addPermissionToGroup(permissionAddRequest.getPermissionName(), permissionAddRequest.getGroupName());
     }
 
