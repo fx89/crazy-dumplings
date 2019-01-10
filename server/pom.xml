@@ -14,6 +14,7 @@
         <apache-commons-version>3.8.1</apache-commons-version>
         <bean-validation-api-version>2.0.1.Final</bean-validation-api-version>
         <fx-utils-version>1.0.0-SNAPSHOT</fx-utils-version>
+        <slf4j-version>2.1</slf4j-version>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
