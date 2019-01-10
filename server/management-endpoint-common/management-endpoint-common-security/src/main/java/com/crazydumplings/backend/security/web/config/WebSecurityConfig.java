@@ -1,4 +1,4 @@
-package com.crazydumplings.backend.security.web;
+	package com.crazydumplings.backend.security.web.config;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.crazydumplings.backend.security.Md5DigestPasswordEncoder;
+import com.crazydumplings.backend.security.web.CrazyDumplingsUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
