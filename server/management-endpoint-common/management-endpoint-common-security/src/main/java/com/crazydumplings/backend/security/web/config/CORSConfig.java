@@ -44,6 +44,7 @@ public class CORSConfig implements WebMvcConfigurer, AdditionalHttpSecurityConfi
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList((String) nvl(env.getProperty("cors.origins"), "http://localhost")));
         configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
