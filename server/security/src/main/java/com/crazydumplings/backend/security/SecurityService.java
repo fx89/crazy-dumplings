@@ -77,10 +77,15 @@ public class SecurityService {
         this.addGroup("Administrators");
         addUser("admin", passwordEncoder.encode("12345"), "Administrator");
         addUserToGroup("admin", "Administrators");
+
         addPermission("ACCESS_EVERYTHING");
         addPermissionToGroup("ACCESS_EVERYTHING", "Administrators");
+
         addPermission("MANAGEMENT_CLIENT");
         addPermissionToGroup("MANAGEMENT_CLIENT", "Administrators");
+
+        addPermission("SECURITY_MANAGEMENT");
+        addPermissionToGroup("SECURITY_MANAGEMENT", "Administrators");
     }
 
     /**
