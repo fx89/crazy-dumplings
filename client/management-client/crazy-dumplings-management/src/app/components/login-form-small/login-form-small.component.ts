@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { CrazyDumplingsHttpService } from '../../services/crazy-dumplings-http/crazy-dumplings-http.service';
+import { StatusService } from '../../services/status-service/status.service';
 
 @Component({
   selector: 'app-login-form-small',
@@ -21,48 +21,25 @@ export class LoginFormSmallComponent implements OnInit {
       return this.username;
   }
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+      private httpService: CrazyDumplingsHttpService,
+      private statusService: StatusService
+  ) { }
 
   ngOnInit() {
     this.getUserId();
   }
 
   login() {
-      const params = new HttpParams()
-            .set('username', this.username)
-            .set('password', this.password);
-
-      this.httpClient.post(
-            'http://127.0.0.1:8093/login',
-            params,
-            {
-                headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
-                responseType: 'text',
-                withCredentials: true
-            }
-      )
-      .subscribe(response => {
-                this.getUserId();
-            });
+      this.httpService.backendLogin(this.username, this.password).subscribe(response => { this.getUserId(); });
   }
 
   logout() {
-      this.httpClient.post('http://127.0.0.1:8093/logout', null,
-      {
-            responseType: 'text',
-            withCredentials: true
-      }
-      )
-      .subscribe(response => {
-                this.getUserId();
-            });
+      this.httpService.backendLogout().subscribe(response => { this.getUserId(); });
   }
 
   getUserId() {
-    this.httpClient.get<Number>('http://127.0.0.1:8093/status/open/userid', { withCredentials: true })
-    .subscribe(response => {
-        this.userId = response;
-    }) ;
+      this.statusService.getCurrentUserId().subscribe(response => { this.userId = response; });
   }
 
 }

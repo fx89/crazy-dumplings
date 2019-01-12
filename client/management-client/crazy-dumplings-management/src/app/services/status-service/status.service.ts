@@ -1,9 +1,27 @@
 import { Injectable } from '@angular/core';
+import { CrazyDumplingsHttpService } from '../../services/crazy-dumplings-http/crazy-dumplings-http.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatusService {
 
-  constructor() { }
+    private readonly serviceUrl: string = 'status';
+    private readonly openUrl:    string = '/open';
+    private readonly secureUrl:  string = '/secure';
+
+    constructor( private httpService: CrazyDumplingsHttpService ) { }
+
+    public getCurrentUserId() {
+        return this.getOpenStatus('userid');
+    }
+
+    private getOpenStatus(statusType: string, params?: Map<string, string>): Observable<any> {
+        return this.httpService.backendGet(this.serviceUrl + this.openUrl + '/' + statusType, params);
+    }
+
+    private getSecureStatus(statusType: string, params?: Map<string, string>): Observable<any> {
+        return this.httpService.backendGet(this.serviceUrl + this.secureUrl + '/' + statusType, params);
+    }
 }
