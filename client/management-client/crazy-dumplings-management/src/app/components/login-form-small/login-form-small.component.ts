@@ -12,6 +12,7 @@ export class LoginFormSmallComponent implements OnInit {
 
     username: string;
     password: string;
+
     user: User;
 
 
