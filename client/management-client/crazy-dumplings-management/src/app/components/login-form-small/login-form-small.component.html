@@ -1,14 +1,34 @@
 
 <!-- When not logged in, the form must display the username and password fields along with the login button -->
-<div *ngIf="user == undefined">
-    <input type="text" pInputText [(ngModel)]="username" />
-    <input type="password" pPassword [(ngModel)]="password" />
-    <button pButton type="button" label="Login" (click)="login($event)"></button>
+<div *ngIf="user == undefined" style="display:inline;">
+    <input type="text" pInputText [(ngModel)]="username" style="width:100px; height:25px;" />
+    <div style="display:inline;">&nbsp;</div>
+    <input type="password" pPassword [(ngModel)]="password" style="width:100px; height:25px;" />
+    <div style="display:inline;">&nbsp;</div>
 </div>
 
-<!-- When logged in, the form must display the logout button -->
-<div *ngIf="user !== undefined">
-    {{user.fullName}}
-    <button pButton type="button" label="Logout" (click)="logout($event)"></button>
+<!-- When not logged in and not waiting for a request, the form must display the Login button -->
+<div *ngIf="user == undefined && !waiting" style="display:inline;">
+    <button style="width:80px; height:30px;" pButton type="button" label="Login" (click)="login($event)"></button>
+</div>
+
+<!-- When logged in and not waiting for a request, the form must display the Logout button -->
+<div *ngIf="user !== undefined && !waiting" style="display:inline;">
+    {{user.fullName}} &nbsp; 
+    <button style="width:80px; height:30px;" pButton type="button" label="Logout" (click)="logout($event)"></button>
+</div>
+
+<!-- When waiting for a request, regardless of the authentication state, the form must tell the user that it's working -->
+<div *ngIf="waiting" style="display:inline;">
+    <button style="width:80px; height:30px; background-color:#F00;" pButton type="button" label="wait"></button>
+
+    <!-- the progressSpinner would be nice if it could be aligned to the button - by default it goes too high and enlarges the container
+    <p-progressSpinner
+        [style]="{width: '80px', height: '18px'}"
+        strokeWidth="8"
+        fill="#EEEEEE"
+        animationDuration=".5s"
+    ></p-progressSpinner>
+    -->
 </div>
 

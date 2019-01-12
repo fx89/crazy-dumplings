@@ -10,6 +10,8 @@ import { User } from '../../model/security/user.model';
 })
 export class LoginFormSmallComponent implements OnInit {
 
+    waiting: boolean;
+
     username: string;
     password: string;
 
@@ -22,22 +24,28 @@ export class LoginFormSmallComponent implements OnInit {
         private statusService: StatusService
     ) { }
 
-
-
     ngOnInit() {
+        this.waiting = true;
         this.getUserDetails();
+        this.username = 'username';
+        this.password = 'password';
     }
 
+
+
     login() {
+        this.waiting = true;
         this.httpService.backendLogin(this.username, this.password).subscribe(response => { this.getUserDetails(); });
     }
 
     logout() {
+        this.waiting = true;
         this.httpService.backendLogout().subscribe(response => { this.getUserDetails(); });
     }
 
     getUserDetails() {
         this.statusService.getCurrentUserDetails().subscribe(response => { this.user = response; });
+        this.waiting = false;
     }
 
 }

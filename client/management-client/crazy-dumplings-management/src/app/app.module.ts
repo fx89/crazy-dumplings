@@ -11,12 +11,14 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
+import {ProgressSpinner} from 'primeng/progressspinner';
 
 // Proprietary
 import { LoginFormSmallComponent } from './components/login-form-small/login-form-small.component';
 
 @NgModule({
   declarations: [
+    ProgressSpinner,
     MainComponent,
     LoginFormSmallComponent
   ],
