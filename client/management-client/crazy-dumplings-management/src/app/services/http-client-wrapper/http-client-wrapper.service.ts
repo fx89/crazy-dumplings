@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 
 
@@ -95,18 +96,22 @@ export class HttpClientWrapperService {
         }
 
      // Send the request
-        return this.httpClient.request<R>
-                                (requestTypeForced,
-                                this.baseUrl + '/' + url,
-                                {
-                                    body: body,
-                                    headers: httpHeaders,
-                                    observe: 'body',
-                                    params: httpParams,
-                                    responseType: responseTypeForced,
-                                    reportProgress: false,
-                                    withCredentials: true
-                                }
-                            );
+        return this.httpClient.request<R> (
+                            requestTypeForced,
+                            this.baseUrl + '/' + url,
+                            {
+                                body: body,
+                                headers: httpHeaders,
+                                observe: 'body',
+                                params: httpParams,
+                                responseType: responseTypeForced,
+                                reportProgress: false,
+                                withCredentials: true
+                            }
+                        )
+                        .pipe(
+                            catchError(err => of(undefined))
+                        )
+                        ;
     }
 }
