@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CrazyDumplingsHttpService } from '../../services/crazy-dumplings-http/crazy-dumplings-http.service';
 import { Observable } from 'rxjs';
+import { User } from '../../model/security/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class StatusService {
 
     public getCurrentUserId() {
         return this.getOpenStatus('userid');
+    }
+
+    public getCurrentUserDetails(): Observable<User> {
+        return this.getSecureStatus('userDetails');
     }
 
     private getOpenStatus(statusType: string, params?: Map<string, string>): Observable<any> {

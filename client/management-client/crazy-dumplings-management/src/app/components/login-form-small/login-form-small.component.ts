@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrazyDumplingsHttpService } from '../../services/crazy-dumplings-http/crazy-dumplings-http.service';
 import { StatusService } from '../../services/status-service/status.service';
+import { User } from '../../model/security/user.model';
 
 @Component({
   selector: 'app-login-form-small',
@@ -9,37 +10,33 @@ import { StatusService } from '../../services/status-service/status.service';
 })
 export class LoginFormSmallComponent implements OnInit {
 
-  userId: Number;
-  username: string;
-  password: string;
+    username: string;
+    password: string;
+    user: User;
 
-  setUsername(username: string) {
-      this.username = username;
-  }
 
-  getUsername(): string {
-      return this.username;
-  }
 
-  constructor(
-      private httpService: CrazyDumplingsHttpService,
-      private statusService: StatusService
-  ) { }
+    constructor(
+        private httpService: CrazyDumplingsHttpService,
+        private statusService: StatusService
+    ) { }
 
-  ngOnInit() {
-    this.getUserId();
-  }
 
-  login() {
-      this.httpService.backendLogin(this.username, this.password).subscribe(response => { this.getUserId(); });
-  }
 
-  logout() {
-      this.httpService.backendLogout().subscribe(response => { this.getUserId(); });
-  }
+    ngOnInit() {
+        this.getUserDetails();
+    }
 
-  getUserId() {
-      this.statusService.getCurrentUserId().subscribe(response => { this.userId = response; });
-  }
+    login() {
+        this.httpService.backendLogin(this.username, this.password).subscribe(response => { this.getUserDetails(); });
+    }
+
+    logout() {
+        this.httpService.backendLogout().subscribe(response => { this.getUserDetails(); });
+    }
+
+    getUserDetails() {
+        this.statusService.getCurrentUserDetails().subscribe(response => { this.user = response; });
+    }
 
 }
