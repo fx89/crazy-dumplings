@@ -1,6 +1,6 @@
 
 <!-- When not logged in, the form must display the username and password fields along with the login button -->
-<div *ngIf="user == undefined" style="display:inline;">
+<div *ngIf="variables.currentUser == undefined" style="display:inline;">
     <input type="text" pInputText [(ngModel)]="username" style="width:100px; height:25px;" />
     <div style="display:inline;">&nbsp;</div>
     <input type="password" pPassword [(ngModel)]="password" style="width:100px; height:25px;" />
@@ -8,13 +8,13 @@
 </div>
 
 <!-- When not logged in and not waiting for a request, the form must display the Login button -->
-<div *ngIf="user == undefined && !waiting" style="display:inline;">
+<div *ngIf="variables.currentUser == undefined && !waiting" style="display:inline;">
     <button style="width:80px; height:30px;" pButton type="button" label="Login" (click)="login($event)"></button>
 </div>
 
 <!-- When logged in and not waiting for a request, the form must display the Logout button -->
-<div *ngIf="user !== undefined && !waiting" style="display:inline;">
-    {{user.fullName}} &nbsp; 
+<div *ngIf="variables.currentUser !== undefined && !waiting" style="display:inline;">
+    {{variables.currentUser.fullName}} &nbsp; 
     <button style="width:80px; height:30px;" pButton type="button" label="Logout" (click)="logout($event)"></button>
 </div>
 
