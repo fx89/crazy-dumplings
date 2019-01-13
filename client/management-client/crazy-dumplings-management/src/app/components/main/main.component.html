@@ -1,12 +1,14 @@
 <!-- https://www.primefaces.org/showcase/ui/misc/primeicons.xhtml -->
-<p-toolbar>
-  <div class="ui-toolbar-group-left">
-    <button pButton type="button" icon="pi pi-plus"></button> &nbsp;
-    <button pButton type="button" icon="pi pi-check"></button> &nbsp;
-    <button pButton type="button" icon="pi pi-times"></button> &nbsp;
-    <button pButton type="button" icon="pi pi-trash"></button> &nbsp;
-  </div>
-  <div class="ui-toolbar-group-right">
-    <app-login-form-small></app-login-form-small>
-  </div>
-</p-toolbar>
+<div [@openClose]="variables.currentUser ? 'open' : 'closed'" class="open-close-container" style="height: 90vh">
+    <p-toolbar>
+    <div class="ui-toolbar-group-left">
+        <button pButton type="button" icon="pi pi-plus"></button> &nbsp;
+        <button pButton type="button" icon="pi pi-check"></button> &nbsp;
+        <button pButton type="button" icon="pi pi-times"></button> &nbsp;
+        <button pButton type="button" icon="pi pi-trash"></button> &nbsp;
+    </div>
+    <div class="ui-toolbar-group-right">
+        <app-login-form-small></app-login-form-small>
+    </div>
+    </p-toolbar>
+</div>

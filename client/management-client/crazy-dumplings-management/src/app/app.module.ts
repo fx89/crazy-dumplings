@@ -13,6 +13,9 @@ import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ProgressSpinner} from 'primeng/progressspinner';
 
+// Animation
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 // Proprietary
 import { LoginFormSmallComponent } from './components/login-form-small/login-form-small.component';
 
@@ -24,6 +27,7 @@ import { LoginFormSmallComponent } from './components/login-form-small/login-for
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule, // required for [(ngModel)]
     HttpClientModule,
     ToolbarModule,
