@@ -21,10 +21,10 @@ import { StatefulViewVariablesService } from '../../services/stateful-view-varia
     trigger('openClose', [
       // ...
       state('open', style({
-        backgroundColor: 'yellow'
+        opacity: '0'
       })),
       state('closed', style({
-        backgroundColor: 'green'
+        opacity: '1'
       })),
       transition('open => closed', [
         animate('1s')
