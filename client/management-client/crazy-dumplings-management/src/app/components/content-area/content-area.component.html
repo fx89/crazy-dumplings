@@ -1,8 +1,5 @@
-<div
-[@slideInAndOut]="variables.currentSection == appSectionMainMenu ? 'slideOut' : 'slideIn'"
-> test </div>
-
-<div [@slideInAndOut]="variables.currentSection == appSectionMainMenu ? 'slideIn' : 'slideOut'">
+<div style="position: absolute; width: 100vw"
+  [@slideInAndOut]="variables.currentSection == appSectionMainMenu ? 'slideIn' : 'slideOut'">
     <app-main-menu *ngIf="variables.currentSection == appSectionMainMenu"></app-main-menu>
 </div>
 
