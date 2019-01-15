@@ -1,5 +1,7 @@
-<div style="position: absolute; width: 100vw"
-  [@slideInAndOut]="variables.currentSection == appSectionMainMenu ? 'slideIn' : 'slideOut'">
+
+<div [@slideInAndOut]="variables.currentSection == appSectionMainMenu ? 'slideIn' : 'slideOut'"
+     class="section-container"
+>
     <app-main-menu *ngIf="variables.currentSection == appSectionMainMenu"></app-main-menu>
 </div>
 
