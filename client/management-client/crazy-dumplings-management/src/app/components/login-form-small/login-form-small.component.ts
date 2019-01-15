@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrazyDumplingsHttpService } from '../../services/crazy-dumplings-http/crazy-dumplings-http.service';
 import { StatusService } from '../../services/status-service/status.service';
-import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
+import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 
 @Component({
   selector: 'app-login-form-small',
@@ -43,7 +43,15 @@ export class LoginFormSmallComponent implements OnInit {
     }
 
     private getUserDetails() {
-        this.statusService.getCurrentUserDetails().subscribe(response => { this.variables.currentUser = response; });
+        this.statusService.getCurrentUserDetails().subscribe(response => {
+                                                        this.variables.currentUser = response;
+                                                        this.selectSection();
+                                                    });
+
         this.waiting = false;
+    }
+
+    private selectSection() {
+        this.variables.currentSection = this.variables.currentUser ? AppSection.MAIN_MENU : AppSection.NOT_LOGGED_IN;
     }
 }
