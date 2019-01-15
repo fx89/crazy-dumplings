@@ -1,5 +1,5 @@
 <div class="main-menu-card-border">
-    <div class = "main-menu-card-paper" style="background-image: url('{{picturePath}}')">
+    <div class = "main-menu-card-paper" [ngStyle]="{'background-image': 'url(' + picturePath + ')'}">
         <div class = "main-menu-card-title">
             <table width="100%" height="100%"><tr><td align="center" valign="middle">
                 {{title}}
