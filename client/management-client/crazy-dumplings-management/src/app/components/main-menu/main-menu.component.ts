@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainMenuComponent implements OnInit {
 
-  constructor() { }
+    constructor(private variables: StatefulViewVariablesService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    goToSectionRepositories() { this.variables.currentSection = AppSection.NOT_LOGGED_IN; } // TODO: change
 }

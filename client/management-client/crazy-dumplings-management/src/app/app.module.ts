@@ -21,6 +21,7 @@ import { LoginFormSmallComponent } from './components/login-form-small/login-for
 import { InputSelectOnClickDirective } from './directives/input-select-on-click/input-select-on-click.directive';
 import { ContentAreaComponent } from './components/content-area/content-area.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { MainMenuCardComponent } from './components/main-menu-card/main-menu-card.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
     LoginFormSmallComponent,
     InputSelectOnClickDirective,
     ContentAreaComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    MainMenuCardComponent
   ],
   imports: [
     BrowserModule,
