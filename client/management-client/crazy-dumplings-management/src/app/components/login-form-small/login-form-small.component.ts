@@ -46,5 +46,4 @@ export class LoginFormSmallComponent implements OnInit {
         this.statusService.getCurrentUserDetails().subscribe(response => { this.variables.currentUser = response; });
         this.waiting = false;
     }
-
 }

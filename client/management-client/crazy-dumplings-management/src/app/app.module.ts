@@ -18,12 +18,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Proprietary
 import { LoginFormSmallComponent } from './components/login-form-small/login-form-small.component';
+import { InputSelectOnClickDirective } from './directives/input-select-on-click/input-select-on-click.directive';
 
 @NgModule({
   declarations: [
     ProgressSpinner,
     MainComponent,
-    LoginFormSmallComponent
+    LoginFormSmallComponent,
+    InputSelectOnClickDirective
   ],
   imports: [
     BrowserModule,

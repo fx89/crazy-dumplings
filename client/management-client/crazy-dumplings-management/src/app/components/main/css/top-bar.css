@@ -1,0 +1,17 @@
+
+.top-bar-background {
+    opacity: 0.8;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.top-bar-left {
+    font-size: 31px;
+    font-weight: bold;
+}
+
+.top-bar-right {
+    text-align: right; 
+}
+
