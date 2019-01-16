@@ -25,7 +25,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeAllowedAddonType
 public class GameObjectTypeAllowedAddonTypeEntity implements GameObjectTypeAllowedAddonType {
     @Id
     @Column(name = "ID_GAME_OBJECT_TYPE_ALLOWED_ADDON_TYPE")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

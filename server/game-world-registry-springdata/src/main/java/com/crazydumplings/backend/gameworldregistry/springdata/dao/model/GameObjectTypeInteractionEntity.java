@@ -23,7 +23,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteraction;
 public class GameObjectTypeInteractionEntity implements GameObjectTypeInteraction {
     @Id
     @Column(name = "ID_GAME_OBJECT_TYPE_INTERACTION")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

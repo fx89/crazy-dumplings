@@ -21,7 +21,7 @@ import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 public class AutomationObjectProviderEntity implements AutomationObjectProvider {
     @Id
     @Column(name = "ID_AUTOMATION_OBJECT_PROVIDER")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

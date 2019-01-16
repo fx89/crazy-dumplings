@@ -25,7 +25,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 public class GameObjectTypeEntity implements GameObjectType {
     @Id
     @Column(name = "ID_GAME_OBJECT_TYPE")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

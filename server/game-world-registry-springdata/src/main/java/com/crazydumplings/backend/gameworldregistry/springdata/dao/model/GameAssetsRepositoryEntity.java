@@ -21,7 +21,7 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 public class GameAssetsRepositoryEntity implements GameAssetsRepository {
     @Id
     @Column(name = "ID_GAME_ASSETS_REPOSITORY")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

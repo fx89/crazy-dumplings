@@ -24,7 +24,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeStatePropertyMod
 public class GameObjectTypeStatePropertyModifierEntity implements GameObjectTypeStatePropertyModifier {
     @Id
     @Column(name = "ID_GAME_OBJECT_TYPE_STATE_PROPERTY_MODIFIER")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

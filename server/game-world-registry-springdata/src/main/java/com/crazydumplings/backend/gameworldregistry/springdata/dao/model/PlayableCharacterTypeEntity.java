@@ -24,7 +24,7 @@ import com.crazydumplings.gameworldregistry.model.PlayableCharacterType;
 public class PlayableCharacterTypeEntity implements PlayableCharacterType {
     @Id
     @Column(name = "ID_PLAYABLE_CHARACTER_TYPE")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

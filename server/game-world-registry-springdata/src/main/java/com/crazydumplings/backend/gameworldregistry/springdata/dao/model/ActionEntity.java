@@ -21,7 +21,7 @@ import com.crazydumplings.gameworldregistry.model.Action;
 public class ActionEntity implements Action {
     @Id
     @Column(name = "ID_ACTION")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

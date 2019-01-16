@@ -19,7 +19,7 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
 public class GameAssetsRepositoryOwnerEntity implements GameAssetsRepositoryOwner {
     @Id
     @Column(name = "ID_GAME_ASSETS_REPOSITORY_OWNER")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long                       id;
 
     @ManyToOne

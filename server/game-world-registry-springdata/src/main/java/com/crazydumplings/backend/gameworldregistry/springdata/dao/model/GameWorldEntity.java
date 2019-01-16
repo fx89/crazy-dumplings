@@ -21,7 +21,7 @@ import com.crazydumplings.gameworldregistry.model.GameWorld;
 public class GameWorldEntity implements GameWorld {
     @Id
     @Column(name = "ID_GAME_WORLD")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

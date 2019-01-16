@@ -24,7 +24,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
 public class GameAddonInteractionReceivingPropertyModifierEntity implements GameAddonInteractionReceivingPropertyModifier {
     @Id
     @Column(name = "ID_GAME_ADDON_INTERACTION_RECEIVING_PROPERTY_MODIFIER")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

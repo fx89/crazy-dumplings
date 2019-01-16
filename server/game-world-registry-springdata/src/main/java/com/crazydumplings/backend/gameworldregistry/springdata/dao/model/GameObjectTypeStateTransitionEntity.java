@@ -24,7 +24,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeStateTransition;
 public class GameObjectTypeStateTransitionEntity implements GameObjectTypeStateTransition {
     @Id
     @Column(name = "ID_GAME_OBJECT_TYPE_STATE_TRANSITION")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

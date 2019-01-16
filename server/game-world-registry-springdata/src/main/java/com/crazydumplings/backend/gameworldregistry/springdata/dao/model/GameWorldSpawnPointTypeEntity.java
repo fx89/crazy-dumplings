@@ -23,7 +23,7 @@ import com.crazydumplings.gameworldregistry.model.GameWorldSpawnPointType;
 public class GameWorldSpawnPointTypeEntity implements GameWorldSpawnPointType {
     @Id
     @Column(name = "ID_GAME_WORLD_SPAWN_POINT_TYPE")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {

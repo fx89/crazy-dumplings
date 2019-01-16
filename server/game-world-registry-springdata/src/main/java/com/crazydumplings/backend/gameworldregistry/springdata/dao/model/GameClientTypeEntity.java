@@ -21,7 +21,7 @@ import com.crazydumplings.gameworldregistry.model.GameClientType;
 public class GameClientTypeEntity implements GameClientType {
     @Id
     @Column(name = "ID_GAME_CLIENT_TYPE")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     public Long getId() {
