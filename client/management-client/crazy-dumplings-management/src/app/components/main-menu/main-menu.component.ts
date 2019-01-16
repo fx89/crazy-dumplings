@@ -13,5 +13,5 @@ export class MainMenuComponent implements OnInit {
     ngOnInit() {
     }
 
-    goToSectionRepositories() { this.variables.currentSection = AppSection.NOT_LOGGED_IN; } // TODO: change
+    goToSectionRepositories() { this.variables.currentSection = AppSection.REPOSITORIES; }
 }

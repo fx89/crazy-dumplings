@@ -42,6 +42,7 @@ export class ContentAreaComponent implements OnInit {
   constructor(protected variables: StatefulViewVariablesService) { }
 
   protected appSectionMainMenu: AppSection = AppSection.MAIN_MENU;
+  protected appSectionRepositories: AppSection = AppSection.REPOSITORIES;
 
   ngOnInit() {
   }

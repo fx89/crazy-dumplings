@@ -4,7 +4,8 @@ import { User } from '../../model/security/user.model';
 
 export enum AppSection {
     NOT_LOGGED_IN = 'Not logged in',
-    MAIN_MENU = 'Main menu'
+    MAIN_MENU = 'Main menu',
+    REPOSITORIES = 'Repositories'
 }
 
 

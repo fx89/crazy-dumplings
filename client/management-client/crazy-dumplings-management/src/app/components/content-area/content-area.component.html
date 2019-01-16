@@ -1,7 +1,18 @@
 
+<!-- MAIN MENU -->
 <div [@slideInAndOut]="variables.currentSection == appSectionMainMenu ? 'slideIn' : 'slideOut'"
      class="section-container"
 >
     <app-main-menu *ngIf="variables.currentSection == appSectionMainMenu"></app-main-menu>
 </div>
+
+
+
+<!-- REPOSITORIES ADMIN PAGE -->
+<div [@slideInAndOut]="variables.currentSection == appSectionRepositories ? 'slideIn' : 'slideOut'"
+     class="section-container"
+>
+    <app-admin-page-repositories *ngIf="variables.currentSection == appSectionRepositories"></app-admin-page-repositories>
+</div>
+
 
