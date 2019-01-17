@@ -1,0 +1,38 @@
+<div style="
+        background-color:RGBA(0,0,0,50);
+        opacity:.7;
+        display:block;
+        width:580px;
+        margin-top:10px;
+        border-radius:15px;
+        padding:5px;
+    ">
+    <table width="100%" height="100%">
+        <tr>
+            <td width="150px;">
+                <div style="width: 150px; height: 150px; background-color: #FFF; border-radius: 10px;"></div>
+            </td>
+            <td>
+                <table width="100%" height="100%">
+                    <tr><td height="30" style="font-size:23px; font-weight:bold;">
+                        <table width="100%" height="100%"><tr>
+                            <td>{{name}}</td>
+                            <td align="right">
+                                <table cellspacing="0" cellpadding="0"><tr>
+                                    <td><p-button icon="pi pi-pencil" styleClass="card-action-button"></p-button></td>
+                                    <td width="3"></td>
+                                    <td><p-button icon="pi pi-times" styleClass="card-action-button"></p-button></td>
+                                </tr></table>
+                            </td>
+                        </tr></table>
+                    </td></tr>
+                    <tr><td>
+                        <p-scrollPanel [style]="{width: '100%', height: '100px'}">
+                            {{description}}
+                        </p-scrollPanel>
+                    </td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

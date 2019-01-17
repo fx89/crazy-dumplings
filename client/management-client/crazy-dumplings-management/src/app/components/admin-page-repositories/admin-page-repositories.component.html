@@ -1,10 +1,8 @@
 <div>
-    <div *ngFor="let repository of repositories" style="background-color: #000; margin-bottom:10px;">
-        {{repository.id}}<br />
-        {{repository.uniqueName}}<br />
-        {{repository.description}}<br />
-        {{repository.pictureHash}}
-    </div>
+    <app-repository-card *ngFor="let repository of repositories"
+        name="{{repository.uniqueName}}"
+        description="{{repository.description}}"
+    ></app-repository-card>
 </div>
 
 
