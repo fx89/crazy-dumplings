@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../model/security/user.model';
+import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
 
 
 export enum AppSection {
@@ -29,5 +30,16 @@ export class StatefulViewVariablesService {
     */
     public currentSection: AppSection;
 
-    constructor() { this.currentSection = AppSection.NOT_LOGGED_IN; }
+    /**
+     * All the work will be done in the current repository. A current repository may be selected
+     * in the repositories management section.
+     */
+    public currentRepository: GameAssetsRepository;
+
+
+
+    constructor() {
+        this.currentSection = AppSection.NOT_LOGGED_IN;
+        this.currentRepository = new GameAssetsRepository('No repository selected');
+    }
 }
