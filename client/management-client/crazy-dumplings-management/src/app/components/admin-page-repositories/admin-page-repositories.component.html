@@ -1,4 +1,4 @@
-<div class="ui-g">
+<div class="ui-g" style="width:100vw; height:100vh">
     <app-repository-card
         *ngFor="let repository of repositories"
         [repository]="repository"
@@ -7,3 +7,9 @@
 </div>
 
 
+<app-bottom-bar>
+    <button pButton class="bottom-bar-button"
+        icon="pi pi-plus"
+        pTooltip="Create a new repository"
+    ></button>
+</app-bottom-bar>

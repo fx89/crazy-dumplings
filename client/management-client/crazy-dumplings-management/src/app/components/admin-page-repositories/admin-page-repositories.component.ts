@@ -5,7 +5,7 @@ import { GameAssetsRepository } from '../../model/game-world-registry/GameAssets
 @Component({
   selector: 'app-admin-page-repositories',
   templateUrl: './admin-page-repositories.component.html',
-  styleUrls: ['./admin-page-repositories.component.less']
+  styleUrls: ['./admin-page-repositories.component.less', '../bottom-bar/css/bottom-bar-button.css']
 })
 export class AdminPageRepositoriesComponent implements OnInit {
 

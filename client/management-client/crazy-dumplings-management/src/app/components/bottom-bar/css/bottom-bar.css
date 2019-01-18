@@ -1,0 +1,11 @@
+
+.bottom-bar {
+    width: calc(100vw - 15px);
+    height:150px;
+    position:fixed;
+    left:0px;
+    top:calc(100vh - 150px);
+    background-color:#000;
+    opacity: .55;
+    border-radius: 10px;
+}

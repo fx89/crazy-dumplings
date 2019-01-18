@@ -24,6 +24,7 @@ import { MainMenuCardComponent } from './components/main-menu-card/main-menu-car
 import { AdminPageRepositoriesComponent } from './components/admin-page-repositories/admin-page-repositories.component';
 import { RepositoryCardComponent } from './components/repository-card/repository-card.component';
 import { MainComponent } from './components/main/main.component';
+import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MainComponent } from './components/main/main.component';
     MainMenuComponent,
     MainMenuCardComponent,
     AdminPageRepositoriesComponent,
-    RepositoryCardComponent
+    RepositoryCardComponent,
+    BottomBarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+
+<div class="bottom-bar">
+    <table width="100%"><tr>
+        <td align="left" style="padding-top:5px; padding-left:5px;">
+
+            <!-- Page-specific buttons -->
+            <ng-content></ng-content>
+
+        </td>
+        <td align="right" style="padding-top:5px; padding-right:5px;">
+
+            <!-- Main menu button -->
+            <button pButton class="bottom-bar-button"
+                icon="pi pi-step-backward"
+                pTooltip="Back to Main"
+                (click)="goBack()"
+            ></button>
+
+    </td></tr></table>
+</div>
