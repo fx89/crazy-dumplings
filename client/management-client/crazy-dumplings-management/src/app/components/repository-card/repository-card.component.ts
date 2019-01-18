@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
+import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
 
 @Component({
   selector: 'app-repository-card',
@@ -7,12 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RepositoryCardComponent implements OnInit {
 
-    @Input() name: string;
+    @Input() repository: GameAssetsRepository;
 
-    @Input() description: string;
-
-    constructor() { }
+    constructor( protected variables: StatefulViewVariablesService ) { }
 
     ngOnInit() { }
 
+    selectRepository() {
+        this.variables.currentRepository = this.repository;
+    }
 }
