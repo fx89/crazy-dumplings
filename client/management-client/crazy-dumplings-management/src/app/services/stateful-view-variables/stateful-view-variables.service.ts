@@ -36,10 +36,18 @@ export class StatefulViewVariablesService {
      */
     public currentRepository: GameAssetsRepository;
 
+    /**
+     * Clears all variables, usually upon logout
+     */
+    public clear() {
+        this.currentUser = undefined;
+        this.currentSection = AppSection.NOT_LOGGED_IN;
+        this.currentRepository = new GameAssetsRepository('No repository selected');
+    }
+
 
 
     constructor() {
-        this.currentSection = AppSection.NOT_LOGGED_IN;
-        this.currentRepository = new GameAssetsRepository('No repository selected');
+        this.clear();
     }
 }

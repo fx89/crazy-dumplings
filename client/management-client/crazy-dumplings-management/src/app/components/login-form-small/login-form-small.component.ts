@@ -39,7 +39,7 @@ export class LoginFormSmallComponent implements OnInit {
 
     logout() {
         this.waiting = true;
-        this.httpService.backendLogout().subscribe(response => { this.getUserDetails(); });
+        this.httpService.backendLogout().subscribe(response => { this.getUserDetails(); this.variables.clear(); });
     }
 
     private getUserDetails() {
