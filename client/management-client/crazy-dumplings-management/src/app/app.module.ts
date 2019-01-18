@@ -1,9 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-import { MainComponent } from './components/main/main.component';
-
 import { HttpClientModule } from '@angular/common/http';
 
 // PrimeFaces
@@ -26,6 +23,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MainMenuCardComponent } from './components/main-menu-card/main-menu-card.component';
 import { AdminPageRepositoriesComponent } from './components/admin-page-repositories/admin-page-repositories.component';
 import { RepositoryCardComponent } from './components/repository-card/repository-card.component';
+import { MainComponent } from './components/main/main.component';
 
 @NgModule({
   declarations: [
