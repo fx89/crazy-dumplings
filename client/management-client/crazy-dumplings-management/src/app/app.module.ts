@@ -12,6 +12,8 @@ import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ProgressSpinner} from 'primeng/progressspinner';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {TooltipModule} from 'primeng/tooltip';
 
 // Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,6 +25,7 @@ import { ContentAreaComponent } from './components/content-area/content-area.com
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { MainMenuCardComponent } from './components/main-menu-card/main-menu-card.component';
 import { AdminPageRepositoriesComponent } from './components/admin-page-repositories/admin-page-repositories.component';
+import { RepositoryCardComponent } from './components/repository-card/repository-card.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { AdminPageRepositoriesComponent } from './components/admin-page-reposito
     ContentAreaComponent,
     MainMenuComponent,
     MainMenuCardComponent,
-    AdminPageRepositoriesComponent
+    AdminPageRepositoriesComponent,
+    RepositoryCardComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { AdminPageRepositoriesComponent } from './components/admin-page-reposito
     ToolbarModule,
     ButtonModule,
     PasswordModule,
-    InputTextModule
+    InputTextModule,
+    ScrollPanelModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [MainComponent]
