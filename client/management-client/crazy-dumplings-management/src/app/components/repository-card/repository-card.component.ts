@@ -18,4 +18,8 @@ export class RepositoryCardComponent implements OnInit {
     selectRepository() {
         this.variables.currentRepository = this.repository;
     }
+
+    isCurrent(): boolean {
+        return this.repository === this.variables.currentRepository;
+    }
 }

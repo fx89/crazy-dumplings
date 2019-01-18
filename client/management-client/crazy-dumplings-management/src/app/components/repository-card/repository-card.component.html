@@ -19,11 +19,18 @@
                             <td>{{repository.uniqueName}}</td>
                             <td align="right">
                                 <table cellspacing="0" cellpadding="0"><tr>
-                                    <td><button pButton icon="pi pi-check" class="card-action-button" pTooltip="Make current" (click)="selectRepository()"></button></td>
+                                    <td valign="top">
+                                        <div *ngIf="isCurrent()" class="card-action-button-selected"></div>
+                                        <button *ngIf="!isCurrent()" pButton icon="pi pi-check" class="card-action-button" pTooltip="Make current" (click)="selectRepository()"></button>
+                                    </td>
                                     <td width="3"></td>
-                                    <td><button pButton icon="pi pi-pencil" class="card-action-button" pTooltip="Edit"></button></td>
+                                    <td valign="top">
+                                        <button pButton icon="pi pi-pencil" class="card-action-button" pTooltip="Edit"></button>
+                                    </td>
                                     <td width="3"></td>
-                                    <td><button pButton icon="pi pi-trash" class="card-action-button" pTooltip="Delete"></button></td>
+                                    <td valign="top">
+                                        <button pButton icon="pi pi-trash" class="card-action-button" pTooltip="Delete"></button>
+                                    </td>
                                 </tr></table>
                             </td>
                         </tr></table>
