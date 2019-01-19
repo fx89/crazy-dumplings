@@ -43,7 +43,7 @@ public class CORSConfig implements WebMvcConfigurer, AdditionalHttpSecurityConfi
     CorsConfigurationSource corsConfigurationSource() { // TODO: evaluate if this is ok... this is a workaround - if Spring stops looking for the bean "corsConfigurationSource", then this will suddenly stop working
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList((String) nvl(env.getProperty("cors.origins"), "http://localhost")));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "PUT"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
