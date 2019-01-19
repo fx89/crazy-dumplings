@@ -16,7 +16,7 @@ export class RepositoryCardComponent implements OnInit {
     ngOnInit() { }
 
     selectRepository() {
-        this.variables.currentRepository = this.repository;
+        this.variables.selectRepository(this.repository);
     }
 
     isCurrent(): boolean {

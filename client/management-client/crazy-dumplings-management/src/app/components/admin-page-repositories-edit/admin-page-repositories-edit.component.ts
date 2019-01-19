@@ -24,6 +24,7 @@ export class AdminPageRepositoriesEditComponent implements OnInit {
     }
 
     cancel() {
+        this.variables.revertRepositorySelection();
         this.variables.currentSection = AppSection.REPOSITORIES;
     }
 }

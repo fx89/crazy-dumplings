@@ -38,12 +38,26 @@ export class StatefulViewVariablesService {
     public currentRepository: GameAssetsRepository;
 
     /**
+     * Some pages need to revert to the previous repository, for example the repository edit form upon cancelling
+     */
+    public previousRepository: GameAssetsRepository;
+
+    /**
      * Clears all variables, usually upon logout
      */
     public clear() {
         this.currentUser = undefined;
         this.currentSection = AppSection.NOT_LOGGED_IN;
         this.currentRepository = new GameAssetsRepository('No repository selected');
+    }
+
+    public selectRepository(repository: GameAssetsRepository) {
+        this.previousRepository = this.currentRepository;
+        this.currentRepository = repository;
+    }
+
+    public revertRepositorySelection() {
+        this.currentRepository = this.previousRepository ? this.previousRepository : this.currentRepository;
     }
 
 

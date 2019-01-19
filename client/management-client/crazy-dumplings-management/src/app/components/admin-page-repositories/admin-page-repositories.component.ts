@@ -24,7 +24,7 @@ export class AdminPageRepositoriesComponent implements OnInit {
     }
 
     newRepository() {
-        this.variables.currentRepository = new GameAssetsRepository('New repository');
+        this.variables.selectRepository(new GameAssetsRepository('New repository'));
         this.variables.currentSection = AppSection.REPOSITORIES_EDIT;
     }
 }
