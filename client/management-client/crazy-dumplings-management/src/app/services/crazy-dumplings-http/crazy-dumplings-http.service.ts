@@ -66,7 +66,7 @@ export class CrazyDumplingsHttpService {
     /**
      * Remove an entity from the back end using the API
      */
-    public backendDelete(path: string, paramName: string, paramValue: string): Observable<any> {
-        return this.httpClientWrapper.request(RequestType.DELETE, path, new Map([[paramName, paramValue]]));
+    public backendDelete(path: string, paramName: string, paramValue: any): Observable<any> {
+        return this.httpClientWrapper.request(RequestType.DELETE, path, null, new Map([[paramName, paramValue]]));
     }
 }
