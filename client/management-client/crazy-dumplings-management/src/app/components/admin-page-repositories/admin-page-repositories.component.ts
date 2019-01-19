@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RepositoriesService } from '../../services/repositories/repositories.service';
 import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
+import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 
 @Component({
   selector: 'app-admin-page-repositories',
@@ -11,7 +12,10 @@ export class AdminPageRepositoriesComponent implements OnInit {
 
     protected repositories: GameAssetsRepository[];
 
-    constructor(private repositoriesService: RepositoriesService) { }
+    constructor(
+        private repositoriesService: RepositoriesService,
+        protected variables: StatefulViewVariablesService
+    ) { }
 
     ngOnInit() {
         this.repositoriesService.getRepositoriesList().subscribe(response => {
@@ -19,4 +23,8 @@ export class AdminPageRepositoriesComponent implements OnInit {
         });
     }
 
+    newRepository() {
+        this.variables.currentRepository = new GameAssetsRepository('New repository');
+        this.variables.currentSection = AppSection.REPOSITORIES_EDIT;
+    }
 }

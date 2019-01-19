@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {ToolbarModule} from 'primeng/toolbar';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 import {PasswordModule} from 'primeng/password';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
@@ -25,6 +26,7 @@ import { AdminPageRepositoriesComponent } from './components/admin-page-reposito
 import { RepositoryCardComponent } from './components/repository-card/repository-card.component';
 import { MainComponent } from './components/main/main.component';
 import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
+import { AdminPageRepositoriesEditComponent } from './components/admin-page-repositories-edit/admin-page-repositories-edit.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component
     MainMenuCardComponent,
     AdminPageRepositoriesComponent,
     RepositoryCardComponent,
-    BottomBarComponent
+    BottomBarComponent,
+    AdminPageRepositoriesEditComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component
     ButtonModule,
     PasswordModule,
     InputTextModule,
+    InputTextareaModule,
     ScrollPanelModule,
     TooltipModule
   ],

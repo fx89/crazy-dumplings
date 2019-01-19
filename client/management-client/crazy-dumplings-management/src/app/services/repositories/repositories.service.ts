@@ -22,4 +22,16 @@ export class RepositoriesService {
                         )
                     );
     }
+
+    public saveRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
+        return repository.id > 0 ? this.updateRepository(repository) : this.createRepository(repository);
+    }
+
+    private updateRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
+        return null;
+    }
+
+    private createRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
+        return null;
+    }
 }

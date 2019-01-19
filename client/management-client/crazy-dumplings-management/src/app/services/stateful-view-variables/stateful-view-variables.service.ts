@@ -6,7 +6,8 @@ import { GameAssetsRepository } from '../../model/game-world-registry/GameAssets
 export enum AppSection {
     NOT_LOGGED_IN = 'Not logged in',
     MAIN_MENU = 'Main menu',
-    REPOSITORIES = 'Repositories'
+    REPOSITORIES = 'Repositories',
+    REPOSITORIES_EDIT = 'Edit repository'
 }
 
 

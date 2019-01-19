@@ -15,4 +15,13 @@
     <app-admin-page-repositories *ngIf="variables.currentSection == appSectionRepositories"></app-admin-page-repositories>
 </div>
 
+<!-- REPOSITORIES ADMIN PAGE - EDIT FORM -->
+<div [@slideInAndOut]="variables.currentSection == appSectionRepositoriesEdit ? 'slideIn' : 'slideOut'"
+     class="section-container"
+>
+    <app-admin-page-repositories-edit *ngIf="variables.currentSection == appSectionRepositoriesEdit"></app-admin-page-repositories-edit>
+</div>
+
+
+
 
