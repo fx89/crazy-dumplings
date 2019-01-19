@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
+import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
 import { RepositoriesService } from '../../services/repositories/repositories.service';
 
 @Component({
