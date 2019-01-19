@@ -34,4 +34,8 @@ export class RepositoriesService {
     private createRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
         return null;
     }
+
+    public deleteRepository(repository: GameAssetsRepository): Observable<EndpointResponse<any>> {
+        return this.httpService.backendDelete('repositories/delete', 'repo_id', repository.id);
+    }
 }

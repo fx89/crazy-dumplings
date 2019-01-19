@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
+import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
+import { RepositoriesService } from '../../services/repositories/repositories.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-repository-card',
@@ -11,7 +13,11 @@ export class RepositoryCardComponent implements OnInit {
 
     @Input() repository: GameAssetsRepository;
 
-    constructor( protected variables: StatefulViewVariablesService ) { }
+    constructor(
+            protected variables: StatefulViewVariablesService,
+            private repositoriesService: RepositoriesService,
+            private confirmationService: ConfirmationService
+        ) { }
 
     ngOnInit() { }
 
@@ -21,5 +27,28 @@ export class RepositoryCardComponent implements OnInit {
 
     isCurrent(): boolean {
         return this.repository.id === this.variables.currentRepository.id;
+    }
+
+    deleteConfirm() {
+        console.log('da');
+        this.confirmationService.confirm({
+            message: 'Are you sure you want to delete ' + this.repository.uniqueName + '?',
+            accept: () => { this.delete(); }
+        });
+    }
+
+    private delete() {
+        this.repositoriesService.deleteRepository(this.repository).subscribe(response => {
+            if (response.status === 'OK') {
+                if (this.variables.currentRepository.id === this.repository.id) {
+                    this.variables.revertRepositorySelection();
+                }
+                this.variables.importantMessage.text = 'Repository ' + this.repository.uniqueName + ' was successfully deleted';
+                this.variables.selectSection(AppSection.IMPORTANT_MESSAGE);
+            } else {
+                // TODO: use the messages element from PrimeNG to display messages from the back-end
+                // and do it in a generic way to avoid copy/paste
+            }
+        });
     }
 }
