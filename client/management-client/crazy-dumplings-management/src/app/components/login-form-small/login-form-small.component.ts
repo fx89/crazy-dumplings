@@ -52,6 +52,6 @@ export class LoginFormSmallComponent implements OnInit {
     }
 
     private selectSection() {
-        this.variables.currentSection = this.variables.currentUser ? AppSection.MAIN_MENU : AppSection.NOT_LOGGED_IN;
+        this.variables.selectSection(this.variables.currentUser ? AppSection.MAIN_MENU : AppSection.NOT_LOGGED_IN);
     }
 }

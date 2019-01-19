@@ -13,5 +13,5 @@ export class MainMenuComponent implements OnInit {
     ngOnInit() {
     }
 
-    goToSectionRepositories() { this.variables.currentSection = AppSection.REPOSITORIES; }
+    goToSectionRepositories() { this.variables.selectSection(AppSection.REPOSITORIES); }
 }

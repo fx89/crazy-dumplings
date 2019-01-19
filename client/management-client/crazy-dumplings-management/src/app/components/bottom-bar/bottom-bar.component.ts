@@ -15,6 +15,6 @@ export class BottomBarComponent implements OnInit {
     }
 
     goBack() {
-        this.variables.currentSection = AppSection.MAIN_MENU;
+        this.variables.revertSectionSelection();
     }
 }

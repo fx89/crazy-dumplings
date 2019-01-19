@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../model/security/user.model';
 import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
+import { Stack } from '../../reusable/stack';
 
 
 export enum AppSection {
@@ -32,6 +33,11 @@ export class StatefulViewVariablesService {
     public currentSection: AppSection;
 
     /**
+     * Navigation history for generic back buttons and possibly listing at some point
+     */
+    private navigationHistory: Stack<AppSection> = new Stack<AppSection>();
+
+    /**
      * All the work will be done in the current repository. A current repository may be selected
      * in the repositories management section.
      */
@@ -58,6 +64,15 @@ export class StatefulViewVariablesService {
 
     public revertRepositorySelection() {
         this.currentRepository = this.previousRepository ? this.previousRepository : this.currentRepository;
+    }
+
+    public selectSection(section: AppSection) {
+        this.navigationHistory.push(this.currentSection);
+        this.currentSection = section;
+    }
+
+    public revertSectionSelection() {
+        this.currentSection = this.navigationHistory.pop();
     }
 
 
