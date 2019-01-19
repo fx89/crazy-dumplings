@@ -24,4 +24,12 @@
 
 
 
+<!-- IMPORTANT MESSAGE -->
+<div [@slideInAndOut]="variables.currentSection == appSectionImportantMessage ? 'slideIn' : 'slideOut'"
+     class="section-container"
+>
+    <app-important-message *ngIf="variables.currentSection == appSectionImportantMessage"></app-important-message>
+</div>
+
+
 

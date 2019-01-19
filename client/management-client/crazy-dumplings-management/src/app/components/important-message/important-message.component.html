@@ -1,0 +1,22 @@
+<table style="width:100vw; height:100%"><tr><td align="center" valign="middle" style="padding-top: calc(50vh - 150px)">
+    <div class="important-message-form">
+        <table width="100%">
+            <tr>
+                <td style="width: 120px">
+                    <div style="width:120x; height:120px; background-color:#CCC"></div> <!-- TODO: replace with configurable icon -->
+                </td>
+                <td align="left" valign="top">
+                    <table width="100%">
+                        <tr><td align="left" valign="top" style="height:85px;">
+                            {{ variables.importantMessage.text }}
+                        </td></tr>
+                        <tr><td align="right" valign="bottom">
+                            <button pButton label="OK" icon="pi pi-check" (click)="okClick()"></button>
+                        </td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</td></tr>
+</table>

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { User } from '../../model/security/user.model';
 import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
 import { Stack } from '../../reusable/stack';
+import { ImportantMessage } from '../../model/gui/ImportantMessage';
 
 
 export enum AppSection {
     NOT_LOGGED_IN = 'Not logged in',
     MAIN_MENU = 'Main menu',
     REPOSITORIES = 'Repositories',
-    REPOSITORIES_EDIT = 'Edit repository'
+    REPOSITORIES_EDIT = 'Edit repository',
+    IMPORTANT_MESSAGE = 'Important message'
 }
 
 
@@ -47,6 +49,13 @@ export class StatefulViewVariablesService {
      * Some pages need to revert to the previous repository, for example the repository edit form upon cancelling
      */
     public previousRepository: GameAssetsRepository;
+
+    /**
+     * Defins the content of the important message component
+     */
+    public importantMessage: ImportantMessage = new ImportantMessage();
+
+
 
     /**
      * Clears all variables, usually upon logout

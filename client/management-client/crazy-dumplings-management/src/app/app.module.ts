@@ -12,6 +12,8 @@ import {PasswordModule} from 'primeng/password';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {TooltipModule} from 'primeng/tooltip';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 // Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +29,7 @@ import { RepositoryCardComponent } from './components/repository-card/repository
 import { MainComponent } from './components/main/main.component';
 import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 import { AdminPageRepositoriesEditComponent } from './components/admin-page-repositories-edit/admin-page-repositories-edit.component';
+import { ImportantMessageComponent } from './components/important-message/important-message.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,8 @@ import { AdminPageRepositoriesEditComponent } from './components/admin-page-repo
     AdminPageRepositoriesComponent,
     RepositoryCardComponent,
     BottomBarComponent,
-    AdminPageRepositoriesEditComponent
+    AdminPageRepositoriesEditComponent,
+    ImportantMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -53,9 +57,10 @@ import { AdminPageRepositoriesEditComponent } from './components/admin-page-repo
     InputTextModule,
     InputTextareaModule,
     ScrollPanelModule,
-    TooltipModule
+    TooltipModule,
+    ConfirmDialogModule
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [MainComponent]
 })
 export class AppModule { }
