@@ -59,7 +59,7 @@ export class CrazyDumplingsHttpService {
     /**
      * Add an entity to the back end using the API
      */
-    public backendPut(path: string, body: any, params?: Map<string, string>): Observable<any> {
+    public backendPut(path: string, body: any, params?: Map<string, any>): Observable<any> {
         return this.httpClientWrapper.request(RequestType.PUT, path, body, params);
     }
 
