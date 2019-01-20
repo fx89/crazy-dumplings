@@ -67,10 +67,8 @@ export class StatefulViewVariablesService {
     }
 
     public selectRepository(repository: GameAssetsRepository) {
-        if (this.currentRepository.id !== repository.id) {
-            this.previousRepository = this.currentRepository;
-            this.currentRepository = repository;
-        }
+        this.previousRepository = this.currentRepository;
+        this.currentRepository = repository;
     }
 
     public revertRepositorySelection() {
