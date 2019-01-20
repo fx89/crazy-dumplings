@@ -32,7 +32,7 @@ export class RepositoriesService {
     }
 
     private createRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
-        return null;
+        return this.httpService.backendPost('repositories/add', repository);
     }
 
     public deleteRepository(repository: GameAssetsRepository): Observable<EndpointResponse<any>> {

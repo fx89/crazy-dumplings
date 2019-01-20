@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
+import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 import { RepositoriesService } from '../../services/repositories/repositories.service';
 
 @Component({
@@ -20,7 +20,10 @@ export class AdminPageRepositoriesEditComponent implements OnInit {
 
     save() {
         this.repositoriesService.saveRepository(this.variables.currentRepository)
-                    .subscribe( repository => { this.variables.selectRepository(repository); });
+                    .subscribe( repository => {
+                            this.variables.selectRepository(repository);
+                            this.variables.selectSection(AppSection.REPOSITORIES);
+                        });
     }
 
     cancel() {
