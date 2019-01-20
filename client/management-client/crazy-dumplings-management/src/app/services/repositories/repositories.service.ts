@@ -13,25 +13,11 @@ export class RepositoriesService {
     constructor( private httpService: CrazyDumplingsHttpService ) { }
 
     public getRepositoriesList(): Observable<GameAssetsRepository[]> {
-        return this.httpService.backendGet('repositories/list', null)
-                    .pipe(
-                        map(
-                            (response: EndpointResponse<GameAssetsRepository[]>) => {
-                                return response.status === 'OK' ? response.payload : null;
-                            }
-                        )
-                    );
+        return this.unwrapEndpointResponse(this.httpService.backendGet('repositories/list', null));
     }
 
     public saveRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
-        return (repository.id > 0 ? this.updateRepository(repository) : this.addRepository(repository))
-                    .pipe(
-                        map(
-                            (response: EndpointResponse<GameAssetsRepository>) => {
-                                return response.status === 'OK' ? response.payload : null;
-                            }
-                        )
-                    );
+        return this.unwrapEndpointResponse(repository.id > 0 ? this.updateRepository(repository) : this.addRepository(repository));
     }
 
     private updateRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
@@ -44,5 +30,15 @@ export class RepositoriesService {
 
     public deleteRepository(repository: GameAssetsRepository): Observable<EndpointResponse<any>> {
         return this.httpService.backendDelete('repositories/delete', 'repo_id', repository.id);
+    }
+
+
+
+    private unwrapEndpointResponse = (input: Observable<EndpointResponse<any>>) => {
+        return input.pipe(map(
+                            (response: EndpointResponse<any>) => {
+                                return response.status === 'OK' ? response.payload : null;
+                            }
+                        ));
     }
 }
