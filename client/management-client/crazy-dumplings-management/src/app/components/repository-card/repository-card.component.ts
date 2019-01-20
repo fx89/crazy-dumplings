@@ -30,7 +30,6 @@ export class RepositoryCardComponent implements OnInit {
     }
 
     deleteConfirm() {
-        console.log('da');
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete ' + this.repository.uniqueName + '?',
             accept: () => { this.delete(); }
