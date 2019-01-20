@@ -29,6 +29,11 @@ export class RepositoryCardComponent implements OnInit {
         return this.repository.id === this.variables.currentRepository.id;
     }
 
+    edit() {
+        this.variables.selectRepository(this.repository);
+        this.variables.selectSection(AppSection.REPOSITORIES_EDIT);
+    }
+
     deleteConfirm() {
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete ' + this.repository.uniqueName + '?',

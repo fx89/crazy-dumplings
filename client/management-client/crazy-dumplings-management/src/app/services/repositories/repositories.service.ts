@@ -35,7 +35,7 @@ export class RepositoriesService {
     }
 
     private updateRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
-        return null;
+        return this.httpService.backendPut('repositories/update', repository, new Map([['repo_id', repository.id]]));
     }
 
     private createRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
