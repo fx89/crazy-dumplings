@@ -24,14 +24,21 @@ export class RepositoriesService {
     }
 
     public saveRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
-        return repository.id > 0 ? this.updateRepository(repository) : this.createRepository(repository);
+        return (repository.id > 0 ? this.updateRepository(repository) : this.createRepository(repository))
+                    .pipe(
+                        map(
+                            (response: EndpointResponse<GameAssetsRepository>) => {
+                                return response.status === 'OK' ? response.payload : null;
+                            }
+                        )
+                    );
     }
 
-    private updateRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
+    private updateRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
         return null;
     }
 
-    private createRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
+    private createRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
         return this.httpService.backendPost('repositories/add', repository);
     }
 
