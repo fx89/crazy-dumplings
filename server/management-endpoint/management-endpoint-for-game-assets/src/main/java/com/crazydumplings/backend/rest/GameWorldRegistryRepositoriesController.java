@@ -49,6 +49,7 @@ public class GameWorldRegistryRepositoriesController {
     @PutMapping("/update")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
     public void updateRepository(@RequestParam("repo_id") Long repoId, @RequestBody GameAssetsRepositoryRequest request) {
+        // TODO: reconsider the usefulness of the GameAssetsRepositoryRequest type
         registryService.updateGameAssetsRepository(repoId, request.uniqueName, request.description, request.pictureHash);
     }
 }
