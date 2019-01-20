@@ -24,7 +24,7 @@ export class RepositoriesService {
     }
 
     public saveRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
-        return (repository.id > 0 ? this.updateRepository(repository) : this.createRepository(repository))
+        return (repository.id > 0 ? this.updateRepository(repository) : this.addRepository(repository))
                     .pipe(
                         map(
                             (response: EndpointResponse<GameAssetsRepository>) => {
@@ -38,7 +38,7 @@ export class RepositoriesService {
         return this.httpService.backendPut('repositories/update', repository, new Map([['repo_id', repository.id]]));
     }
 
-    private createRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
+    private addRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
         return this.httpService.backendPost('repositories/add', repository);
     }
 
