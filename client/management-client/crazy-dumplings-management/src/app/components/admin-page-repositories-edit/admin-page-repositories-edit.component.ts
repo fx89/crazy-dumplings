@@ -9,6 +9,8 @@ import { RepositoriesService } from '../../services/repositories/repositories.se
 })
 export class AdminPageRepositoriesEditComponent implements OnInit {
 
+    public isLoadingFile = false;
+
     constructor(
         protected variables: StatefulViewVariablesService,
         private repositoriesService: RepositoriesService
@@ -29,5 +31,18 @@ export class AdminPageRepositoriesEditComponent implements OnInit {
     cancel() {
         this.variables.revertRepositorySelection();
         this.variables.revertSectionSelection();
+    }
+
+    onFileChanged(event) {
+        this.isLoadingFile = true;
+
+        const file = event.target.files[0];
+
+        const fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            this.isLoadingFile = false;
+            console.log(fileReader.result.toString().length);
+        };
+        fileReader.readAsDataURL(file);
     }
 }

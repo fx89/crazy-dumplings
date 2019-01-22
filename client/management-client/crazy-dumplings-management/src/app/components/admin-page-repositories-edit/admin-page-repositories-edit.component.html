@@ -26,7 +26,7 @@
                 </td>
                 <td height="50px;">
                     <!--<p-fileUpload name="myfile[]" url="./upload.php"></p-fileUpload>-->
-                    <input type="file" style="max-width: 300px;">
+                    <input type="file" style="max-width: 300px;" (change)="onFileChanged($event)">
                 </td>
             </tr>
             <tr>
