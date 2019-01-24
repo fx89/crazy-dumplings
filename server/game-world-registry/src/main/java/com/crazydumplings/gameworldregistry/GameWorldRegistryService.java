@@ -42,11 +42,12 @@ public class GameWorldRegistryService {
         return dataService.findAllGameAssetsRepositories();
     }
 
-    public GameAssetsRepository addRepository(String uniqueName, String description, Long currentUserId) {
+    public GameAssetsRepository addRepository(String uniqueName, String description, String pictureHash, Long currentUserId) {
      // Create the repository
         GameAssetsRepository rep = dataService.newGameAssetsRepository();
         rep.setUniqueName(uniqueName);
         rep.setDescription(description);
+        rep.setPictureHash(pictureHash);
         rep = dataService.saveGameAssetsRepository(rep);
 
      // Grant the current user access rights to the newly created repository

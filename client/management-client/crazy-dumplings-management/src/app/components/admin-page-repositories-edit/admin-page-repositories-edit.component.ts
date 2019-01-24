@@ -41,7 +41,7 @@ export class AdminPageRepositoriesEditComponent implements OnInit {
         const fileReader = new FileReader();
         fileReader.onload = (e) => {
             this.isLoadingFile = false;
-            console.log(fileReader.result.toString().length);
+            this.variables.currentRepository.pictureHash = fileReader.result.toString();
         };
         fileReader.readAsDataURL(file);
     }

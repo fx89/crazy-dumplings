@@ -26,7 +26,12 @@
                 </td>
                 <td height="50px;">
                     <!--<p-fileUpload name="myfile[]" url="./upload.php"></p-fileUpload>-->
-                    <input type="file" style="max-width: 300px;" (change)="onFileChanged($event)">
+                    <input
+                        type="file"
+                        accept=".png, .jpg, .jpeg, .bmp, .tga"
+                        style="max-width: 300px;"
+                        (change)="onFileChanged($event)"
+                    >
                 </td>
             </tr>
             <tr>
@@ -34,7 +39,16 @@
                    <button pButton label="Cancel" (click)="cancel()"></button>
                 </td>
                 <td align="right">
-                   <button pButton label="Save" (click)="save()"></button>
+                    <button *ngIf="!isLoadingFile" pButton label="Save" (click)="save()"></button>
+
+                    <div *ngIf="isLoadingFile" style="display:inline;">
+                        <p-progressSpinner
+                            [style]="{width: '80px', height: '30px', top: '8px' }"
+                            strokeWidth="8"
+                            fill="#EEEEEE"
+                            animationDuration=".5s"
+                        ></p-progressSpinner>
+                    </div>
                 </td>
             </tr>
         </table>
