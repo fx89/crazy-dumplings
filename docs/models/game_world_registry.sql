@@ -101,7 +101,7 @@ CREATE TABLE `game_assets_repository` (
   `ID_GAME_ASSETS_REPOSITORY` int(11) NOT NULL AUTO_INCREMENT,
   `UNIQUE_NAME` varchar(250) DEFAULT NULL,
   `DESCRIPTION` text,
-  `PICTURE_HASH` text,
+  `PICTURE_HASH` longtext,
   PRIMARY KEY (`ID_GAME_ASSETS_REPOSITORY`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
