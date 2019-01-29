@@ -3,6 +3,7 @@
      is blurry and works better with the icons on the main page -->
 <div [@openClose]="variables.currentUser ? 'open' : 'closed'" class="background-overlay"></div>
 
+<!-- Main layout -->
 <div class="top-bar-background">
     <table style="width:100%"><tr>
         <td>
@@ -22,14 +23,13 @@
 </div>
 
 
+<!-- Messages from PrimeNG -->
+<div style="position: fixed; bottom: 0; width: 100%;">
+    <p-messages></p-messages>
+</div>
 
 <!-- Confirmation dialog from PrimeNG -->
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
-<!-- Messages from PrimeNG -->
-<div style="position:absolute; left:0px; top:0px;">
-    <p-messages></p-messages>
-</div>
 
 
 
