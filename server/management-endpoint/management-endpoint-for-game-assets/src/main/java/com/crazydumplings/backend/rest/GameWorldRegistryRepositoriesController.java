@@ -36,7 +36,7 @@ public class GameWorldRegistryRepositoriesController {
 
     @PostMapping("/add")
     public GameAssetsRepository createRepository(@RequestBody GameAssetsRepositoryRequest request) {
-        return registryService.addRepository(request.uniqueName, request.description, getCurrentUserId());
+        return registryService.addRepository(request.uniqueName, request.description, request.pictureHash, getCurrentUserId());
     }
 
     @DeleteMapping("/delete")
