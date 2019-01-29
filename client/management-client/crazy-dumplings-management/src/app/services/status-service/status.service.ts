@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CrazyDumplingsHttpService } from '../../services/crazy-dumplings-http/crazy-dumplings-http.service';
 import { Observable } from 'rxjs';
 import { User } from '../../model/security/user.model';
+import { ResponseUtils } from '../../utils/response-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,14 @@ export class StatusService {
     }
 
     private getOpenStatus(statusType: string, params?: Map<string, string>): Observable<any> {
-        return this.httpService.backendGet(this.serviceUrl + this.openUrl + '/' + statusType, params);
+        return ResponseUtils.unwrapEndpointResponse(
+                    this.httpService.backendGet(this.serviceUrl + this.openUrl + '/' + statusType, params)
+                );
     }
 
     private getSecureStatus(statusType: string, params?: Map<string, string>): Observable<any> {
-        return this.httpService.backendGet(this.serviceUrl + this.secureUrl + '/' + statusType, params);
+        return ResponseUtils.unwrapEndpointResponse(
+                    this.httpService.backendGet(this.serviceUrl + this.secureUrl + '/' + statusType, params)
+                );
     }
 }
