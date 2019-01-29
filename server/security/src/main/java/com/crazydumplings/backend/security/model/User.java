@@ -1,6 +1,8 @@
 package com.crazydumplings.backend.security.model;
 
-public interface User {
+import java.io.Serializable;
+
+public interface User extends Serializable {
     String getFullName();
 
     void setFullName(String fullName);
