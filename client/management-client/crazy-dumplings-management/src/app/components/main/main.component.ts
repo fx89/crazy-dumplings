@@ -11,6 +11,8 @@ import {
 
 import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
 
+import {MessageService} from 'primeng/api';
+
 
 @Component({
   selector: 'app-root',
@@ -38,5 +40,9 @@ import { StatefulViewVariablesService } from '../../services/stateful-view-varia
 export class MainComponent {
   title = 'Crazy Dumplings Management';
 
-  constructor(protected variables: StatefulViewVariablesService) {}
+  constructor(
+        protected variables: StatefulViewVariablesService,
+        protected messageService: MessageService
+    ) {}
 }
+

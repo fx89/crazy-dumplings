@@ -110,8 +110,8 @@ export class HttpClientWrapperService {
                             }
                         )
                         .pipe(
-                            catchError(err => of(undefined))
-                        )
+                            catchError(err => of(err.error))
+                         )
                         ;
     }
 }

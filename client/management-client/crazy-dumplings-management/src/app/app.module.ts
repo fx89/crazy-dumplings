@@ -14,6 +14,8 @@ import {ScrollPanelModule} from 'primeng/scrollpanel';
 import {TooltipModule} from 'primeng/tooltip';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import {MessagesModule} from 'primeng/messages';
+import {MessageService} from 'primeng/api';
 
 // Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -58,9 +60,10 @@ import { ImportantMessageComponent } from './components/important-message/import
     InputTextareaModule,
     ScrollPanelModule,
     TooltipModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MessagesModule
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [MainComponent]
 })
 export class AppModule { }

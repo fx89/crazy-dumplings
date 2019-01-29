@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-@RestControllerAdvice(basePackages = {"com.crazydumplings.backend.rest"})
+@RestControllerAdvice(basePackages = {"com.crazydumplings.backend.rest", "com.crazydumplings.backend.common.web.rest"})
 public class CommonResponseBodyEvelopeAdvice implements ResponseBodyAdvice<Object> {
 
     @Override

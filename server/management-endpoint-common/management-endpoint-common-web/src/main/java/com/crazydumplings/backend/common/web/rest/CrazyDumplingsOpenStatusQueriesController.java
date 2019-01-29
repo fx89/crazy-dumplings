@@ -2,10 +2,10 @@ package com.crazydumplings.backend.common.web.rest;
 
 import static com.crazydumplings.backend.utils.SecurityUtils.getCurrentUserId;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Allows callers to make queries for status-related information that can be accessed without having to be logged in. This kind of information
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * <br />
  * See also: {@link com.crazydumplings.backend.common.web.rest.CrazyDumplingsSecureStatusQueriesController}
  */
-@Controller
+@RestController()
 @RequestMapping("/status/open")
 public class CrazyDumplingsOpenStatusQueriesController {
 
