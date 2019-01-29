@@ -11,7 +11,7 @@ import {
 
 import { StatefulViewVariablesService } from '../../services/stateful-view-variables/stateful-view-variables.service';
 
-import {MessageService} from 'primeng/api';
+import {MessageService, Message} from 'primeng/api';
 
 
 @Component({

@@ -51,10 +51,6 @@ export class RepositoryCardComponent implements OnInit {
                 }
                 this.variables.importantMessage.text = 'Repository ' + this.repository.uniqueName + ' was successfully deleted';
                 this.variables.selectSection(AppSection.IMPORTANT_MESSAGE);
-            } else {
-                // TODO: use the messages element from PrimeNG to display messages from the back-end
-                // and do it in a generic way to avoid copy/paste
-                this.messageService.add({severity: 'error', summary: 'Cannot delete repository', detail: response.payload});
             }
         });
     }

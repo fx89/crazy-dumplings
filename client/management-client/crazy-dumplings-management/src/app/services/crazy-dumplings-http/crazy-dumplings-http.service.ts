@@ -93,14 +93,14 @@ export class CrazyDumplingsHttpService {
                     .pipe(
                         map(
                             ( (response: EndpointResponse<any>) => {
-                                    if (response.status !== 'OK') {
-                                     /*   this.messaegService.add(
+                                    if (response.status !== 'OK' && response.payload) {
+                                        this.messaegService.add(
                                             {
                                                 severity: 'error',
-                                                summary: 'Operation failed',
+                                                summary: 'Operation failed: ',
                                                 detail: <string>(response.payload)
                                             }
-                                        ); */
+                                        );
                                     }
 
                                     return response;
