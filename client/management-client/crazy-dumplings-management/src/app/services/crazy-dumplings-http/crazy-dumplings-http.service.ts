@@ -96,7 +96,7 @@ export class CrazyDumplingsHttpService {
                                     if (response.status !== 'OK' && response.payload) {
                                         this.messaegService.add(
                                             {
-                                                severity: 'error',
+                                                severity: 'servererror',
                                                 summary: 'Operation failed: ',
                                                 detail: <string>(response.payload)
                                             }

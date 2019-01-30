@@ -1,0 +1,10 @@
+
+/deep/ .ui-messages-servererror {
+    background-color: #900;
+    border-style: none;
+}
+
+
+/deep/ .ui-messages-servererror i {
+    color: #FFF;
+}
