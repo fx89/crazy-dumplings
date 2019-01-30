@@ -1,0 +1,15 @@
+
+<!-- Put the loading notification if the content is loading -->
+<div *ngIf="variables.isLoading" style="width:100%; height:100%; text-align: center; padding-top: calc(50vh - 80px)">
+    <p-progressSpinner
+        [style]="{width: '160px', height: '60px', top: '8px' }"
+        strokeWidth="8"
+        fill="#EEEEEE"
+        animationDuration=".5s"
+    ></p-progressSpinner>
+</div>
+
+<!-- Put the content if the content is not loading -->
+<div *ngIf="!variables.isLoading">
+    <ng-content></ng-content>
+</div>

@@ -32,6 +32,7 @@ import { MainComponent } from './components/main/main.component';
 import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component';
 import { AdminPageRepositoriesEditComponent } from './components/admin-page-repositories-edit/admin-page-repositories-edit.component';
 import { ImportantMessageComponent } from './components/important-message/important-message.component';
+import { LoadingWrapperComponent } from './components/loading-wrapper/loading-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ImportantMessageComponent } from './components/important-message/import
     RepositoryCardComponent,
     BottomBarComponent,
     AdminPageRepositoriesEditComponent,
-    ImportantMessageComponent
+    ImportantMessageComponent,
+    LoadingWrapperComponent
   ],
   imports: [
     BrowserModule,

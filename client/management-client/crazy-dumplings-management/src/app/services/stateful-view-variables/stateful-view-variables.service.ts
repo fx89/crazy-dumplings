@@ -55,6 +55,10 @@ export class StatefulViewVariablesService {
      */
     public importantMessage: ImportantMessage = new ImportantMessage();
 
+    /**
+     * Signals the main component that the current page is loading
+     */
+    public isLoading: boolean;
 
 
     /**

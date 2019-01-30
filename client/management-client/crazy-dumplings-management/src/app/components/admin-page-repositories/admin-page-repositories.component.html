@@ -1,16 +1,20 @@
-<div class="ui-g" style="width:100vw;">
-    <app-repository-card
-        *ngFor="let repository of repositories"
-        [repository]="repository"
-        style="padding-left:10px;"
-    ></app-repository-card>
-</div>
+<app-loading-wrapper>
+
+    <div class="ui-g" style="width:100vw;">
+        <app-repository-card
+            *ngFor="let repository of repositories"
+            [repository]="repository"
+            style="padding-left:10px;"
+        ></app-repository-card>
+    </div>
 
 
-<app-bottom-bar>
-    <button pButton class="bottom-bar-button"
-        icon="pi pi-plus"
-        pTooltip="Create a new repository"
-        (click)="newRepository()"
-    ></button>
-</app-bottom-bar>
+    <app-bottom-bar>
+        <button pButton class="bottom-bar-button"
+            icon="pi pi-plus"
+            pTooltip="Create a new repository"
+            (click)="newRepository()"
+        ></button>
+    </app-bottom-bar>
+
+</app-loading-wrapper>

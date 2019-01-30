@@ -18,8 +18,10 @@ export class AdminPageRepositoriesComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.variables.isLoading = true;
         this.repositoriesService.getRepositoriesList().subscribe(response => {
             this.repositories = response;
+            this.variables.isLoading = false;
         });
     }
 
