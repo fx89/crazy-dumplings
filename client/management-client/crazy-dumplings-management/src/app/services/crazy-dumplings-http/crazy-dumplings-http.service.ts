@@ -52,14 +52,14 @@ export class CrazyDumplingsHttpService {
     /**
      * Query the back end API for specific information
      */
-    public backendGet(path: string, params?: Map<string, string>): Observable<EndpointResponse<any>> {
+    public backendGet(path: string, params?: Map<string, any>): Observable<EndpointResponse<any>> {
         return this.request(RequestType.GET, path, null, params);
     }
 
     /**
      * Update an entity via the back end API
      */
-    public backendPost(path: string, body: any, params?: Map<string, string>): Observable<EndpointResponse<any>> {
+    public backendPost(path: string, body: any, params?: Map<string, any>): Observable<EndpointResponse<any>> {
         return this.request(RequestType.POST, path, body, params);
     }
 
@@ -74,7 +74,14 @@ export class CrazyDumplingsHttpService {
      * Remove an entity from the back end using the API
      */
     public backendDelete(path: string, paramName: string, paramValue: any): Observable<EndpointResponse<any>> {
-        return this.request(RequestType.DELETE, path, null, new Map([[paramName, paramValue]]));
+        return this.backendDeleteExt(path, new Map([[paramName, paramValue]]));
+    }
+
+    /**
+     * Remove an entity from the back end using the API while providing more than just the entity id, for the cases where this is required
+     */
+    public backendDeleteExt(path: string, params: Map<string, any>): Observable<EndpointResponse<any>> {
+        return this.request(RequestType.DELETE, path, null, params);
     }
 
     /**
