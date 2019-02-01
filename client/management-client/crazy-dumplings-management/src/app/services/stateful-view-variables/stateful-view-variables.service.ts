@@ -3,6 +3,7 @@ import { User } from '../../model/security/user.model';
 import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
 import { Stack } from '../../reusable/stack';
 import { ImportantMessage } from '../../model/gui/ImportantMessage';
+import { GameObjectType } from '../../model/game-world-registry/GameObjectType';
 
 
 export enum AppSection {
@@ -52,7 +53,10 @@ export class StatefulViewVariablesService {
      */
     public previousRepository: GameAssetsRepository;
 
-    public currentGameObjectType;
+    /**
+     * Required for editing game object types, game object type states, game object type properties and so on
+     */
+    public currentGameObjectType: GameObjectType;
 
     /**
      * Defins the content of the important message component
