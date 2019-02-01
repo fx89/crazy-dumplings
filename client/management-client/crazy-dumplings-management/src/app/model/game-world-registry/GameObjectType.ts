@@ -8,4 +8,8 @@ export class GameObjectType {
     uniqueName: string;
     isExperimental: boolean;
     description: string;
+
+    GameObjectType() {
+        this.id = 0;
+    }
 }
