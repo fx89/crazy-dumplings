@@ -21,4 +21,8 @@ public interface GameObjectType extends Serializable, Comparable<GameObjectType>
 
     public void setIsExperimental(Boolean isExperimental);
 
+    public String getDescription();
+
+    public void setDescription(String description);
+
 }

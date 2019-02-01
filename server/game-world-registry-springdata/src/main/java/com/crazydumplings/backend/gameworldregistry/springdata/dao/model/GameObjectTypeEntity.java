@@ -63,6 +63,9 @@ public class GameObjectTypeEntity implements GameObjectType {
     @Column(name = "IS_EXPERIMENTAL")
     private Boolean                    isExperimental;
 
+    @Column(name = "DESCRIPTION")
+    private String                     description;
+
     public GameAssetsRepository getGameAssetsRepository() {
         return (GameAssetsRepository) gameAssetsRepository;
     }
@@ -95,7 +98,15 @@ public class GameObjectTypeEntity implements GameObjectType {
         this.isExperimental = isExperimental;
     }
 
-    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+	@Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
