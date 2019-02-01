@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 import { GameObjectType } from '../../model/game-world-registry/GameObjectType';
+import { GameObjectTypesService } from '../../services/game-object-types/game-object-types.service';
 
 @Component({
   selector: 'app-admin-page-object-types',
@@ -9,15 +10,24 @@ import { GameObjectType } from '../../model/game-world-registry/GameObjectType';
 })
 export class AdminPageObjectTypesComponent implements OnInit {
 
-      constructor(
-      protected variables: StatefulViewVariablesService
-      ) { }
+    protected objectTypes: GameObjectType[];
 
-      ngOnInit() {
-      }
+    constructor(
+        protected variables: StatefulViewVariablesService,
+        protected gameObjectTypesService: GameObjectTypesService
+    ) { }
 
-      newObjectType() {
-          this.variables.currentGameObjectType = new GameObjectType();
-          this.variables.selectSection(AppSection.OBJECT_TYPES_EDIT);
-      }
+    ngOnInit() {
+        this.variables.isLoading = true;
+        this.gameObjectTypesService.getGameObjectTypesList(this.variables.currentRepository.id)
+                .subscribe(response => {
+                    this.objectTypes = response;
+                    this.variables.isLoading = false;
+                });
+    }
+
+    newObjectType() {
+        this.variables.currentGameObjectType = new GameObjectType();
+        this.variables.selectSection(AppSection.OBJECT_TYPES_EDIT);
+    }
 }

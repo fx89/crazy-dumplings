@@ -1,6 +1,6 @@
 
 export class GameAssetsRepository {
-    id: Number;
+    id: number;
     uniqueName: string;
     description: string;
     pictureHash: string;

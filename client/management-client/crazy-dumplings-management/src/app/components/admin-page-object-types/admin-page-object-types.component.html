@@ -1,6 +1,14 @@
 <app-repository-verification-wrapper>
 <app-loading-wrapper>
 
+    <div class="ui-g" style="width:100vw;">
+        <app-object-type-card
+            *ngFor="let objectType of objectTypes"
+            [objectType]="objectType"
+            style="padding-left:10px;"
+        ></app-object-type-card>
+    </div>
+
     <app-bottom-bar>
         <button pButton class="bottom-bar-button"
             icon="pi pi-plus"

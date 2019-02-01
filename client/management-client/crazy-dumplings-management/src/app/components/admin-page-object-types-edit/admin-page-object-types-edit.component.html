@@ -5,15 +5,22 @@
         <table><tr>
             <td>
                 <div class="container classification-container">
-                    CLASSIFICATION
+                    <b>CLASSIFICATION</b>
+                    <table>
+                        <tr><td>Class</td><td><p-dropdown [options]="objectTypeClasses" [(ngModel)]="variables.currentGameObjectType.gameObjectTypeClass" optionLabel="name"></p-dropdown></td></tr>
+                        <tr><td>Name</td><td><input type="text" pInputText [(ngModel)]="variables.currentGameObjectType.uniqueName"/></td></tr>
+                        <tr><td>Experimental</td><td><p-toggleButton [(ngModel)]="variables.currentGameObjectType.isExperimental"></p-toggleButton></td></tr>
+                    </table>
+                    Description <br />
+                    <textarea pInputTextarea [(ngModel)]="variables.currentGameObjectType.description"></textarea>
                 </div>
                 <div class="container states-container">
-                    STATES
+                    <b>STATES</b>
                 </div>
             </td>
             <td>
                 <div class="container porperties-container">
-                    PROPERTIES
+                    <b>PROPERTIES</b>
                 </div>
             </td>
         </tr></table>
@@ -23,6 +30,7 @@
         <button pButton class="bottom-bar-button"
             icon="pi pi-check"
             pTooltip="Save the current game object type"
+            (click)="save()"
         ></button>
     </app-bottom-bar>
 

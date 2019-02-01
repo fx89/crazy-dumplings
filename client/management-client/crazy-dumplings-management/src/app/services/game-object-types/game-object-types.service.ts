@@ -27,7 +27,7 @@ export class GameObjectTypesService {
     }
 
     public getGameObjectTypesList(repoId: number): Observable<GameObjectType[]> {
-        return ResponseUtils.unwrapEndpointResponse(this.httpService.backendGet('game-object-type/list', new Map([['repo_id', repoId]])));
+        return ResponseUtils.unwrapEndpointResponse(this.httpService.backendGet('game-object-types/list', new Map([['repo_id', repoId]])));
     }
 
     public saveGameObjectType(repoId: number, gameObjectType: GameObjectType): Observable<GameObjectType> {
@@ -40,17 +40,17 @@ export class GameObjectTypesService {
 
     public deleteGameObjectType(repoId: number, gameObjectType: GameObjectType): Observable<EndpointResponse<any>> {
         return this.httpService.backendDeleteExt(
-                        'game-object-type/delete', new Map([['repo_id', repoId], ['asset_id', gameObjectType.id]])
+                        'game-object-types/delete', new Map([['repo_id', repoId], ['asset_id', gameObjectType.id]])
                 );
     }
 
     private createGameObjectType(repoId: number, request: GameObjectTypeRequest): Observable<EndpointResponse<GameObjectType>> {
-        return this.httpService.backendPost('game-object-type/add', request, new Map([['repo_id', repoId]]));
+        return this.httpService.backendPost('game-object-types/add', request, new Map([['repo_id', repoId]]));
     }
 
     private updateGameObjectType(repoId: number, assetId: number, request: GameObjectTypeRequest)
     : Observable<EndpointResponse<GameObjectType>> {
-        return this.httpService.backendPut('game-object-type/update', request, new Map([['repo_id', repoId], ['asset_id', assetId]]));
+        return this.httpService.backendPut('game-object-types/update', request, new Map([['repo_id', repoId], ['asset_id', assetId]]));
     }
 
     private createGameObjectTypeRequest(gameObjectType: GameObjectType): GameObjectTypeRequest {

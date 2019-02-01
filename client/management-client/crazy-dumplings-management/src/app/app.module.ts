@@ -16,6 +16,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageService} from 'primeng/api';
+import {DropdownModule} from 'primeng/dropdown';
 
 // Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +37,8 @@ import { LoadingWrapperComponent } from './components/loading-wrapper/loading-wr
 import { AdminPageObjectTypesComponent } from './components/admin-page-object-types/admin-page-object-types.component';
 import { RepositoryVerificationWrapperComponent } from './components/repository-verification-wrapper/repository-verification-wrapper.component';
 import { AdminPageObjectTypesEditComponent } from './components/admin-page-object-types-edit/admin-page-object-types-edit.component';
+import { ObjectTypeCardComponent } from './components/object-type-card/object-type-card.component';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { AdminPageObjectTypesEditComponent } from './components/admin-page-objec
     LoadingWrapperComponent,
     AdminPageObjectTypesComponent,
     RepositoryVerificationWrapperComponent,
-    AdminPageObjectTypesEditComponent
+    AdminPageObjectTypesEditComponent,
+    ObjectTypeCardComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,9 @@ import { AdminPageObjectTypesEditComponent } from './components/admin-page-objec
     ScrollPanelModule,
     TooltipModule,
     ConfirmDialogModule,
-    MessagesModule
+    MessagesModule,
+    DropdownModule,
+    ToggleButtonModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [MainComponent]
