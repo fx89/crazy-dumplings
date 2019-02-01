@@ -34,6 +34,7 @@ import { AdminPageRepositoriesEditComponent } from './components/admin-page-repo
 import { ImportantMessageComponent } from './components/important-message/important-message.component';
 import { LoadingWrapperComponent } from './components/loading-wrapper/loading-wrapper.component';
 import { AdminPageObjectTypesComponent } from './components/admin-page-object-types/admin-page-object-types.component';
+import { RepositoryVerificationWrapperComponent } from './components/repository-verification-wrapper/repository-verification-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { AdminPageObjectTypesComponent } from './components/admin-page-object-ty
     AdminPageRepositoriesEditComponent,
     ImportantMessageComponent,
     LoadingWrapperComponent,
-    AdminPageObjectTypesComponent
+    AdminPageObjectTypesComponent,
+    RepositoryVerificationWrapperComponent
   ],
   imports: [
     BrowserModule,
