@@ -8,6 +8,10 @@
 
 
 
+<!-- ======================================================================================================================================= -->
+
+
+
 <!-- REPOSITORIES ADMIN PAGE -->
 <div [@slideInAndOut]="variables.currentSection == appSectionRepositories ? 'slideIn' : 'slideOut'"
      class="section-container"
@@ -24,6 +28,10 @@
 
 
 
+<!-- ======================================================================================================================================= -->
+
+
+
 <!-- OBJECT TYPES ADMIN PAGE -->
 <div [@slideInAndOut]="variables.currentSection == appSectionObjectTypes ? 'slideIn' : 'slideOut'"
      class="section-container"
@@ -37,6 +45,10 @@
 >
     <app-admin-page-object-types-edit *ngIf="variables.currentSection == appSectionObjectTypesEdit"></app-admin-page-object-types-edit>
 </div>
+
+
+
+<!-- ======================================================================================================================================= -->
 
 
 
