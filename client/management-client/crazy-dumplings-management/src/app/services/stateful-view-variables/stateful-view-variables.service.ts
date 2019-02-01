@@ -52,6 +52,8 @@ export class StatefulViewVariablesService {
      */
     public previousRepository: GameAssetsRepository;
 
+    public currentGameObjectType;
+
     /**
      * Defins the content of the important message component
      */
