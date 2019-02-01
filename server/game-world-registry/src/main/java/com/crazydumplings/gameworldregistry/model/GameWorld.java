@@ -3,26 +3,26 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameWorld extends Serializable, Comparable<GameWorld> {
-    public Long getId();
+    Long getId();
 
-    public String getUniqueName();
+    String getUniqueName();
 
-    public void setUniqueName(String uniqueName);
+    void setUniqueName(String uniqueName);
 
-    public String getDescription();
+    String getDescription();
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public String getPictureRefPath();
+    String getPictureRefPath();
 
-    public void setPictureRefPath(String pictureRefPath);
+    void setPictureRefPath(String pictureRefPath);
 
-    public Integer getWidth();
+    Integer getWidth();
 
-    public void setWidth(Integer width);
+    void setWidth(Integer width);
 
-    public Integer getHeight();
+    Integer getHeight();
 
-    public void setHeight(Integer height);
+    void setHeight(Integer height);
 
 }

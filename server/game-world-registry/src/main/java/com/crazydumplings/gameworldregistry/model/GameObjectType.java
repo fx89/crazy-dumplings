@@ -3,26 +3,26 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectType extends Serializable, Comparable<GameObjectType> {
-    public Long getId();
+    Long getId();
 
-    public GameAssetsRepository getGameAssetsRepository();
+    GameAssetsRepository getGameAssetsRepository();
 
-    public void setGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
+    void setGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
 
-    public GameObjectTypeClass getGameObjectTypeClass();
+    GameObjectTypeClass getGameObjectTypeClass();
 
-    public void setGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass);
+    void setGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass);
 
-    public String getUniqueName();
+    String getUniqueName();
 
-    public void setUniqueName(String uniqueName);
+    void setUniqueName(String uniqueName);
 
-    public Boolean getIsExperimental();
+    Boolean getIsExperimental();
 
-    public void setIsExperimental(Boolean isExperimental);
+    void setIsExperimental(Boolean isExperimental);
 
-    public String getDescription();
+    String getDescription();
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
 }

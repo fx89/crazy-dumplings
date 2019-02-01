@@ -3,17 +3,17 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameAssetsRepository extends Serializable, Comparable<GameAssetsRepository> {
-    public Long getId();
+    Long getId();
 
-    public String getUniqueName();
+    String getUniqueName();
 
-    public void setUniqueName(String uniqueName);
+    void setUniqueName(String uniqueName);
 
-    public String getDescription();
+    String getDescription();
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public String getPictureHash();
+    String getPictureHash();
 
-    public void setPictureHash(String pictureHash);
+    void setPictureHash(String pictureHash);
 }

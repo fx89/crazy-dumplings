@@ -3,18 +3,18 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeStatePropertyModifier extends Serializable, Comparable<GameObjectTypeStatePropertyModifier> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectTypeState getGameObjectTypeState();
+    GameObjectTypeState getGameObjectTypeState();
 
-    public void setGameObjectTypeState(GameObjectTypeState gameObjectTypeState);
+    void setGameObjectTypeState(GameObjectTypeState gameObjectTypeState);
 
-    public GameObjectTypeProperty getGameObjectTypeProperty();
+    GameObjectTypeProperty getGameObjectTypeProperty();
 
-    public void setGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);
+    void setGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);
 
-    public Double getPropertyActualValue();
+    Double getPropertyActualValue();
 
-    public void setPropertyActualValue(Double propertyActualValue);
+    void setPropertyActualValue(Double propertyActualValue);
 
 }

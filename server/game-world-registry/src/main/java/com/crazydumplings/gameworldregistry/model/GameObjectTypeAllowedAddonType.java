@@ -3,50 +3,50 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeAllowedAddonType extends Serializable, Comparable<GameObjectTypeAllowedAddonType> {
-    public Long getId();
+    Long getId();
 
-    public String getUniqueName();
+    String getUniqueName();
 
-    public void setUniqueName(String uniqueName);
+    void setUniqueName(String uniqueName);
 
-    public GameObjectType getAddonGameObjectType();
+    GameObjectType getAddonGameObjectType();
 
-    public void setAddonGameObjectType(GameObjectType addonGameObjectType);
+    void setAddonGameObjectType(GameObjectType addonGameObjectType);
 
-    public GameObjectType getApplicableToGameObjectType();
+    GameObjectType getApplicableToGameObjectType();
 
-    public void setApplicableToGameObjectType(GameObjectType applicableToGameObjectType);
+    void setApplicableToGameObjectType(GameObjectType applicableToGameObjectType);
 
-    public Boolean getIsEquipedByDefault();
+    Boolean getIsEquipedByDefault();
 
-    public void setIsEquipedByDefault(Boolean isEquipedByDefault);
+    void setIsEquipedByDefault(Boolean isEquipedByDefault);
 
-    public Boolean getIsIncremental();
+    Boolean getIsIncremental();
 
-    public void setIsIncremental(Boolean isIncremental);
+    void setIsIncremental(Boolean isIncremental);
 
-    public Boolean getIsTriggered();
+    Boolean getIsTriggered();
 
-    public void setIsTriggered(Boolean isTriggered);
+    void setIsTriggered(Boolean isTriggered);
 
-    public Action getTriggerAction();
+    Action getTriggerAction();
 
-    public void setTriggerAction(Action triggerAction);
+    void setTriggerAction(Action triggerAction);
 
-    public Boolean getIsSpawning();
+    Boolean getIsSpawning();
 
-    public void setIsSpawning(Boolean isSpawning);
+    void setIsSpawning(Boolean isSpawning);
 
-    public GameObjectType getSpawnableGameObjectType();
+    GameObjectType getSpawnableGameObjectType();
 
-    public void setSpawnableGameObjectType(GameObjectType spawnableGameObjectType);
+    void setSpawnableGameObjectType(GameObjectType spawnableGameObjectType);
 
-    public Boolean getHasLimitedDuration();
+    Boolean getHasLimitedDuration();
 
-    public void setHasLimitedDuration(Boolean hasLimitedDuration);
+    void setHasLimitedDuration(Boolean hasLimitedDuration);
 
-    public Integer getDuration();
+    Integer getDuration();
 
-    public void setDuration(Integer duration);
+    void setDuration(Integer duration);
 
 }

@@ -3,10 +3,10 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface AutomationObjectProvider extends Serializable, Comparable<AutomationObjectProvider> {
-    public Long getId();
+    Long getId();
 
-    public String getName();
+    String getName();
 
-    public void setName(String name);
+    void setName(String name);
 
 }

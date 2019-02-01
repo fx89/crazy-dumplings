@@ -3,14 +3,14 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameWorldCellType extends Serializable, Comparable<GameWorldCellType> {
-    public Long getId();
+    Long getId();
 
-    public String getUniqueName();
+    String getUniqueName();
 
-    public void setUniqueName(String uniqueName);
+    void setUniqueName(String uniqueName);
 
-    public GameObjectType getGameObjectType();
+    GameObjectType getGameObjectType();
 
-    public void setGameObjectType(GameObjectType gameObjectType);
+    void setGameObjectType(GameObjectType gameObjectType);
 
 }

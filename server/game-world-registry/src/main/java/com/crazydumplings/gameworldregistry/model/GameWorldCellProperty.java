@@ -3,18 +3,18 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameWorldCellProperty extends Serializable, Comparable<GameWorldCellProperty> {
-    public Long getId();
+    Long getId();
 
-    public GameWorldCell getGameWorldCell();
+    GameWorldCell getGameWorldCell();
 
-    public void setGameWorldCell(GameWorldCell gameWorldCell);
+    void setGameWorldCell(GameWorldCell gameWorldCell);
 
-    public GameObjectTypeProperty getGameObjectTypeProperty();
+    GameObjectTypeProperty getGameObjectTypeProperty();
 
-    public void setGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);
+    void setGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);
 
-    public Double getPropertyActualValue();
+    Double getPropertyActualValue();
 
-    public void setPropertyActualValue(Double propertyActualValue);
+    void setPropertyActualValue(Double propertyActualValue);
 
 }

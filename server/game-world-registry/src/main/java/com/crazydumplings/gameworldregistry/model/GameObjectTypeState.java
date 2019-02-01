@@ -3,14 +3,14 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeState extends Serializable, Comparable<GameObjectTypeState> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectType getGameObjectType();
+    GameObjectType getGameObjectType();
 
-    public void setGameObjectType(GameObjectType gameObjectType);
+    void setGameObjectType(GameObjectType gameObjectType);
 
-    public String getName();
+    String getName();
 
-    public void setName(String name);
+    void setName(String name);
 
 }

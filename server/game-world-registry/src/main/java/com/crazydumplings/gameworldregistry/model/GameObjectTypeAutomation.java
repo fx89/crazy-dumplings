@@ -3,14 +3,14 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeAutomation extends Serializable, Comparable<GameObjectTypeAutomation> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectType getGameObjectType();
+    GameObjectType getGameObjectType();
 
-    public void setGameObjectType(GameObjectType gameObjectType);
+    void setGameObjectType(GameObjectType gameObjectType);
 
-    public AutomationObjectProvider getAutomationObjectProvider();
+    AutomationObjectProvider getAutomationObjectProvider();
 
-    public void setAutomationObjectProvider(AutomationObjectProvider automationObjectProvider);
+    void setAutomationObjectProvider(AutomationObjectProvider automationObjectProvider);
 
 }

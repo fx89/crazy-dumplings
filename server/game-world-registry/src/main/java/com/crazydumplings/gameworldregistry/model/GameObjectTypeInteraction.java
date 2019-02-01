@@ -3,18 +3,18 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeInteraction extends Serializable, Comparable<GameObjectTypeInteraction> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectType getDonatingGameObjectType();
+    GameObjectType getDonatingGameObjectType();
 
-    public void setDonatingGameObjectType(GameObjectType donatingGameObjectType);
+    void setDonatingGameObjectType(GameObjectType donatingGameObjectType);
 
-    public GameObjectType getReceivingGameObjectType();
+    GameObjectType getReceivingGameObjectType();
 
-    public void setReceivingGameObjectType(GameObjectType receivingGameObjectType);
+    void setReceivingGameObjectType(GameObjectType receivingGameObjectType);
 
-    public Integer getRadius();
+    Integer getRadius();
 
-    public void setRadius(Integer radius);
+    void setRadius(Integer radius);
 
 }

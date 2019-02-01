@@ -3,18 +3,18 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeRepresentation extends Serializable, Comparable<GameObjectTypeRepresentation> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectType getGameObjectType();
+    GameObjectType getGameObjectType();
 
-    public void setGameObjectType(GameObjectType gameObjectType);
+    void setGameObjectType(GameObjectType gameObjectType);
 
-    public GameClientType getGameClientType();
+    GameClientType getGameClientType();
 
-    public void setGameClientType(GameClientType gameClientType);
+    void setGameClientType(GameClientType gameClientType);
 
-    public String getObjectHash();
+    String getObjectHash();
 
-    public void setObjectHash(String objectHash);
+    void setObjectHash(String objectHash);
 
 }

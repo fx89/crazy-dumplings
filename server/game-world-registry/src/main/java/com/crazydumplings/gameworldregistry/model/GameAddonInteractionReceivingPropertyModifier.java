@@ -3,18 +3,18 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameAddonInteractionReceivingPropertyModifier extends Serializable, Comparable<GameAddonInteractionReceivingPropertyModifier> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectTypeAllowedAddonType getGameObjectTypeAllowedAddonType();
+    GameObjectTypeAllowedAddonType getGameObjectTypeAllowedAddonType();
 
-    public void setGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType);
+    void setGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType);
 
-    public GameObjectTypeProperty getAffectedGameObjectTypeProperty();
+    GameObjectTypeProperty getAffectedGameObjectTypeProperty();
 
-    public void setAffectedGameObjectTypeProperty(GameObjectTypeProperty affectedGameObjectTypeProperty);
+    void setAffectedGameObjectTypeProperty(GameObjectTypeProperty affectedGameObjectTypeProperty);
 
-    public Double getAppliedPropertyValueMultiplier();
+    Double getAppliedPropertyValueMultiplier();
 
-    public void setAppliedPropertyValueMultiplier(Double appliedPropertyValueMultiplier);
+    void setAppliedPropertyValueMultiplier(Double appliedPropertyValueMultiplier);
 
 }

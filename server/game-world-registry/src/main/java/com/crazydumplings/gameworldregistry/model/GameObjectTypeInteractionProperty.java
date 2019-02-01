@@ -3,30 +3,30 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeInteractionProperty extends Serializable, Comparable<GameObjectTypeInteractionProperty> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectTypeInteraction getGameObjectTypeInteraction();
+    GameObjectTypeInteraction getGameObjectTypeInteraction();
 
-    public void setGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction);
+    void setGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction);
 
-    public GameObjectTypeProperty getDonatingGameObjectTypeProperty();
+    GameObjectTypeProperty getDonatingGameObjectTypeProperty();
 
-    public void setDonatingGameObjectTypeProperty(GameObjectTypeProperty donatingGameObjectTypeProperty);
+    void setDonatingGameObjectTypeProperty(GameObjectTypeProperty donatingGameObjectTypeProperty);
 
-    public GameObjectTypeProperty getReceivingGameObjectTypeProperty();
+    GameObjectTypeProperty getReceivingGameObjectTypeProperty();
 
-    public void setReceivingGameObjectTypeProperty(GameObjectTypeProperty receivingGameObjectTypeProperty);
+    void setReceivingGameObjectTypeProperty(GameObjectTypeProperty receivingGameObjectTypeProperty);
 
-    public GameObjectTypeProperty getOverflowGameObjectTypeProperty();
+    GameObjectTypeProperty getOverflowGameObjectTypeProperty();
 
-    public void setOverflowGameObjectTypeProperty(GameObjectTypeProperty overflowGameObjectTypeProperty);
+    void setOverflowGameObjectTypeProperty(GameObjectTypeProperty overflowGameObjectTypeProperty);
 
-    public Boolean getIsIncremental();
+    Boolean getIsIncremental();
 
-    public void setIsIncremental(Boolean isIncremental);
+    void setIsIncremental(Boolean isIncremental);
 
-    public Boolean getIsInverted();
+    Boolean getIsInverted();
 
-    public void setIsInverted(Boolean isInverted);
+    void setIsInverted(Boolean isInverted);
 
 }

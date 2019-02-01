@@ -3,22 +3,22 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameObjectTypeStateTransition extends Serializable, Comparable<GameObjectTypeStateTransition> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectTypeState getSourceGameObjectTypeState();
+    GameObjectTypeState getSourceGameObjectTypeState();
 
-    public void setSourceGameObjectTypeState(GameObjectTypeState sourceGameObjectTypeState);
+    void setSourceGameObjectTypeState(GameObjectTypeState sourceGameObjectTypeState);
 
-    public GameObjectTypeState getTargetGameObjectTypeState();
+    GameObjectTypeState getTargetGameObjectTypeState();
 
-    public void setTargetGameObjectTypeState(GameObjectTypeState targetGameObjectTypeState);
+    void setTargetGameObjectTypeState(GameObjectTypeState targetGameObjectTypeState);
 
-    public Boolean getIsAutomatic();
+    Boolean getIsAutomatic();
 
-    public void setIsAutomatic(Boolean isAutomatic);
+    void setIsAutomatic(Boolean isAutomatic);
 
-    public Action getTriggerAction();
+    Action getTriggerAction();
 
-    public void setTriggerAction(Action triggerAction);
+    void setTriggerAction(Action triggerAction);
 
 }

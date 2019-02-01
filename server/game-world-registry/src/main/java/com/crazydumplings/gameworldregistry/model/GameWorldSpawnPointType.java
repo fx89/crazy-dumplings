@@ -3,14 +3,14 @@ package com.crazydumplings.gameworldregistry.model;
 import java.io.Serializable;
 
 public interface GameWorldSpawnPointType extends Serializable, Comparable<GameWorldSpawnPointType> {
-    public Long getId();
+    Long getId();
 
-    public GameObjectType getSpawnPointGameObjectType();
+    GameObjectType getSpawnPointGameObjectType();
 
-    public void setSpawnPointGameObjectType(GameObjectType spawnPointGameObjectType);
+    void setSpawnPointGameObjectType(GameObjectType spawnPointGameObjectType);
 
-    public GameObjectType getSpawnedGameObjectType();
+    GameObjectType getSpawnedGameObjectType();
 
-    public void setSpawnedGameObjectType(GameObjectType spawnedGameObjectType);
+    void setSpawnedGameObjectType(GameObjectType spawnedGameObjectType);
 
 }
