@@ -10,7 +10,9 @@ export enum AppSection {
     MAIN_MENU = 'Main menu',
     REPOSITORIES = 'Repositories',
     REPOSITORIES_EDIT = 'Edit repository',
-    IMPORTANT_MESSAGE = 'Important message'
+    IMPORTANT_MESSAGE = 'Important message',
+    OBJECT_TYPES = 'Object types',
+    OBJECT_TYPES_EDIT = 'Edit object type'
 }
 
 

@@ -24,6 +24,15 @@
 
 
 
+<!-- OBJECT TYPES ADMIN PAGE -->
+<div [@slideInAndOut]="variables.currentSection == appSectionObjectTypes ? 'slideIn' : 'slideOut'"
+     class="section-container"
+>
+    <app-admin-page-object-types *ngIf="variables.currentSection == appSectionObjectTypes"></app-admin-page-object-types>
+</div>
+
+
+
 <!-- IMPORTANT MESSAGE -->
 <div [@slideInAndOut]="variables.currentSection == appSectionImportantMessage ? 'slideIn' : 'slideOut'"
      class="section-container"

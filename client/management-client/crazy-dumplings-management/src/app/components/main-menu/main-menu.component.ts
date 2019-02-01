@@ -14,4 +14,6 @@ export class MainMenuComponent implements OnInit {
     }
 
     goToSectionRepositories() { this.variables.selectSection(AppSection.REPOSITORIES); }
+
+    goToSectionObjectTypes() { this.variables.selectSection(AppSection.OBJECT_TYPES); }
 }

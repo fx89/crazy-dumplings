@@ -33,6 +33,7 @@ import { BottomBarComponent } from './components/bottom-bar/bottom-bar.component
 import { AdminPageRepositoriesEditComponent } from './components/admin-page-repositories-edit/admin-page-repositories-edit.component';
 import { ImportantMessageComponent } from './components/important-message/important-message.component';
 import { LoadingWrapperComponent } from './components/loading-wrapper/loading-wrapper.component';
+import { AdminPageObjectTypesComponent } from './components/admin-page-object-types/admin-page-object-types.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { LoadingWrapperComponent } from './components/loading-wrapper/loading-wr
     BottomBarComponent,
     AdminPageRepositoriesEditComponent,
     ImportantMessageComponent,
-    LoadingWrapperComponent
+    LoadingWrapperComponent,
+    AdminPageObjectTypesComponent
   ],
   imports: [
     BrowserModule,
