@@ -1,6 +1,7 @@
 package com.crazydumplings.gameworldregistry;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,8 @@ import com.crazydumplings.gameworldregistry.exception.CrazyDumplingsGameWorldReg
 import com.crazydumplings.gameworldregistry.helper.GameWorldRegistrySerializationHelper;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
+import com.crazydumplings.gameworldregistry.model.GameObjectType;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 
 /**
  * Defines the main service interface for accessing the game world registry. Data source can be injected.
@@ -73,15 +76,99 @@ public class GameWorldRegistryService {
     }
 
     public void updateGameAssetsRepository(Long repoId, String uniqueName, String description, String pictureHash) {
-        GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
-
-        if (rep == null)
-            throw new CrazyDumplingsGameWorldRegistryException("A repository having the id [" + repoId + "] does not exist in the registry");
+        GameAssetsRepository rep = getRepositoryOrThrow(repoId);
 
         if (uniqueName  != null) rep.setUniqueName (uniqueName );
         if (description != null) rep.setDescription(description);
         if (pictureHash != null) rep.setPictureHash(pictureHash);
 
         dataService.saveGameAssetsRepository(rep);
+    }
+
+    public List<GameObjectTypeClass> getGameObjectTypeClasses() {
+        return dataService.findAllGameObjectTypeClasses();
+    }
+
+    public GameObjectTypeClass addGameObjectTypeClass(String name) {
+        GameObjectTypeClass typeClass = dataService.newGameObjectTypeClass();
+        typeClass.setName(name);
+        return dataService.saveGameObjectTypeClass(typeClass);
+    }
+
+    public List<GameObjectType> getGameObjectTypes(Long repostoryId) {
+        return dataService.findAllGameObjectTypesByGameAssetsRepository(getRepositoryOrThrow(repostoryId))
+                        .stream().map(asset ->cleanupGameobjectType(asset))
+                        .collect(Collectors.toList());
+    }
+
+    public GameObjectType addGameObjectType(Long repositoryId, Long gameObjectTypeClassId, String uniqueName, String description, boolean experimental) {
+        GameAssetsRepository repository = getRepositoryOrThrow(repositoryId);
+        GameObjectTypeClass typeClass = getGameObjectTypeClassyOrThrow(gameObjectTypeClassId);
+
+        GameObjectType newGameObjectType = dataService.newGameObjectType();
+        newGameObjectType.setGameAssetsRepository(repository);
+        newGameObjectType.setGameObjectTypeClass(typeClass);
+        newGameObjectType.setUniqueName(uniqueName);
+        newGameObjectType.setIsExperimental(experimental);
+        newGameObjectType.setDescription(description);
+
+        return cleanupGameobjectType(dataService.saveGameObjectType(newGameObjectType));
+    }
+
+    public GameObjectType updateGameObjectType(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypeClassId, String uniqueName, String description, boolean experimental) {
+        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+        GameObjectTypeClass typeClass = getGameObjectTypeClassyOrThrow(gameObjectTypeClassId);
+
+        gameObjectType.setGameObjectTypeClass(typeClass);
+        gameObjectType.setUniqueName(uniqueName);
+        gameObjectType.setDescription(description);
+        gameObjectType.setIsExperimental(experimental);
+
+        return cleanupGameobjectType(dataService.saveGameObjectType(gameObjectType));
+    }
+
+    public void deleteGameObjectType(Long repositoryId, Long gameObjectTypeId) {
+        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+        dataService.deleteGameObjectType(gameObjectType);
+    }
+
+    private GameAssetsRepository getRepositoryOrThrow(Long repoId) throws CrazyDumplingsGameWorldRegistryException {
+        GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
+
+        if (rep == null)
+            throw new CrazyDumplingsGameWorldRegistryException("A repository having the id [" + repoId + "] does not exist in the registry");
+
+        return rep;
+    }
+
+    private GameObjectTypeClass getGameObjectTypeClassyOrThrow(Long classId) throws CrazyDumplingsGameWorldRegistryException {
+    	GameObjectTypeClass cls = dataService.findGameObjectTypeClass(classId);
+
+        if (cls == null)
+            throw new CrazyDumplingsGameWorldRegistryException("A game object type class having the id [" + classId + "] does not exist in the registry");
+
+        return cls;
+    }
+
+    private GameObjectType getGameObjectTypeOrThrow(Long repoId, Long assetId) throws CrazyDumplingsGameWorldRegistryException {
+        GameObjectType gameObjectType = dataService.findGameObjectType(assetId);
+
+        if (gameObjectType == null) {
+            throw new CrazyDumplingsGameWorldRegistryException("A game object type having the id [" + assetId + "] does not exist in the registry");
+        }
+
+        if (gameObjectType.getGameAssetsRepository().getId() != repoId) {
+            throw new CrazyDumplingsGameWorldRegistryException("The referenced game object type is not part of the referenced repository");
+        }
+
+        return gameObjectType;
+    }
+
+ // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
+    private GameObjectType cleanupGameobjectType(GameObjectType gameObjectType) {
+        gameObjectType.getGameAssetsRepository().setPictureHash("removed");
+        gameObjectType.getGameAssetsRepository().setDescription("removed");
+
+        return gameObjectType;
     }
 }

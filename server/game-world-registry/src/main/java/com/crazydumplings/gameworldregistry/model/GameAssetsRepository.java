@@ -13,6 +13,7 @@ public interface GameAssetsRepository extends Serializable, Comparable<GameAsset
 
     void setDescription(String description);
 
+    // TODO: move the picture hash in a different entity so that it does not get downloaded when not needed
     String getPictureHash();
 
     void setPictureHash(String pictureHash);
