@@ -7,9 +7,12 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -46,6 +49,28 @@ public class CommonResponseBodyEvelopeAdvice implements ResponseBodyAdvice<Objec
     @ResponseBody
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ApiResponse handleOtherExceptions(Exception ex, HttpServletRequest request, HttpServletResponse response) {
-        return new ApiResponse(INTERNAL_SERVER_ERROR, (Serializable)nvl(ex.getMessage(), ex.getClass().getName()));
+        String violation = getPotentialConstraintViolation(ex.getCause());
+        return new ApiResponse(INTERNAL_SERVER_ERROR, (Serializable)nvl(ex.getMessage() + (violation == null ? "" : ": " + violation), ex.getClass().getName()));
+    }
+
+    private static String getPotentialConstraintViolation(Throwable ex) {
+        if (ex == null) {
+            return null;
+        }
+
+        if (ex instanceof ConstraintViolationException) {
+            ConstraintViolationException cvEx = (ConstraintViolationException) ex;
+            Set<ConstraintViolation<?>> violations = cvEx.getConstraintViolations();
+
+            if (violations == null) {
+                return null;
+            }
+
+            for(ConstraintViolation<?> violation : violations) {
+                return violation.getMessage();
+            }
+        }
+
+        return null;
     }
 }

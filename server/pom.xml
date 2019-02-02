@@ -15,6 +15,7 @@
         <bean-validation-api-version>2.0.1.Final</bean-validation-api-version>
         <fx-utils-version>1.0.0-SNAPSHOT</fx-utils-version>
         <slf4j-version>2.1</slf4j-version>
+        <validation-version>2.0.1.Final</validation-version>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
@@ -22,10 +23,10 @@
     <artifactId>crazy-dumplings</artifactId>
     <version>${own-version}</version>
 
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
-	<name>Crazy Dumplings</name>
-	<description>Group project for the Crazy Dumplings back-end</description>
+    <name>Crazy Dumplings</name>
+    <description>Group project for the Crazy Dumplings back-end</description>
 
     <dependencyManagement>
         <dependencies>
@@ -121,6 +122,13 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${apache-commons-version}</version>
+        </dependency>
+
+        <!--  VALIDATION -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${validation-version}</version>
         </dependency>
 
         <!-- MISC DEPENDENCIES -->
