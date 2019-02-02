@@ -9,12 +9,18 @@ import { StatefulViewVariablesService, AppSection } from '../../services/statefu
 })
 export class BottomBarComponent implements OnInit {
 
+    @Input() public backToMain: boolean;
+
     constructor(protected variables: StatefulViewVariablesService) { }
 
     ngOnInit() {
     }
 
     goBack() {
-        this.variables.revertSectionSelection();
+        if (this.backToMain) {
+            this.variables.selectSection(AppSection.MAIN_MENU);
+        } else {
+            this.variables.revertSectionSelection();
+        }
     }
 }
