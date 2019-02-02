@@ -47,6 +47,7 @@ export class ContentAreaComponent implements OnInit {
   protected appSectionImportantMessage: AppSection = AppSection.IMPORTANT_MESSAGE;
   protected appSectionObjectTypes: AppSection = AppSection.OBJECT_TYPES;
   protected appSectionObjectTypesEdit: AppSection = AppSection.OBJECT_TYPES_EDIT;
+  protected appSectionObjectTypesCategory: AppSection = AppSection.OBJECT_TYPES_CATEGORY;
 
   ngOnInit() {
   }

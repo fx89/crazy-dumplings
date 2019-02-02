@@ -46,6 +46,14 @@
     <app-admin-page-object-types-edit *ngIf="variables.currentSection == appSectionObjectTypesEdit"></app-admin-page-object-types-edit>
 </div>
 
+<!-- OBJECT TYPES ADMIN PAGE - CATEGORY FORM -->
+<div [@slideInAndOut]="variables.currentSection == appSectionObjectTypesCategory ? 'slideIn' : 'slideOut'"
+     class="section-container"
+>
+    <app-admin-page-object-types-category *ngIf="variables.currentSection == appSectionObjectTypesCategory">
+    </app-admin-page-object-types-category>
+</div>
+
 
 
 <!-- ======================================================================================================================================= -->

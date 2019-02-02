@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StatefulViewVariablesService, AppSection } from '../../services/stateful-view-variables/stateful-view-variables.service';
 import { GameObjectType } from '../../model/game-world-registry/GameObjectType';
 import { GameObjectTypesService } from '../../services/game-object-types/game-object-types.service';
+import { GameObjectTypeClass } from '../../model/game-world-registry/GameObjectTypeClass';
 
 @Component({
   selector: 'app-admin-page-object-types',
@@ -27,7 +28,11 @@ export class AdminPageObjectTypesComponent implements OnInit {
     }
 
     newObjectType() {
-        this.variables.currentGameObjectType = new GameObjectType();
-        this.variables.selectSection(AppSection.OBJECT_TYPES_EDIT);
+        this.gameObjectTypesService.getGameObjectClassesList()
+                .subscribe( (result: GameObjectTypeClass[]) => {
+                    this.variables.currentGameObjectType = new GameObjectType();
+                    this.variables.currentGameObjectType.gameObjectTypeClass = result ? result[0] : null;
+                    this.variables.selectSection(AppSection.OBJECT_TYPES_EDIT);
+                });
     }
 }

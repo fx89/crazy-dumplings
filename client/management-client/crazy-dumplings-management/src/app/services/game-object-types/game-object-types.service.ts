@@ -22,7 +22,7 @@ export class GameObjectTypesService {
 
     public addGameObjectClass(name: string): Observable<GameObjectTypeClass> {
         return ResponseUtils.unwrapEndpointResponse(
-                    this.httpService.backendPost('game-object-types/addClass', new Map([['class_name', name]]))
+                    this.httpService.backendPost('game-object-types/addClass', null, new Map([['class_name', name]]))
                 );
     }
 

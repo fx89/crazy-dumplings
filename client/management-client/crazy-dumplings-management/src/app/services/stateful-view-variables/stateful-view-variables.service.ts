@@ -13,7 +13,8 @@ export enum AppSection {
     REPOSITORIES_EDIT = 'Edit repository',
     IMPORTANT_MESSAGE = 'Important message',
     OBJECT_TYPES = 'Object types',
-    OBJECT_TYPES_EDIT = 'Edit object type'
+    OBJECT_TYPES_EDIT = 'Edit object type',
+    OBJECT_TYPES_CATEGORY = 'Add object type category'
 }
 
 

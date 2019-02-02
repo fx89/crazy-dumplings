@@ -39,6 +39,7 @@ import { RepositoryVerificationWrapperComponent } from './components/repository-
 import { AdminPageObjectTypesEditComponent } from './components/admin-page-object-types-edit/admin-page-object-types-edit.component';
 import { ObjectTypeCardComponent } from './components/object-type-card/object-type-card.component';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { AdminPageObjectTypesCategoryComponent } from './components/admin-page-object-types-category/admin-page-object-types-category.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     AdminPageObjectTypesComponent,
     RepositoryVerificationWrapperComponent,
     AdminPageObjectTypesEditComponent,
-    ObjectTypeCardComponent
+    ObjectTypeCardComponent,
+    AdminPageObjectTypesCategoryComponent
   ],
   imports: [
     BrowserModule,
