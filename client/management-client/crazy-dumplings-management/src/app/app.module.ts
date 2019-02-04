@@ -40,6 +40,7 @@ import { AdminPageObjectTypesEditComponent } from './components/admin-page-objec
 import { ObjectTypeCardComponent } from './components/object-type-card/object-type-card.component';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import { AdminPageObjectTypesCategoryComponent } from './components/admin-page-object-types-category/admin-page-object-types-category.component';
+import { PageAlignmentWrapperComponent } from './components/page-alignment-wrapper/page-alignment-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { AdminPageObjectTypesCategoryComponent } from './components/admin-page-o
     RepositoryVerificationWrapperComponent,
     AdminPageObjectTypesEditComponent,
     ObjectTypeCardComponent,
-    AdminPageObjectTypesCategoryComponent
+    AdminPageObjectTypesCategoryComponent,
+    PageAlignmentWrapperComponent
   ],
   imports: [
     BrowserModule,

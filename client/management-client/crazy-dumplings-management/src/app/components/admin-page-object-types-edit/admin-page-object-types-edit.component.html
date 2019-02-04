@@ -1,7 +1,7 @@
 <app-repository-verification-wrapper>
 <app-loading-wrapper>
 
-    <table width="100%"><tr><td width="100%" align="center" style="padding-top: calc( 100vh - 900px )">
+    <app-page-alignment-wrapper>
         <table><tr>
             <td>
                 <div class="container classification-container">
@@ -10,7 +10,7 @@
                         <tr>
                             <td>Class</td>
                             <td>
-                                <p-dropdown [style]="{'width':'240px'}" [options]="objectTypeClasses" [(ngModel)]="variables.currentGameObjectType.gameObjectTypeClass" optionLabel="name"></p-dropdown>
+                                <p-dropdown [style]="{'width':'230px'}" [options]="objectTypeClasses" [(ngModel)]="variables.currentGameObjectType.gameObjectTypeClass" optionLabel="name"></p-dropdown>
                                 <button style="margin-left:5px; padding-left:3px; padding-top:2px; padding-bottom:5px; padding-right:32px" pButton icon="pi pi-plus" pTooltip="Add a class" (click)="addClass()"></button>
                             </td>
                         </tr>
@@ -30,7 +30,7 @@
                 </div>
             </td>
         </tr></table>
-    </td></tr></table>
+    </app-page-alignment-wrapper>
 
     <app-bottom-bar>
         <button pButton class="bottom-bar-button"
