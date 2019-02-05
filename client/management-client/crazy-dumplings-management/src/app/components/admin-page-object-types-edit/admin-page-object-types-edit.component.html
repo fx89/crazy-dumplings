@@ -4,7 +4,7 @@
     <app-page-alignment-wrapper>
         <table><tr>
             <td>
-                <div class="container classification-container">
+                <app-rounded-container widthPX="400" heightPX="250">
                     <font style="font-size:20px"><b>CLASSIFICATION</b></font>
                     <table width="100%">
                         <tr>
@@ -19,15 +19,15 @@
                     </table>
                     Description <br />
                     <textarea style="width:100%" pInputTextarea [(ngModel)]="variables.currentGameObjectType.description"></textarea>
-                </div>
-                <div class="container states-container">
+                </app-rounded-container>
+                <app-rounded-container widthPX="400" heightPX="200">
                     <font style="font-size:20px"><b>STATES</b></font>
-                </div>
+                </app-rounded-container>
             </td>
             <td>
-                <div class="container porperties-container">
+                <app-rounded-container widthPX="600" heightPX="460">
                     <font style="font-size:20px"><b>PROPERTIES</b></font>
-                </div>
+                </app-rounded-container>
             </td>
         </tr></table>
     </app-page-alignment-wrapper>

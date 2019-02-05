@@ -1,0 +1,15 @@
+<div [ngStyle]="{
+            'border-radius'    : borderRadiusPX + 'px',
+            'background-color' : backgroundColorSTR,
+            'opacity'          : opacityDBL,
+            'margin-top'       : marginTopPX + 'px',
+            'padding'          : paddingPX + 'px',
+            'padding-top'      : computePaddingTopPX() + 'px',
+            'width'            : widthPX + 'px',
+            'height'           : heightPX + 'px',
+            'box-shadow'       : hasShadow ? '0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.29)' : ''
+        }"
+>
+    <ng-content></ng-content>
+</div>
+

@@ -41,6 +41,7 @@ import { ObjectTypeCardComponent } from './components/object-type-card/object-ty
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import { AdminPageObjectTypesCategoryComponent } from './components/admin-page-object-types-category/admin-page-object-types-category.component';
 import { PageAlignmentWrapperComponent } from './components/page-alignment-wrapper/page-alignment-wrapper.component';
+import { RoundedContainerComponent } from './components/rounded-container/rounded-container.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { PageAlignmentWrapperComponent } from './components/page-alignment-wrapp
     AdminPageObjectTypesEditComponent,
     ObjectTypeCardComponent,
     AdminPageObjectTypesCategoryComponent,
-    PageAlignmentWrapperComponent
+    PageAlignmentWrapperComponent,
+    RoundedContainerComponent
   ],
   imports: [
     BrowserModule,
