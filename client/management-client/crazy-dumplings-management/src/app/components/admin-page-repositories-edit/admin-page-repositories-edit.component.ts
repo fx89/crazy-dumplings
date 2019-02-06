@@ -23,7 +23,6 @@ export class AdminPageRepositoriesEditComponent implements OnInit {
     save() {
         this.repositoriesService.saveRepository(this.variables.currentRepository)
                     .subscribe( repository => {
-                            this.variables.currentRepository = repository;
                             this.variables.revertSectionSelection();
                         });
     }

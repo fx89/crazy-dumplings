@@ -35,11 +35,12 @@ export class ObjectTypeCardComponent implements OnInit {
     }
 
     private delete() {
-        this.gameObjectTypesService.deleteGameObjectType(this.variables.currentRepository.id, this.objectType).subscribe(response => {
-            if (response.status === 'OK') {
-                this.variables.importantMessage.text = 'Object type ' + this.objectType.uniqueName + ' was successfully deleted';
-                this.variables.selectSection(AppSection.IMPORTANT_MESSAGE);
-            }
-        });
+        this.gameObjectTypesService.deleteGameObjectType(this.variables.currentRepository.id, this.objectType)
+            .subscribe(response => {
+                if (response.status === 'OK') {
+                    this.variables.importantMessage.text = 'Object type ' + this.objectType.uniqueName + ' was successfully deleted';
+                    this.variables.selectSection(AppSection.IMPORTANT_MESSAGE);
+                }
+            });
     }
 }

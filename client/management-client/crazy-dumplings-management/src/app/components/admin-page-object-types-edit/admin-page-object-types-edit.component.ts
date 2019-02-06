@@ -34,8 +34,8 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
 
     private saveGameObjectType() {
         this.gameObjectTypesService.saveGameObjectType(
-                            this.variables.currentRepository.id,
-                            this.variables.currentGameObjectType
+                    this.variables.currentRepository.id,
+                    this.variables.currentGameObjectType
                 ).subscribe( () => {
                     this.variables.selectSection(AppSection.OBJECT_TYPES);
                 });

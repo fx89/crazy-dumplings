@@ -5,34 +5,24 @@ import { EndpointResponse } from '../../model/game-world-registry/EndpointRespon
 import { GameAssetsRepository } from '../../model/game-world-registry/GameAssetsRepository';
 import { map } from 'rxjs/operators';
 import { ResponseUtils } from '../../utils/response-utils';
+import { AbstractBackendRequestService } from '../../utils/abstract-backend-request-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RepositoriesService {
+export class RepositoriesService extends AbstractBackendRequestService {
 
-    constructor( private httpService: CrazyDumplingsHttpService ) { }
+    constructor( httpService: CrazyDumplingsHttpService ) { super(httpService, 'repositories'); }
 
     public getRepositoriesList(): Observable<GameAssetsRepository[]> {
-        return ResponseUtils.unwrapEndpointResponse(this.httpService.backendGet('repositories/list', null));
+        return this.list(null, null, true);
     }
 
     public saveRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
-        return ResponseUtils.unwrapEndpointResponse(repository.id > 0 ? this.updateRepository(repository) : this.addRepository(repository));
-    }
-
-    private updateRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
-        return this.httpService.backendPut('repositories/update', repository, new Map([['repo_id', repository.id]]))
-            .pipe(map(
-                (response: EndpointResponse<any>) => { response.payload = repository; return response; }
-            ));
-    }
-
-    private addRepository(repository: GameAssetsRepository): Observable<EndpointResponse<GameAssetsRepository>> {
-        return this.httpService.backendPost('repositories/add', repository);
+        return this.save(repository.id, null, repository.id, repository, true);
     }
 
     public deleteRepository(repository: GameAssetsRepository): Observable<EndpointResponse<any>> {
-        return this.httpService.backendDelete('repositories/delete', 'repo_id', repository.id);
+        return this.delete(repository.id, null, null, false);
     }
 }
