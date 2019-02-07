@@ -159,9 +159,10 @@ public class GameWorldRegistryService {
         return gameObjectTypeProperty;
     }
 
-    public GameObjectTypeProperty updateGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
+    public GameObjectTypeProperty updateGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
         GameObjectTypeProperty gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
 
+        gameObjectTypeProperty.setPropertyName(propertyName);
         gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
         gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
         gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);

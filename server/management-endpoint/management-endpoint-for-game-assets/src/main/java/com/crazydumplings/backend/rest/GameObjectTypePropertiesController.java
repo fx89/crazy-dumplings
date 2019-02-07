@@ -42,7 +42,7 @@ public class GameObjectTypePropertiesController {
     @PutMapping("/update")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
     public GameObjectTypeProperty updateGameObjectTypeProperty(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestParam("asset_id") Long assetId, @RequestBody GameObjectTypePropertyRequest request) {
-        return registryService.updateGameObjectTypeProperty(repoId, parentId, assetId, request.propertyDefaultValue, request.propertyMinValue, request.propertyMaxValue);
+        return registryService.updateGameObjectTypeProperty(repoId, parentId, assetId, request.propertyName, request.propertyDefaultValue, request.propertyMinValue, request.propertyMaxValue);
     }
 
     @DeleteMapping("/delete")
@@ -59,6 +59,7 @@ public class GameObjectTypePropertiesController {
             if (item.assetId != null && item.assetId > 0) {
                 registryService.updateGameObjectTypeProperty(
                     repoId, parentId, item.assetId,
+                    item.assetRequest.propertyName,
                     item.assetRequest.propertyDefaultValue,
                     item.assetRequest.propertyMinValue,
                     item.assetRequest.propertyMaxValue
