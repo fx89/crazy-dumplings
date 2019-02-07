@@ -3,6 +3,7 @@ import { StatefulViewVariablesService, AppSection } from '../../services/statefu
 import { GameObjectTypesService } from '../../services/game-object-types/game-object-types.service';
 import { GameObjectTypeClass } from '../../model/game-world-registry/GameObjectTypeClass';
 import { ImportantMessageIconType } from '../../model/gui/ImportantMessage';
+import { GameObjectTypeProperty } from '../../model/game-world-registry/GameObjectTypeProperty';
 
 @Component({
   selector: 'app-admin-page-object-types-edit',
@@ -13,15 +14,53 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
 
     protected objectTypeClasses: GameObjectTypeClass[];
 
+    protected properties: GameObjectTypeProperty[];
+    protected deletedProperties: GameObjectTypeProperty[] = [];
+
+    protected propertiesTableCols = [
+                           { field: 'propertyName'        , header: 'Property name' },
+                           { field: 'propertyDefaultValue', header: 'Default value' },
+                           { field: 'propertyMinValue'    , header: 'Minimum value' },
+                           { field: 'propertyMaxValue'    , header: 'Maximum value' }
+                       ];
+
     constructor(
         protected variables: StatefulViewVariablesService,
         private gameObjectTypesService: GameObjectTypesService
     ) { }
 
     ngOnInit() {
-        this.gameObjectTypesService.getGameObjectClassesList().subscribe(
-            result => { this.objectTypeClasses = result; }
-        );
+        this.gameObjectTypesService.getGameObjectClassesList()
+            .subscribe(
+                result => { this.objectTypeClasses = result; }
+            );
+
+        this.gameObjectTypesService.properties.getGameObjectTypePropertiesList(this.variables.currentRepository.id, this.variables.currentGameObjectType)
+            .subscribe(
+                result => { this.properties = result ? result : []; }
+            );
+    }
+
+    addNewProperty() {
+        this.properties.push(new GameObjectTypeProperty());
+    }
+
+    removeExistingProperty(arrayIndex: number) {
+        const property: GameObjectTypeProperty = this.properties[arrayIndex];
+
+        if (property.id > 0) {
+            this.deletedProperties.push(property);
+        }
+
+        const newProperties: GameObjectTypeProperty[] = [];
+
+        let idx = 0; for (let property of this.properties) {
+            if (idx !== arrayIndex) {
+                newProperties.push(property);
+            }
+        idx++; }
+
+        this.properties = newProperties;
     }
 
     save() {
@@ -33,11 +72,31 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
     }
 
     private saveGameObjectType() {
+        this.variables.isLoading = true;
+
         this.gameObjectTypesService.saveGameObjectType(
                     this.variables.currentRepository.id,
                     this.variables.currentGameObjectType
-                ).subscribe( () => {
-                    this.variables.selectSection(AppSection.OBJECT_TYPES);
+                )
+                .subscribe( () => {
+                    this.gameObjectTypesService.properties
+                            .bulkSaveGameObjectTypeProperties(
+                                    this.variables.currentRepository.id,
+                                    this.variables.currentGameObjectType.id,
+                                    this.properties
+                             )
+                             .subscribe(() => {
+                                 this.gameObjectTypesService.properties
+                                     .bulkDeleteGameObjectTypeProperties(
+                                             this.variables.currentRepository.id,
+                                             this.variables.currentGameObjectType.id,
+                                             this.deletedProperties
+                                      )
+                                      .subscribe(() => {
+                                          this.variables.isLoading = false;
+                                          this.variables.selectSection(AppSection.OBJECT_TYPES);
+                                      })
+                    })
                 });
     }
 

@@ -1,6 +1,7 @@
 import { CrazyDumplingsHttpService } from '../services/crazy-dumplings-http/crazy-dumplings-http.service';
 import { Observable } from 'rxjs';
 import { ResponseUtils } from './response-utils';
+import { BulkRequestItem } from '../model/game-world-registry/BulkRequestItem';
 
 export abstract class AbstractBackendRequestService {
     private static possiblyUnwrap(response: Observable<any>, unwrapEndpointResponse: boolean): Observable<any> {
@@ -61,6 +62,14 @@ export abstract class AbstractBackendRequestService {
                 );
     }
 
+    protected bulkSave(repoId: number, parentId: number, bulkRequest: BulkRequestItem[]): Observable<any> {
+        return this.postRequest('bulkSave', bulkRequest, this.createOpParams(null, repoId, parentId), false);
+    }
+
+    protected bulkDelete(repoId: number, parentId: number, assetIds: number[]): Observable<any> {
+        return this.deleteRequestWithBody('bulkDelete', assetIds, this.createOpParams(null, repoId, parentId), false);
+    }
+
     protected postRequest(operation: string, body: any, params?: Map<string, any>, unwrapEndpointResponse?: boolean): any {
         return AbstractBackendRequestService.possiblyUnwrap(
                     this.http.backendPost(this.entityEndpointAddress + '/' + operation, body, params)
@@ -79,6 +88,13 @@ export abstract class AbstractBackendRequestService {
         return AbstractBackendRequestService.possiblyUnwrap(
                     this.http.backendDeleteExt(this.entityEndpointAddress + '/' + operation, params)
                   , unwrapEndpointResponse
+                );
+    }
+
+    protected deleteRequestWithBody(operation: string, body: any, params?: Map<string, any>, unwrapEndpointResponse?: boolean): any {
+        return AbstractBackendRequestService.possiblyUnwrap(
+                    this.http.backendDeleteExtWithBody(this.entityEndpointAddress + '/' + operation, body, params),
+                    unwrapEndpointResponse
                 );
     }
 

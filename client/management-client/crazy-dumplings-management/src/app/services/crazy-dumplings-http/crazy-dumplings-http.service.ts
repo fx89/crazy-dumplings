@@ -84,6 +84,10 @@ export class CrazyDumplingsHttpService {
         return this.request(RequestType.DELETE, path, null, params);
     }
 
+    public backendDeleteExtWithBody(path: string, body: any, params: Map<string, any>): Observable<EndpointResponse<any>> {
+        return this.request(RequestType.DELETE, path, body, params);
+    }
+
     /**
      * Wraps around the request() method of the HttpClientWrapper and forwards any errors coming from the
      * back end to the PrimeNG messages service

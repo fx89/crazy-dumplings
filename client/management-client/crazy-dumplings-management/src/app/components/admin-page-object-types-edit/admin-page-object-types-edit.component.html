@@ -4,6 +4,9 @@
     <app-page-alignment-wrapper>
         <table><tr>
             <td>
+
+
+                <!--                                                                                            CLASSIFICATION -->
                 <app-rounded-container widthPX="400" heightPX="250">
                     <font style="font-size:20px"><b>CLASSIFICATION</b></font>
                     <table width="100%">
@@ -20,14 +23,105 @@
                     Description <br />
                     <textarea style="width:100%" pInputTextarea [(ngModel)]="variables.currentGameObjectType.description"></textarea>
                 </app-rounded-container>
+
+
+                <!--                                                                                            STATES -->
                 <app-rounded-container widthPX="400" heightPX="200">
                     <font style="font-size:20px"><b>STATES</b></font>
                 </app-rounded-container>
+
+
+
             </td>
             <td>
+
+
+                <!--                                                                                            PROPERTIES -->
                 <app-rounded-container widthPX="600" heightPX="460">
                     <font style="font-size:20px"><b>PROPERTIES</b></font>
+
+                    <div style="height:360px">
+                    <p-table
+                        [columns]="propertiesTableCols"
+                        [value]="properties"
+                        [scrollable]="true"
+                        scrollHeight="300px"
+                        width="560"
+                    >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th width="200">Property Name</th>
+                                <th width="100">Default value</th>
+                                <th width="100">Minimum value</th>
+                                <th width="100">Maximum value</th>
+                                <th>x</th> <!-- For the delete button -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                            <tr>
+                                <td pEditableColumn width="200">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="rowData.propertyName">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{rowData.propertyName}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn width="100">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="rowData.propertyDefaultValue">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{rowData.propertyDefaultValue}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn width="100">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="rowData.propertyMinValue">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{rowData.propertyMinValue}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td pEditableColumn width="100">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="rowData.propertyMaxValue">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{rowData.propertyMaxValue}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td>
+                                    <button pButton style="width: 25px; height: 25px;"
+                                        icon="pi pi-trash"
+                                        pTooltip="Remove property"
+                                        (click)="removeExistingProperty(rowIndex)"
+                                    ></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </div>
+
+                    <button pButton
+                        icon="pi pi-plus"
+                        pTooltip="Add new property"
+                        (click)="addNewProperty()"
+                    ></button>
+
+
                 </app-rounded-container>
+
+
+
             </td>
         </tr></table>
     </app-page-alignment-wrapper>

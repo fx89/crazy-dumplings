@@ -11,6 +11,7 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
 
 /**
  * Defines the main service interface for accessing the game world registry. Data source can be injected.
@@ -130,6 +131,61 @@ public class GameWorldRegistryService {
     public void deleteGameObjectType(Long repositoryId, Long gameObjectTypeId) {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
         dataService.deleteGameObjectType(gameObjectType);
+    }
+
+    public List<GameObjectTypeProperty> getGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId) {
+        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+
+        List<GameObjectTypeProperty> ret = dataService.findAllGameObjectTypePropertiesByGameObjectType(gameObjectType);
+
+        ret.forEach(prop -> { prop.setGameObjectType(cleanupGameobjectType(prop.getGameObjectType())); } );
+
+        return ret;
+    }
+
+    public GameObjectTypeProperty addGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
+        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+
+        GameObjectTypeProperty gameObjectTypeProperty = dataService.newGameObjectTypeProperty();
+        gameObjectTypeProperty.setPropertyName(propertyName);
+        gameObjectTypeProperty.setGameObjectType(gameObjectType);
+        gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
+        gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
+        gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);
+
+        gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
+        gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
+
+        return gameObjectTypeProperty;
+    }
+
+    public GameObjectTypeProperty updateGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
+        GameObjectTypeProperty gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
+
+        gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
+        gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
+        gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);
+
+        gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
+        gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
+
+        return gameObjectTypeProperty;
+    }
+
+    public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
+        GameObjectTypeProperty gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
+        dataService.deleteGameObjectTypeProperty(gameObjectTypeProperty);
+    }
+
+    private GameObjectTypeProperty getGameObjectTypePropertyOrThrow(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) throws CrazyDumplingsGameWorldRegistryException {
+        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+        GameObjectTypeProperty gameObjectTypeProperty = dataService.findGameObjectTypeProperty(gameObjectTypePropertyId);
+
+        if (gameObjectTypeProperty == null || !(gameObjectTypeProperty.getGameObjectType().equals(gameObjectType))) {
+            throw new CrazyDumplingsGameWorldRegistryException("The game object type [" + gameObjectType.getUniqueName() + "] does not contain the referenced property");
+        }
+
+        return gameObjectTypeProperty;
     }
 
     private GameAssetsRepository getRepositoryOrThrow(Long repoId) throws CrazyDumplingsGameWorldRegistryException {

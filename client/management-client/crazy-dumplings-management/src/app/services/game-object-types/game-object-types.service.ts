@@ -7,6 +7,7 @@ import { GameObjectTypeClass } from '../../model/game-world-registry/GameObjectT
 import { GameObjectTypeRequest } from '../../model/game-world-registry/GameObjectTypeRequest';
 import { EndpointResponse } from '../../model/game-world-registry/EndpointResponse';
 import { AbstractBackendRequestService } from '../../utils/abstract-backend-request-service';
+import { GameObjectTypePropertiesService } from '../game-object-type-properties/game-object-type-properties.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { AbstractBackendRequestService } from '../../utils/abstract-backend-requ
 export class GameObjectTypesService extends AbstractBackendRequestService {
 
     constructor(
+        public properties: GameObjectTypePropertiesService,
         httpService: CrazyDumplingsHttpService
     ) { 
         super(httpService, 'game-object-types');

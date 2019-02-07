@@ -17,6 +17,7 @@ import {ConfirmationService} from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageService} from 'primeng/api';
 import {DropdownModule} from 'primeng/dropdown';
+import {TableModule} from 'primeng/table';
 
 // Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,7 +82,8 @@ import { RoundedContainerComponent } from './components/rounded-container/rounde
     ConfirmDialogModule,
     MessagesModule,
     DropdownModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    TableModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [MainComponent]
