@@ -240,11 +240,8 @@ public class GameWorldRegistryService {
         if (propertyMaxValue     != null) gameObjectTypeProperty.setPropertyMaxValue    (propertyMaxValue);
 
      // Then the property must be saved into the repository
-        gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
-        gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
-
      // The saved instance should be returned to the caller for eventual future reference
-        return gameObjectTypeProperty;
+        return dataService.saveGameObjectTypeProperty(cleanupGameObjectTypeProperty(gameObjectTypeProperty));
     }
 
     public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
@@ -260,6 +257,12 @@ public class GameWorldRegistryService {
             throw new CrazyDumplingsGameWorldRegistryException("The game object type [" + gameObjectType.getUniqueName() + "] does not contain the referenced property");
         }
 
+        return gameObjectTypeProperty;
+    }
+
+ // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
+    private static GameObjectTypeProperty cleanupGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) {
+        gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType()));
         return gameObjectTypeProperty;
     }
 
