@@ -28,6 +28,6 @@ public class RepoIdAuthorizer implements AssetTypeAuthorizer {
     @Override
     public boolean authorize(Object assetRef, Long userId) {
         Long repoId = (Long) assetRef;
-        return securityService.isRepositoryAccessibleByUser(repoId, userId);
+        return repoId == null || repoId == 0 || securityService.isRepositoryAccessibleByUser(repoId, userId);
     }
 }
