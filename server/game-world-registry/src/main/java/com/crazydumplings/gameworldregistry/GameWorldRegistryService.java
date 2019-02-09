@@ -172,6 +172,7 @@ public class GameWorldRegistryService {
 
     public void deleteGameObjectType(Long repositoryId, Long gameObjectTypeId) {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+        dataService.deleteGameObjectTypePropertiesByGameObjectType(gameObjectType);
         dataService.deleteGameObjectType(gameObjectType);
     }
 

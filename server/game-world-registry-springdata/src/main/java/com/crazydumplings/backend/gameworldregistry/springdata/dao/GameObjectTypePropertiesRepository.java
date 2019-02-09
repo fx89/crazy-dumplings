@@ -25,4 +25,6 @@ public interface GameObjectTypePropertiesRepository {
     GameObjectTypePropertyEntity save(GameObjectTypePropertyEntity gameObjectTypeProperty);
 
     void delete(GameObjectTypePropertyEntity gameObjectTypeProperty);
+
+    void deleteByGameObjectType(GameObjectTypeEntity gameObjectType);
 }

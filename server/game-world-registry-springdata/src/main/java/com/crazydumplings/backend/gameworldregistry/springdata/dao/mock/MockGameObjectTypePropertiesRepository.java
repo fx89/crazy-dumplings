@@ -114,4 +114,9 @@ public class MockGameObjectTypePropertiesRepository implements GameObjectTypePro
     public void delete(GameObjectTypePropertyEntity gameObjectTypeProperty) {
         gameObjectTypeProperties.remove(gameObjectTypeProperty);
     }
+
+    @Override
+    public void deleteByGameObjectType(GameObjectTypeEntity gameObjectType) {
+        throw new UnsupportedOperationException("Not implemented");
+    }
 }

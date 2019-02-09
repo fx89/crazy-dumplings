@@ -3,7 +3,9 @@ package com.crazydumplings.backend.gameworldregistry.springdata.dao.spring;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -39,4 +41,9 @@ public interface SpringJpaGameObjectTypePropertiesRepository
             + "(:propertyMaxValue is null or gameObjectTypeProperty.propertyMaxValue = :propertyMaxValue)")
     List<GameObjectTypePropertyEntity> findAllByExample(GameObjectTypeEntity gameObjectType, String propertyName, Double propertyDefaultValue,
             Double propertyMinValue, Double propertyMaxValue);
+
+    @Transactional
+    @Modifying
+    @Query("delete GameObjectTypePropertyEntity where gameObjectType = ?1")
+    void deleteByGameObjectType(GameObjectTypeEntity gameObjectType);
 }

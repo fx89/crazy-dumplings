@@ -369,6 +369,8 @@ public interface GameWorldRegistryDataService {
 
     void deleteGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
 
+    void deleteGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException;
+
     List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByExample(GameObjectTypeProperty example)
             throws GameWorldRegistryDataServiceException;
 

@@ -45,6 +45,7 @@ import com.crazydumplings.backend.gameworldregistry.springdata.exception.runtime
 import com.crazydumplings.backend.gameworldregistry.springdata.exception.runtime.CrazyDumplingsSpringDataGameWorldRegistryPullingException;
 import com.crazydumplings.backend.gameworldregistry.springdata.exception.runtime.CrazyDumplingsSpringDataGameWorldRegistryPushingException;
 import com.crazydumplings.gameworldregistry.GameWorldRegistryDataService;
+import com.crazydumplings.gameworldregistry.exception.GameWorldRegistryDataServiceException;
 import com.crazydumplings.gameworldregistry.model.Action;
 import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 import com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier;
@@ -1350,6 +1351,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
     public void deleteGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) {
         try {
             daoBundle.gameObjectTypePropertiesRepository.delete((GameObjectTypePropertyEntity) gameObjectTypeProperty);
+        } catch (Exception ex) {
+            throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game object type property", ex);
+        }
+    }
+
+    @Override
+    public void deleteGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException {
+        try {
+            daoBundle.gameObjectTypePropertiesRepository.deleteByGameObjectType((GameObjectTypeEntity) gameObjectType);
         } catch (Exception ex) {
             throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game object type property", ex);
         }
