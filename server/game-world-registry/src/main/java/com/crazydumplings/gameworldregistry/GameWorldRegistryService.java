@@ -42,6 +42,12 @@ public class GameWorldRegistryService {
 
     }
 
+
+
+
+
+
+
     public List<GameAssetsRepository> getAllRepositories() {
         return dataService.findAllGameAssetsRepositories();
     }
@@ -90,6 +96,21 @@ public class GameWorldRegistryService {
         return rep;
     }
 
+    private GameAssetsRepository getRepositoryOrThrow(Long repoId) throws CrazyDumplingsGameWorldRegistryException {
+        GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
+
+        if (rep == null)
+            throw new CrazyDumplingsGameWorldRegistryException("A repository having the id [" + repoId + "] does not exist in the registry");
+
+        return rep;
+    }
+
+
+
+
+
+
+
     public List<GameObjectTypeClass> getGameObjectTypeClasses() {
         return dataService.findAllGameObjectTypeClasses();
     }
@@ -99,6 +120,21 @@ public class GameWorldRegistryService {
         typeClass.setName(name);
         return dataService.saveGameObjectTypeClass(typeClass);
     }
+
+    private GameObjectTypeClass getGameObjectTypeClassyOrThrow(Long classId) throws CrazyDumplingsGameWorldRegistryException {
+        GameObjectTypeClass cls = dataService.findGameObjectTypeClass(classId);
+
+        if (cls == null)
+            throw new CrazyDumplingsGameWorldRegistryException("A game object type class having the id [" + classId + "] does not exist in the registry");
+
+        return cls;
+    }
+
+
+
+
+
+
 
     public List<GameObjectType> getGameObjectTypes(Long repostoryId) {
         return dataService.findAllGameObjectTypesByGameAssetsRepository(getRepositoryOrThrow(repostoryId))
@@ -138,6 +174,34 @@ public class GameWorldRegistryService {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
         dataService.deleteGameObjectType(gameObjectType);
     }
+
+    // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
+    private static GameObjectType cleanupGameobjectType(GameObjectType gameObjectType) {
+        gameObjectType.getGameAssetsRepository().setPictureHash("removed");
+        gameObjectType.getGameAssetsRepository().setDescription("removed");
+
+        return gameObjectType;
+    }
+
+    private GameObjectType getGameObjectTypeOrThrow(Long repoId, Long assetId) throws CrazyDumplingsGameWorldRegistryException {
+        GameObjectType gameObjectType = dataService.findGameObjectType(assetId);
+
+        if (gameObjectType == null) {
+            throw new CrazyDumplingsGameWorldRegistryException("A game object type having the id [" + assetId + "] does not exist in the registry");
+        }
+
+        if (gameObjectType.getGameAssetsRepository().getId() != repoId) {
+            throw new CrazyDumplingsGameWorldRegistryException("The referenced game object type is not part of the referenced repository");
+        }
+
+        return gameObjectType;
+    }
+
+
+
+
+
+
 
     public List<GameObjectTypeProperty> getGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId) {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
@@ -199,43 +263,4 @@ public class GameWorldRegistryService {
         return gameObjectTypeProperty;
     }
 
-    private GameAssetsRepository getRepositoryOrThrow(Long repoId) throws CrazyDumplingsGameWorldRegistryException {
-        GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
-
-        if (rep == null)
-            throw new CrazyDumplingsGameWorldRegistryException("A repository having the id [" + repoId + "] does not exist in the registry");
-
-        return rep;
-    }
-
-    private GameObjectTypeClass getGameObjectTypeClassyOrThrow(Long classId) throws CrazyDumplingsGameWorldRegistryException {
-    	GameObjectTypeClass cls = dataService.findGameObjectTypeClass(classId);
-
-        if (cls == null)
-            throw new CrazyDumplingsGameWorldRegistryException("A game object type class having the id [" + classId + "] does not exist in the registry");
-
-        return cls;
-    }
-
-    private GameObjectType getGameObjectTypeOrThrow(Long repoId, Long assetId) throws CrazyDumplingsGameWorldRegistryException {
-        GameObjectType gameObjectType = dataService.findGameObjectType(assetId);
-
-        if (gameObjectType == null) {
-            throw new CrazyDumplingsGameWorldRegistryException("A game object type having the id [" + assetId + "] does not exist in the registry");
-        }
-
-        if (gameObjectType.getGameAssetsRepository().getId() != repoId) {
-            throw new CrazyDumplingsGameWorldRegistryException("The referenced game object type is not part of the referenced repository");
-        }
-
-        return gameObjectType;
-    }
-
- // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
-    private GameObjectType cleanupGameobjectType(GameObjectType gameObjectType) {
-        gameObjectType.getGameAssetsRepository().setPictureHash("removed");
-        gameObjectType.getGameAssetsRepository().setDescription("removed");
-
-        return gameObjectType;
-    }
 }

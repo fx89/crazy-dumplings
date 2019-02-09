@@ -40,19 +40,19 @@ export abstract class AbstractBackendRequestService {
         return this.deleteRequest('delete', this.createOpParams(params, repoId, parentId), unwrapEndpointResponse);
     }
 
-    protected getRequest(operation: string, params?: Map<string, any>, unwrapEndpointResponse?: boolean): any {
-        return AbstractBackendRequestService.possiblyUnwrap(
-                    this.http.backendGet(this.entityEndpointAddress + '/' + operation, params)
-                  , unwrapEndpointResponse
-                );
-    }
-
     protected bulkSave(repoId: number, parentId: number, bulkRequest: BulkRequestItem[]): Observable<any> {
         return this.postRequest('bulkSave', bulkRequest, this.createOpParams(null, repoId, parentId), false);
     }
 
     protected bulkDelete(repoId: number, parentId: number, assetIds: number[]): Observable<any> {
         return this.deleteRequestWithBody('bulkDelete', assetIds, this.createOpParams(null, repoId, parentId), false);
+    }
+
+    protected getRequest(operation: string, params?: Map<string, any>, unwrapEndpointResponse?: boolean): any {
+        return AbstractBackendRequestService.possiblyUnwrap(
+                    this.http.backendGet(this.entityEndpointAddress + '/' + operation, params)
+                  , unwrapEndpointResponse
+                );
     }
 
     protected postRequest(operation: string, body: any, params?: Map<string, any>, unwrapEndpointResponse?: boolean): any {
