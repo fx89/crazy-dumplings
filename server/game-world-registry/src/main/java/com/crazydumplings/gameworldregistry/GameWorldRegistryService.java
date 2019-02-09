@@ -147,11 +147,8 @@ public class GameWorldRegistryService {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
 
         GameObjectTypeProperty gameObjectTypeProperty = dataService.newGameObjectTypeProperty();
-        gameObjectTypeProperty.setPropertyName(propertyName);
+        setGameObjectTypePropertyAttributes(gameObjectTypeProperty, propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue);
         gameObjectTypeProperty.setGameObjectType(gameObjectType);
-        gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
-        gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
-        gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);
 
         gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
         gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
@@ -162,15 +159,19 @@ public class GameWorldRegistryService {
     public GameObjectTypeProperty updateGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
         GameObjectTypeProperty gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
 
-        gameObjectTypeProperty.setPropertyName(propertyName);
-        gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
-        gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
-        gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);
+        setGameObjectTypePropertyAttributes(gameObjectTypeProperty, propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue);
 
         gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
         gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
 
         return gameObjectTypeProperty;
+    }
+
+    private static void setGameObjectTypePropertyAttributes(GameObjectTypeProperty gameObjectTypeProperty, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
+        gameObjectTypeProperty.setPropertyName(propertyName);
+        gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
+        gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
+        gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);
     }
 
     public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
