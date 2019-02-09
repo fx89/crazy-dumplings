@@ -82,7 +82,9 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
                     this.variables.currentRepository.id,
                     this.variables.currentGameObjectType
                 )
-                .subscribe( () => {
+                .subscribe( result => {
+                    this.variables.currentGameObjectType = result;
+
                     this.gameObjectTypesService.properties
                             .bulkSaveGameObjectTypeProperties(
                                     this.variables.currentRepository.id,
