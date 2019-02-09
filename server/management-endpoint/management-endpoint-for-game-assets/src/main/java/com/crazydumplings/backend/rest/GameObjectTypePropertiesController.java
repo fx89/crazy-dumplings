@@ -7,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,16 +32,19 @@ public class GameObjectTypePropertiesController {
         return registryService.getGameObjectTypeProperties(repoId, parentId);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public GameObjectTypeProperty createGameObjectTypeProperty(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestBody GameObjectTypePropertyRequest request) {
-        return registryService.addGameObjectTypeProperty(repoId, parentId, request.propertyName, request.propertyDefaultValue, request.propertyMinValue, request.propertyMaxValue);
-    }
-
-    @PutMapping("/update")
-    @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public GameObjectTypeProperty updateGameObjectTypeProperty(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestParam("asset_id") Long assetId, @RequestBody GameObjectTypePropertyRequest request) {
-        return registryService.updateGameObjectTypeProperty(repoId, parentId, assetId, request.propertyName, request.propertyDefaultValue, request.propertyMinValue, request.propertyMaxValue);
+    public GameObjectTypeProperty saveGameObjectTypeProperty(
+            @RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestParam("parent_id") Long assetId,
+            @RequestBody GameObjectTypePropertyRequest request
+    ) {
+        return registryService.saveGameObjectTypeProperty(
+                    repoId, parentId, assetId,
+                    request.propertyName,
+                    request.propertyDefaultValue,
+                    request.propertyMinValue,
+                    request.propertyMaxValue
+               );
     }
 
     @DeleteMapping("/delete")
@@ -56,23 +58,13 @@ public class GameObjectTypePropertiesController {
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
     public void bulkUpdateGameObjectTypeProperties(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestBody List<BulkAssetRequestItem<GameObjectTypePropertyRequest>> request) {
         request.forEach(item -> {
-            if (item.assetId != null && item.assetId > 0) {
-                registryService.updateGameObjectTypeProperty(
-                    repoId, parentId, item.assetId,
-                    item.assetRequest.propertyName,
-                    item.assetRequest.propertyDefaultValue,
-                    item.assetRequest.propertyMinValue,
-                    item.assetRequest.propertyMaxValue
-                );
-            } else {
-                registryService.addGameObjectTypeProperty(
-                    repoId, parentId,
-                    item.assetRequest.propertyName,
-                    item.assetRequest.propertyDefaultValue,
-                    item.assetRequest.propertyMinValue,
-                    item.assetRequest.propertyMaxValue
-                );
-            }
+            registryService.saveGameObjectTypeProperty(
+                repoId, parentId, item.assetId,
+                item.assetRequest.propertyName,
+                item.assetRequest.propertyDefaultValue,
+                item.assetRequest.propertyMinValue,
+                item.assetRequest.propertyMaxValue
+            );
         });
     }
 

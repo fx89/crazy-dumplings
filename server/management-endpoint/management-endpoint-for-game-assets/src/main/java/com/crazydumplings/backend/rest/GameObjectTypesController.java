@@ -7,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,16 +44,10 @@ public class GameObjectTypesController {
         return registryService.getGameObjectTypes(repoId);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/save")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public GameObjectType createGameObjectType(@RequestParam("repo_id") Long repoId, @RequestBody GameObjectTypeRequest request) {
-        return registryService.addGameObjectType(repoId, request.gameObjectTypeClassId, request.uniqueName, request.description, request.experimental);
-    }
-
-    @PutMapping("/update")
-    @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public GameObjectType updateGameObjectType(@RequestParam("repo_id") Long repoId, @RequestParam("asset_id") Long assetId, @RequestBody GameObjectTypeRequest request) {
-        return registryService.updateGameObjectType(repoId, assetId, request.gameObjectTypeClassId, request.uniqueName, request.description, request.experimental);
+    public GameObjectType saveGameObjectType(@RequestParam("repo_id") Long repoId, @RequestParam("asset_id") Long assetId, @RequestBody GameObjectTypeRequest request) {
+        return registryService.saveGameObjectType(repoId, assetId, request.gameObjectTypeClassId, request.uniqueName, request.description, request.experimental);
     }
 
     @DeleteMapping("/delete")

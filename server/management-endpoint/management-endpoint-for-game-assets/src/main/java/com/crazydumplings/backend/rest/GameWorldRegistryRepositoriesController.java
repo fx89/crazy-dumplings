@@ -9,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,9 +33,11 @@ public class GameWorldRegistryRepositoriesController {
         return registryService.getAllRepositories();
     }
 
-    @PostMapping("/add")
-    public GameAssetsRepository createRepository(@RequestBody GameAssetsRepositoryRequest request) {
-        return registryService.addRepository(request.uniqueName, request.description, request.pictureHash, getCurrentUserId());
+    @PostMapping("/save")
+    @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
+    public void updateRepository(@RequestParam("repo_id") Long repoId, @RequestBody GameAssetsRepositoryRequest request) {
+        // TODO: reconsider the usefulness of the GameAssetsRepositoryRequest type
+        registryService.saveGameAssetsRepository(repoId, request.uniqueName, request.description, request.pictureHash, getCurrentUserId());
     }
 
     @DeleteMapping("/delete")
@@ -44,12 +45,5 @@ public class GameWorldRegistryRepositoriesController {
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
     public void removeRepository(@RequestParam("repo_id") Long repoId) {
         registryService.deleteGameAssetsRepository(repoId);
-    }
-
-    @PutMapping("/update")
-    @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public void updateRepository(@RequestParam("repo_id") Long repoId, @RequestBody GameAssetsRepositoryRequest request) {
-        // TODO: reconsider the usefulness of the GameAssetsRepositoryRequest type
-        registryService.updateGameAssetsRepository(repoId, request.uniqueName, request.description, request.pictureHash);
     }
 }

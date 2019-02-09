@@ -35,10 +35,14 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
                 result => { this.objectTypeClasses = result; }
             );
 
-        this.gameObjectTypesService.properties.getGameObjectTypePropertiesList(this.variables.currentRepository.id, this.variables.currentGameObjectType)
-            .subscribe(
-                result => { this.properties = result ? result : []; }
-            );
+        if (this.variables.currentGameObjectType.id > 0) {
+            this.gameObjectTypesService.properties.getGameObjectTypePropertiesList(this.variables.currentRepository.id, this.variables.currentGameObjectType)
+                .subscribe(
+                    result => { this.properties = result ? result : []; }
+                );
+        } else {
+            this.properties = [];
+        }
     }
 
     addNewProperty() {

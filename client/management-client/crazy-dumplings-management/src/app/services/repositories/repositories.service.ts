@@ -19,7 +19,7 @@ export class RepositoriesService extends AbstractBackendRequestService {
     }
 
     public saveRepository(repository: GameAssetsRepository): Observable<GameAssetsRepository> {
-        return this.save(repository.id, null, repository.id, repository, true);
+        return this.save(repository.id ? repository.id : 0, null, repository.id, repository, true);
     }
 
     public deleteRepository(repository: GameAssetsRepository): Observable<EndpointResponse<any>> {

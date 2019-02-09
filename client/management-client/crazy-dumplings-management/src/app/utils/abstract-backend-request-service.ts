@@ -19,13 +19,8 @@ export abstract class AbstractBackendRequestService {
             params = new Map<string, any>();
         }
 
-        if (repoId) {
-            params.set('repo_id', repoId);
-        }
-
-        if (parentId) {
-            params.set('parent_id', parentId);
-        }
+        params.set('repo_id'  , repoId   === undefined ? 0 : repoId  );
+        params.set('parent_id', parentId === undefined ? 0 : parentId);
 
         return params;
     }
@@ -35,19 +30,9 @@ export abstract class AbstractBackendRequestService {
     }
 
     protected save(repoId: number, parentId: number, assetId: number, entityRequest: any, unwrapEndpointResponse?: boolean): Observable<any> {
-        return (
-            assetId > 0 ? this.update(repoId, parentId, assetId, entityRequest, unwrapEndpointResponse)
-                        : this.add(repoId, parentId, entityRequest, unwrapEndpointResponse)
-            );
-    }
 
-    private add(repoId: number, parentId: number, entityRequest: any, unwrapEndpointResponse?: boolean): Observable<any> {
-        return this.postRequest('add', entityRequest, this.createOpParams(null, repoId, parentId), unwrapEndpointResponse);
-    }
-
-    private update(repoId: number, parentId: number, assetId: number, entityRequest: any, unwrapEndpointResponse?: boolean) {
-        const params: Map<string, number> = new Map([['asset_id', assetId]]);
-        return this.putRequest('update', entityRequest, this.createOpParams(params, repoId, parentId), unwrapEndpointResponse);
+        const params: Map<string, number> = new Map([['asset_id', assetId ? assetId : 0]]);
+        return this.postRequest('save', entityRequest, this.createOpParams(params, repoId, parentId), unwrapEndpointResponse);
     }
 
     protected delete(repoId: number, parentId: number, assetId: number, unwrapEndpointResponse?: boolean) {

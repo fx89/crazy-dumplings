@@ -46,22 +46,6 @@ public class GameWorldRegistryService {
         return dataService.findAllGameAssetsRepositories();
     }
 
-    public GameAssetsRepository addRepository(String uniqueName, String description, String pictureHash, Long currentUserId) {
-     // Create the repository
-        GameAssetsRepository rep = dataService.newGameAssetsRepository();
-        rep.setUniqueName(uniqueName);
-        rep.setDescription(description);
-        rep.setPictureHash(pictureHash);
-        rep = dataService.saveGameAssetsRepository(rep);
-
-     // Grant the current user access rights to the newly created repository
-        GameAssetsRepositoryOwner repOwner = dataService.newGameAssetsRepositoryOwner(rep, currentUserId);
-        dataService.saveGameAssetsRepositoryOwner(repOwner);
-
-     // Return a reference to the newly created repository
-        return rep;
-    }
-
     public GameAssetsRepository setPictureForGameAssetsRepository(String repositoryUniqueName, String pictureHash) {
         GameAssetsRepository rep = dataService.findGameAssetsRepositoryByUniqueName(repositoryUniqueName);
         rep.setPictureHash(pictureHash);
@@ -76,14 +60,34 @@ public class GameWorldRegistryService {
         dataService.deleteGameAssetsRepository(rep);
     }
 
-    public void updateGameAssetsRepository(Long repoId, String uniqueName, String description, String pictureHash) {
-        GameAssetsRepository rep = getRepositoryOrThrow(repoId);
+    public GameAssetsRepository saveGameAssetsRepository(Long repoId, String uniqueName, String description, String pictureHash, Long currentUserId) {
+        GameAssetsRepository rep;
 
+     // If the caller supplies a valid id for the repository, then the repository must be updated.
+     // Since the repository must be updated, it must first be retrieved from the registry so that it can be confirmed that it exists
+     // If, however, the provided repository id is not valid, then a new repository must be created
+        if (repoId != null && repoId > 0) {
+            rep = getRepositoryOrThrow(repoId);
+        } else {
+            rep = dataService.newGameAssetsRepository();
+        }
+
+     // Regardless of whether or not the repository already exists, the attributes must be set
+     // Attributes should be set only if provided
         if (uniqueName  != null) rep.setUniqueName (uniqueName );
         if (description != null) rep.setDescription(description);
         if (pictureHash != null) rep.setPictureHash(pictureHash);
 
-        dataService.saveGameAssetsRepository(rep);
+        rep = dataService.saveGameAssetsRepository(rep);
+
+     // IF the repository is new, then grant the current user access rights to the newly created repository
+        if (repoId == null || repoId <= 0) {
+            GameAssetsRepositoryOwner repOwner = dataService.newGameAssetsRepositoryOwner(rep, currentUserId);
+            dataService.saveGameAssetsRepositoryOwner(repOwner);
+        }
+
+     // Return a reference to the newly created repository
+        return rep;
     }
 
     public List<GameObjectTypeClass> getGameObjectTypeClasses() {
@@ -102,29 +106,31 @@ public class GameWorldRegistryService {
                         .collect(Collectors.toList());
     }
 
-    public GameObjectType addGameObjectType(Long repositoryId, Long gameObjectTypeClassId, String uniqueName, String description, boolean experimental) {
-        GameAssetsRepository repository = getRepositoryOrThrow(repositoryId);
-        GameObjectTypeClass typeClass = getGameObjectTypeClassyOrThrow(gameObjectTypeClassId);
+    /**
+     * Update or create a game object type depending on the presence of a valid gameObjectTypeId
+     */
+    public GameObjectType saveGameObjectType(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypeClassId, String uniqueName, String description, boolean experimental) {
+        GameObjectType gameObjectType;
 
-        GameObjectType newGameObjectType = dataService.newGameObjectType();
-        newGameObjectType.setGameAssetsRepository(repository);
-        newGameObjectType.setGameObjectTypeClass(typeClass);
-        newGameObjectType.setUniqueName(uniqueName);
-        newGameObjectType.setIsExperimental(experimental);
-        newGameObjectType.setDescription(description);
+     // If the caller supplies a valid id for the game object type , then the type must be updated.
+     // Since the type must be updated, it must first be retrieved from the repository so that it can be confirmed that the type is child to the given repository
+     // If, however, the provided game object type id is not valid, then a new game object type must be created for the given repository
+        if (gameObjectTypeId != null && gameObjectTypeId > 0) {
+            gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+        } else {
+            gameObjectType = dataService.newGameObjectType();
+            gameObjectType.setGameAssetsRepository(getRepositoryOrThrow(repositoryId));
+        }
 
-        return cleanupGameobjectType(dataService.saveGameObjectType(newGameObjectType));
-    }
+     // Regardless of whether or not the game object type already exists, the attributes must be set
+     // Attributes should be set only if provided
+        if (gameObjectTypeClassId != null) gameObjectType.setGameObjectTypeClass(getGameObjectTypeClassyOrThrow(gameObjectTypeClassId));
+        if (uniqueName            != null) gameObjectType.setUniqueName         (uniqueName);
+                                           gameObjectType.setIsExperimental     (experimental);
+        if (description           != null) gameObjectType.setDescription        (description);
 
-    public GameObjectType updateGameObjectType(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypeClassId, String uniqueName, String description, boolean experimental) {
-        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
-        GameObjectTypeClass typeClass = getGameObjectTypeClassyOrThrow(gameObjectTypeClassId);
-
-        gameObjectType.setGameObjectTypeClass(typeClass);
-        gameObjectType.setUniqueName(uniqueName);
-        gameObjectType.setDescription(description);
-        gameObjectType.setIsExperimental(experimental);
-
+     // Then the type must be saved into the repository
+     // The saved instance should be returned to the caller for eventual future reference
         return cleanupGameobjectType(dataService.saveGameObjectType(gameObjectType));
     }
 
@@ -143,35 +149,38 @@ public class GameWorldRegistryService {
         return ret;
     }
 
-    public GameObjectTypeProperty addGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
-        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+    /**
+     * Update or create a game object type property depending on the presence of a valid gameObjectTypePropertyId
+     */
+    public GameObjectTypeProperty saveGameObjectTypeProperty(
+            Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId,
+            String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
+    ) {
+        GameObjectTypeProperty gameObjectTypeProperty;
 
-        GameObjectTypeProperty gameObjectTypeProperty = dataService.newGameObjectTypeProperty();
-        setGameObjectTypePropertyAttributes(gameObjectTypeProperty, propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue);
-        gameObjectTypeProperty.setGameObjectType(gameObjectType);
+     // If the caller supplies a valid id for the game object type property, then the property must be updated.
+     // Since the property must be updated, it must first be retrieved from the repository so that it can be confirmed that the property is child to the given object type
+     // If, however, the provided game object type property id is not valid, then a new game object type property must be created for the given game object type
+        if (gameObjectTypePropertyId != null && gameObjectTypePropertyId > 0) {
+            gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
+        } else {
+            gameObjectTypeProperty = dataService.newGameObjectTypeProperty();
+            gameObjectTypeProperty.setGameObjectType(getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId));
+        }
 
+     // Regardless of whether or not the game object type property already exists, the attributes must be set
+     // Attributes should be set only if provided
+        if (propertyName         != null) gameObjectTypeProperty.setPropertyName        (propertyName);
+        if (propertyDefaultValue != null) gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
+        if (propertyMinValue     != null) gameObjectTypeProperty.setPropertyMinValue    (propertyMinValue);
+        if (propertyMaxValue     != null) gameObjectTypeProperty.setPropertyMaxValue    (propertyMaxValue);
+
+     // Then the property must be saved into the repository
         gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
         gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
 
+     // The saved instance should be returned to the caller for eventual future reference
         return gameObjectTypeProperty;
-    }
-
-    public GameObjectTypeProperty updateGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
-        GameObjectTypeProperty gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
-
-        setGameObjectTypePropertyAttributes(gameObjectTypeProperty, propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue);
-
-        gameObjectTypeProperty = dataService.saveGameObjectTypeProperty(gameObjectTypeProperty);
-        gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType())); // TODO: remove this garbage workaround after the picture hash has been moved into a different entity 
-
-        return gameObjectTypeProperty;
-    }
-
-    private static void setGameObjectTypePropertyAttributes(GameObjectTypeProperty gameObjectTypeProperty, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) {
-        gameObjectTypeProperty.setPropertyName(propertyName);
-        gameObjectTypeProperty.setPropertyDefaultValue(propertyDefaultValue);
-        gameObjectTypeProperty.setPropertyMinValue(propertyMinValue);
-        gameObjectTypeProperty.setPropertyMaxValue(propertyMaxValue);
     }
 
     public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
