@@ -3,6 +3,8 @@ package com.crazydumplings.backend.gameworldregistry.springdata;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.annotation.Generated;
 import javax.annotation.PostConstruct;
@@ -1316,8 +1318,14 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
         }
     }
 
-    public GameObjectTypeProperty newGameObjectTypeProperty() {
+    @Override
+    public GameObjectTypeProperty newGameObjectTypeProperty() throws GameWorldRegistryDataServiceException {
         return new GameObjectTypePropertyEntity();
+    }
+
+    @Override
+    public GameObjectTypeProperty newGameObjectTypeProperty(Long id) throws GameWorldRegistryDataServiceException {
+        return new GameObjectTypePropertyEntity(id);
     }
 
     @Override
@@ -1348,6 +1356,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
     }
 
     @Override
+    public List<GameObjectTypeProperty> saveGameObjectTypeProperties(List<GameObjectTypeProperty> gameObjectTypeProperties) throws GameWorldRegistryDataServiceException {
+        try {
+            List<GameObjectTypePropertyEntity> toSave = gameObjectTypeProperties.stream().map(prop -> (GameObjectTypePropertyEntity)prop).collect(Collectors.toList());
+            Iterable<GameObjectTypePropertyEntity> savedList = daoBundle.gameObjectTypePropertiesRepository.bulkSave(toSave);
+            return StreamSupport.stream(savedList.spliterator(), false).map(prop -> (GameObjectTypeProperty) prop).collect(Collectors.toList());
+        } catch (Exception ex) {
+            throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game object type properties", ex);
+        }
+    }
+
+    @Override
     public void deleteGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) {
         try {
             daoBundle.gameObjectTypePropertiesRepository.delete((GameObjectTypePropertyEntity) gameObjectTypeProperty);
@@ -1360,6 +1379,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
     public void deleteGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException {
         try {
             daoBundle.gameObjectTypePropertiesRepository.deleteByGameObjectType((GameObjectTypeEntity) gameObjectType);
+        } catch (Exception ex) {
+            throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game object type property", ex);
+        }
+    }
+
+    @Override
+    public void deleteGameObjectTypePropertiesByIds(List<Long> gameObjectTypePropertyIds) throws GameWorldRegistryDataServiceException {
+        try {
+            daoBundle.gameObjectTypePropertiesRepository.bulkDelete(gameObjectTypePropertyIds);
         } catch (Exception ex) {
             throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game object type property", ex);
         }
@@ -1380,6 +1408,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
     public List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType) {
         try {
             return new ArrayList<>(daoBundle.gameObjectTypePropertiesRepository.findAllByGameObjectType((GameObjectTypeEntity) gameObjectType));
+        } catch (Exception ex) {
+            throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type properties", ex);
+        }
+    }
+
+    @Override
+    public List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectTypeAndIds(GameObjectType gameObjectType, List<Long> ids) {
+        try {
+            return new ArrayList<>(daoBundle.gameObjectTypePropertiesRepository.findAllByGameObjectTypeAndIds((GameObjectTypeEntity) gameObjectType, ids));
         } catch (Exception ex) {
             throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type properties", ex);
         }
@@ -1834,8 +1871,14 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
         }
     }
 
-    public GameObjectType newGameObjectType() {
+    @Override
+    public GameObjectType newGameObjectType() throws GameWorldRegistryDataServiceException {
         return new GameObjectTypeEntity();
+    }
+
+    @Override
+    public GameObjectType newGameObjectType(Long id) throws GameWorldRegistryDataServiceException {
+        return new GameObjectTypeEntity(id);
     }
 
     @Override

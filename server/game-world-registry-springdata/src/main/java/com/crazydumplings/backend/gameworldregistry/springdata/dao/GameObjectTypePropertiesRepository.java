@@ -15,6 +15,8 @@ public interface GameObjectTypePropertiesRepository {
 
     List<GameObjectTypePropertyEntity> findAllByGameObjectType(GameObjectTypeEntity gameObjectType);
 
+    List<GameObjectTypePropertyEntity> findAllByGameObjectTypeAndIds(GameObjectTypeEntity gameObjectType, List<Long> ids);
+
     GameObjectTypePropertyEntity findOneByPropertyName(String propertyName);
 
     List<GameObjectTypePropertyEntity> findAllByAnyTextFieldContaining(String content);
@@ -24,7 +26,11 @@ public interface GameObjectTypePropertiesRepository {
 
     GameObjectTypePropertyEntity save(GameObjectTypePropertyEntity gameObjectTypeProperty);
 
+    Iterable<GameObjectTypePropertyEntity> bulkSave(Iterable<GameObjectTypePropertyEntity> gameObjectTypeProperties);
+
     void delete(GameObjectTypePropertyEntity gameObjectTypeProperty);
+
+    void bulkDelete(List<Long> gameObjectTypePropertyIds);
 
     void deleteByGameObjectType(GameObjectTypeEntity gameObjectType);
 }

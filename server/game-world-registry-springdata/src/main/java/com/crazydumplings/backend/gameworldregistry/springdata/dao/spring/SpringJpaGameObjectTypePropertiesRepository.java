@@ -25,6 +25,9 @@ public interface SpringJpaGameObjectTypePropertiesRepository
     @Query("select distinct gameObjectTypeProperty from GameObjectTypePropertyEntity gameObjectTypeProperty left join fetch gameObjectTypeProperty.gameObjectType where gameObjectTypeProperty.gameObjectType = ?1")
     List<GameObjectTypePropertyEntity> findAllByGameObjectType(GameObjectTypeEntity gameObjectType);
 
+    @Query("select distinct gameObjectTypeProperty from GameObjectTypePropertyEntity gameObjectTypeProperty left join fetch gameObjectTypeProperty.gameObjectType where gameObjectTypeProperty.gameObjectType = ?1 and gameObjectTypeProperty.id in ?2")
+    List<GameObjectTypePropertyEntity> findAllByGameObjectTypeAndIds(GameObjectTypeEntity gameObjectType, List<Long> ids);
+
     @Query("select distinct gameObjectTypeProperty from GameObjectTypePropertyEntity gameObjectTypeProperty left join fetch gameObjectTypeProperty.gameObjectType where gameObjectTypeProperty.propertyName = ?1")
     GameObjectTypePropertyEntity findOneByPropertyName(String propertyName);
 
@@ -46,4 +49,14 @@ public interface SpringJpaGameObjectTypePropertiesRepository
     @Modifying
     @Query("delete GameObjectTypePropertyEntity where gameObjectType = ?1")
     void deleteByGameObjectType(GameObjectTypeEntity gameObjectType);
+
+    @Transactional
+    @Modifying
+    @Query("delete GameObjectTypePropertyEntity where id in ?1")
+    void bulkDelete(List<Long> gameObjectTypePropertyIds);
+
+    @Override
+    default Iterable<GameObjectTypePropertyEntity> bulkSave(Iterable<GameObjectTypePropertyEntity> gameObjectTypeProperties) {
+        return this.saveAll(gameObjectTypeProperties);
+    }
 }

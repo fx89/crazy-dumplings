@@ -362,19 +362,29 @@ public interface GameWorldRegistryDataService {
 
     GameObjectTypeProperty newGameObjectTypeProperty() throws GameWorldRegistryDataServiceException;
 
+    GameObjectTypeProperty newGameObjectTypeProperty(Long id) throws GameWorldRegistryDataServiceException;
+
     GameObjectTypeProperty findGameObjectTypeProperty(Long id) throws GameWorldRegistryDataServiceException;
 
     GameObjectTypeProperty saveGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty)
+            throws GameWorldRegistryDataServiceException;
+
+    List<GameObjectTypeProperty> saveGameObjectTypeProperties(List<GameObjectTypeProperty> gameObjectTypeProperties)
             throws GameWorldRegistryDataServiceException;
 
     void deleteGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
 
     void deleteGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException;
 
+    void deleteGameObjectTypePropertiesByIds(List<Long> gameObjectTypePropertyIds) throws GameWorldRegistryDataServiceException;
+
     List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByExample(GameObjectTypeProperty example)
             throws GameWorldRegistryDataServiceException;
 
     List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType)
+            throws GameWorldRegistryDataServiceException;
+
+    List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectTypeAndIds(GameObjectType gameObjectType, List<Long> ids)
             throws GameWorldRegistryDataServiceException;
 
     GameObjectTypeProperty findGameObjectTypePropertyByPropertyName(String propertyName) throws GameWorldRegistryDataServiceException;
@@ -502,6 +512,8 @@ public interface GameWorldRegistryDataService {
     List<GameObjectType> findAllGameObjectTypes() throws GameWorldRegistryDataServiceException;
 
     GameObjectType newGameObjectType() throws GameWorldRegistryDataServiceException;
+
+    GameObjectType newGameObjectType(Long id) throws GameWorldRegistryDataServiceException;
 
     GameObjectType findGameObjectType(Long id) throws GameWorldRegistryDataServiceException;
 

@@ -74,6 +74,11 @@ public class MockGameObjectTypePropertiesRepository implements GameObjectTypePro
     }
 
     @Override
+    public List<GameObjectTypePropertyEntity> findAllByGameObjectTypeAndIds(GameObjectTypeEntity gameObjectType, List<Long> ids) {
+        throw new UnsupportedOperationException("Not implemented");
+    }
+
+    @Override
     public GameObjectTypePropertyEntity findOneByPropertyName(String propertyName) {
         return gameObjectTypeProperties.stream().filter(item -> item.getPropertyName() != null && item.getPropertyName().equals(propertyName))
                 .findFirst().orElse(null);
@@ -111,8 +116,18 @@ public class MockGameObjectTypePropertiesRepository implements GameObjectTypePro
     }
 
     @Override
+    public Iterable<GameObjectTypePropertyEntity> bulkSave(Iterable<GameObjectTypePropertyEntity> gameObjectTypeProperties) {
+        throw new UnsupportedOperationException("Not implemented");
+    }
+
+    @Override
     public void delete(GameObjectTypePropertyEntity gameObjectTypeProperty) {
         gameObjectTypeProperties.remove(gameObjectTypeProperty);
+    }
+
+    @Override
+    public void bulkDelete(List<Long> gameObjectTypePropertyIds) {
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
