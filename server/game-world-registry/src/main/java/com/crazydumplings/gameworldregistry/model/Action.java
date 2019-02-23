@@ -1,8 +1,8 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
-public interface Action extends Serializable, Comparable<Action> {
+public interface Action extends IdentifiableGameAsset, Comparable<Action> {
     Long getId();
 
     String getUniqueName();

@@ -1,8 +1,8 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
-public interface GameAddonInteractionReceivingPropertyModifier extends Serializable, Comparable<GameAddonInteractionReceivingPropertyModifier> {
+public interface GameAddonInteractionReceivingPropertyModifier extends IdentifiableGameAsset, Comparable<GameAddonInteractionReceivingPropertyModifier> {
     Long getId();
 
     GameObjectTypeAllowedAddonType getGameObjectTypeAllowedAddonType();

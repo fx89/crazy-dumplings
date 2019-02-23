@@ -1,8 +1,9 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
-public interface GameObjectTypeProperty extends Serializable, Comparable<GameObjectTypeProperty> {
+public interface GameObjectTypeProperty extends ParentableGameAsset, Comparable<GameObjectTypeProperty> {
     Long getId();
 
     GameObjectType getGameObjectType();
@@ -25,4 +26,11 @@ public interface GameObjectTypeProperty extends Serializable, Comparable<GameObj
 
     void setPropertyMaxValue(Double propertyMaxValue);
 
+    default IdentifiableGameAsset getParent() {
+        return getGameObjectType();
+    };
+
+    default void setParent(IdentifiableGameAsset parent) {
+        setGameObjectType((GameObjectType) parent);
+    };
 }

@@ -1,8 +1,8 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
-public interface GameWorldSpawnPointType extends Serializable, Comparable<GameWorldSpawnPointType> {
+public interface GameWorldSpawnPointType extends IdentifiableGameAsset, Comparable<GameWorldSpawnPointType> {
     Long getId();
 
     GameObjectType getSpawnPointGameObjectType();

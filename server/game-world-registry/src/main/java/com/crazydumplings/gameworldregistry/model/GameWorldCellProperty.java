@@ -1,8 +1,8 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
-public interface GameWorldCellProperty extends Serializable, Comparable<GameWorldCellProperty> {
+public interface GameWorldCellProperty extends IdentifiableGameAsset, Comparable<GameWorldCellProperty> {
     Long getId();
 
     GameWorldCell getGameWorldCell();

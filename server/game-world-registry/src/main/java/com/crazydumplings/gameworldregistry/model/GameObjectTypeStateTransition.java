@@ -1,8 +1,8 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
-public interface GameObjectTypeStateTransition extends Serializable, Comparable<GameObjectTypeStateTransition> {
+public interface GameObjectTypeStateTransition extends IdentifiableGameAsset, Comparable<GameObjectTypeStateTransition> {
     Long getId();
 
     GameObjectTypeState getSourceGameObjectTypeState();

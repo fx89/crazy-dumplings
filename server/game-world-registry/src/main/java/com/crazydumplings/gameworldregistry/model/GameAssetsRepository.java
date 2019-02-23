@@ -1,11 +1,11 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public interface GameAssetsRepository extends Serializable, Comparable<GameAssetsRepository> {
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+
+public interface GameAssetsRepository extends IdentifiableGameAsset, Comparable<GameAssetsRepository> {
     Long getId();
 
     @NotNull

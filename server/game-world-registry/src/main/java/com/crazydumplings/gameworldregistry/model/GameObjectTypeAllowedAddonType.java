@@ -1,8 +1,8 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import java.io.Serializable;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
-public interface GameObjectTypeAllowedAddonType extends Serializable, Comparable<GameObjectTypeAllowedAddonType> {
+public interface GameObjectTypeAllowedAddonType extends IdentifiableGameAsset, Comparable<GameObjectTypeAllowedAddonType> {
     Long getId();
 
     String getUniqueName();

@@ -16,6 +16,7 @@
         <fx-utils-version>1.0.0-SNAPSHOT</fx-utils-version>
         <slf4j-version>2.1</slf4j-version>
         <validation-version>2.0.1.Final</validation-version>
+        <javax-annotation-version>1.3.2</javax-annotation-version>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
@@ -30,6 +31,13 @@
 
     <dependencyManagement>
         <dependencies>
+
+        <!-- JAVAX.* -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>${javax-annotation-version}</version>
+        </dependency>
 
         <!-- SPRING BOOT REST + TEST -->
         <dependency>

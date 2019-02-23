@@ -2,7 +2,14 @@ package com.crazydumplings.gameworldregistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
@@ -13,6 +20,8 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
 /**
  * Defines the main service interface for accessing the game world registry. Data source can be injected.
@@ -22,6 +31,12 @@ public class GameWorldRegistryService {
     private GameWorldRegistryDataService dataService;
 
     private GameWorldRegistrySerializationHelper serializationHelper = new GameWorldRegistrySerializationHelper();
+
+
+
+    private GenericOperationsDelegate<GameObjectTypeProperty> gameObjectTypePropertiesOperationsDelegate;
+
+
 
     public GameWorldRegistrySerializationHelper getSerializationHelper() {
         return serializationHelper;
@@ -43,6 +58,34 @@ public class GameWorldRegistryService {
 
     }
 
+
+    @PostConstruct
+    public void init() {
+        gameObjectTypePropertiesOperationsDelegate = new GenericOperationsDelegate<>(
+             // Bulk save operation
+                (assets) -> dataService.saveGameObjectTypeProperties(assets), // Bulk save operation
+
+             // Bulk search operation
+                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeAndIds((GameObjectType) parentAsset, childAssetIds),
+
+             // Parent search operation
+                (repoId, parentAssetId) -> getGameObjectTypeOrThrow(repoId, parentAssetId),
+
+             // Search by parent function
+                (parentAsset) -> dataService.findAllGameObjectTypePropertiesByGameObjectType((GameObjectType)parentAsset),
+
+             // Properties update operation (inputData = what comes from the front end, registeredAsset = what's in the registry)
+                (inputData, registeredAsset) -> {
+                    if (inputData.getPropertyName()         != null) registeredAsset.setPropertyName        (inputData.getPropertyName());
+                    if (inputData.getPropertyDefaultValue() != null) registeredAsset.setPropertyDefaultValue(inputData.getPropertyDefaultValue());
+                    if (inputData.getPropertyMinValue()     != null) registeredAsset.setPropertyMinValue    (inputData.getPropertyMinValue());
+                    if (inputData.getPropertyMaxValue()     != null) registeredAsset.setPropertyMaxValue    (inputData.getPropertyMaxValue());
+                },
+
+             // Bulk delete operation
+                (assetIds) -> dataService.deleteGameObjectTypePropertiesByIds(assetIds)
+        );
+    }
 
 
 
@@ -205,14 +248,15 @@ public class GameWorldRegistryService {
 
 
 
+    /**
+     * List the properties of the referenced game object type
+     */
     public List<GameObjectTypeProperty> getGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId) {
-        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
-
-        List<GameObjectTypeProperty> ret = dataService.findAllGameObjectTypePropertiesByGameObjectType(gameObjectType);
-
-        ret.forEach(prop -> { prop.setGameObjectType(cleanupGameobjectType(prop.getGameObjectType())); } );
-
-        return ret;
+        return gameObjectTypePropertiesOperationsDelegate.getByParentId(repositoryId, gameObjectTypeId)
+                  .stream()
+                  .map(prop -> {  prop.setGameObjectType(cleanupGameobjectType(prop.getGameObjectType())); return prop; })
+                  .collect(Collectors.toList())
+               ;
     }
 
     /**
@@ -230,143 +274,208 @@ public class GameWorldRegistryService {
                     .stream()
                     .findFirst()
                     .orElseThrow(
-                        () -> new CrazyDumplingsGameWorldRegistryException("There was an error while attempting to save the game object type property. Please report this as a bug. ") 
+                        () -> new CrazyDumplingsGameWorldRegistryException("There was an error while attempting to save the game object type property. Please report this as a bug. ")
                      )
         ;
     }
 
     /**
-     * Create a new game object type property instance having the given properties
+     * Update or save one or more game object properties
      */
-    public GameObjectTypeProperty createGameObjectTypePropertyInstance(
-        Long gameObjectTypeId, Long gameObjectTypePropertyId,
-        String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
-    ) {
-        GameObjectTypeProperty ret = dataService.newGameObjectTypeProperty(gameObjectTypePropertyId);
-
-        ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
-        ret.setPropertyName(propertyName);
-        ret.setPropertyDefaultValue(propertyDefaultValue);
-        ret.setPropertyMinValue(propertyMinValue);
-        ret.setPropertyMaxValue(propertyMaxValue);
-
-        return ret;
+    public List<GameObjectTypeProperty> bulkSaveGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId, List<GameObjectTypeProperty> gameObjectTypeProperties) {
+        return gameObjectTypePropertiesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, gameObjectTypeProperties)
+                    .stream().map(property -> cleanupGameObjectTypeProperty(property))
+                        .collect(Collectors.toList());
     }
 
     /**
-     * Add or update each of the game object type properties in the given list while performing a minimum amount of database operations
+     * Delete one or more game object properties
      */
-    public List<GameObjectTypeProperty> bulkSaveGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId, List<GameObjectTypeProperty> gameObjectTypeProperties) {
-     // Get the referenced parent game object type from the registry or throw an error if the reference is invalid
-        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
-
-     // If the game object type reference is correct, then split the input into two separate lists: 
-        List<GameObjectTypeProperty> toBeUpdated = new ArrayList<>(); // one for properties that have to be updated and
-        List<GameObjectTypeProperty> toBeAdded   = new ArrayList<>(); // one for newly updated properties that have to be added to the registry
-        splitGameObjectTypePropertiesList(gameObjectTypeProperties, toBeUpdated, toBeAdded);
-
-     // This list will combine the results of the following two operations
-        List<GameObjectTypeProperty> ret = new ArrayList<>();
-
-     // The list of game object type properties to be updated needs to be treated differently than that of game object type properties to be added:
-        ret.addAll(bulkUpdateGameObjectTypeProperties(gameObjectType, toBeUpdated)); // Properties to be updated need to be verified to make sure they are mapped in the registry to the same game object types that the caller states they are mapped to
-        ret.addAll(bulkAddGameObjectTypeProperties   (gameObjectType, toBeAdded  )); // Properties to be added can just be inserted into the database since they will get new id's and there is no risk to update the wrong properties by mistake
-
-        return ret.stream().map(prop -> cleanupGameObjectTypeProperty(prop)).collect(Collectors.toList());
-    }
-
-    private List<GameObjectTypeProperty> bulkUpdateGameObjectTypeProperties(GameObjectType gameObjectType, List<GameObjectTypeProperty> gameObjectTypeProperties) throws CrazyDumplingsGameWorldRegistryException {
-        List<Long> assetIds = gameObjectTypeProperties.stream().map(prop -> prop.getId()).collect(Collectors.toList());
-
-     // Query the registry for the game object type properties of the given game object type having the given ids
-        List<GameObjectTypeProperty> registeredProperties = dataService.findAllGameObjectTypePropertiesByGameObjectTypeAndIds(gameObjectType, assetIds);
-
-     // Check that all the given properties have been found in the registry for the referenced game object type
-        gameObjectTypeProperties.forEach(givenProperty -> {
-            if (false == registeredProperties.stream().anyMatch(registeredProperty -> givenProperty.getId().equals(registeredProperty.getId()))) {
-                throw new CrazyDumplingsGameWorldRegistryException("The given game object type properties mapping is not consistent with that in the registry. The registry may have been modified prior to the current operation. ");
-            }
-        });
-
-     // If the consistency check was successful, the only thing left to do is update the registry
-        registeredProperties.forEach(registeredProperty -> {
-        // Find the input data - OK, this could have been done with less loops, but in this day and age it's better to not mix up different scopes in the same loop
-           GameObjectTypeProperty inputData = gameObjectTypeProperties.stream()
-                                                    .filter(property -> property.getId().equals(registeredProperty.getId()))
-                                                    .findFirst()
-                                                    .orElse(null);
-
-        // The input data should always be found unless the registry contains more properties than given by the caller
-           if (inputData != null) {
-             // One or more attributes may be missing in the input data
-             // This indicates that the caller requires only certain attributes to be updated while the others should be left alone
-                if (inputData.getPropertyName()         != null) registeredProperty.setPropertyName        (inputData.getPropertyName());
-                if (inputData.getPropertyDefaultValue() != null) registeredProperty.setPropertyDefaultValue(inputData.getPropertyDefaultValue());
-                if (inputData.getPropertyMinValue()     != null) registeredProperty.setPropertyMinValue    (inputData.getPropertyMinValue());
-                if (inputData.getPropertyMaxValue()     != null) registeredProperty.setPropertyMaxValue    (inputData.getPropertyMaxValue());
-           }
-        });
-
-     // Finally, save the data
-        return dataService.saveGameObjectTypeProperties(registeredProperties);
-    }
-
-    private List<GameObjectTypeProperty> bulkAddGameObjectTypeProperties(GameObjectType gameObjectType, List<GameObjectTypeProperty> gameObjectTypeProperties) {
-        gameObjectTypeProperties.forEach(gameObjectTypeProperty -> {
-            gameObjectTypeProperty.setGameObjectType(gameObjectType);
-        });
-
-        return dataService.saveGameObjectTypeProperties(gameObjectTypeProperties);
-    }
-
-    private static void splitGameObjectTypePropertiesList(List<GameObjectTypeProperty> source, List<GameObjectTypeProperty> toBeUpdated, List<GameObjectTypeProperty> toBeAdded) {
-        source.forEach(property -> { 
-            if (property.getId() == null) {
-                toBeAdded.add(property);
-            } else {
-                toBeUpdated.add(property);
-            }
-        });
-    }
-
-    public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
-        GameObjectTypeProperty gameObjectTypeProperty = getGameObjectTypePropertyOrThrow(repositoryId, gameObjectTypeId, gameObjectTypePropertyId);
-        dataService.deleteGameObjectTypeProperty(gameObjectTypeProperty);
-    }
-
     public void bulkDeleteGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId, List<Long> gameObjectTypePropertyIds) {
-     // Get the game object type from the registry
-        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
-
-     // Get the list of properties for the game object type having the given ids
-        List<GameObjectTypeProperty> registeredProperties = dataService.findAllGameObjectTypePropertiesByGameObjectTypeAndIds(gameObjectType, gameObjectTypePropertyIds);
-
-     // Consistency check
-        gameObjectTypePropertyIds.forEach(propertyId -> {
-            if (false == registeredProperties.stream().anyMatch(prop -> prop.getId() == propertyId)) {
-                throw new CrazyDumplingsGameWorldRegistryException("The given game object type properties mapping is not consistent with that in the registry. The registry may have been modified prior to the current operation. ");
-            }
-        });
-
-     // Bulk delete
-        dataService.deleteGameObjectTypePropertiesByIds(gameObjectTypePropertyIds);
+        gameObjectTypePropertiesOperationsDelegate.bulkDeleteGameAssets(repositoryId, gameObjectTypeId, gameObjectTypePropertyIds);
     }
 
-    private GameObjectTypeProperty getGameObjectTypePropertyOrThrow(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) throws CrazyDumplingsGameWorldRegistryException {
-        GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
-        GameObjectTypeProperty gameObjectTypeProperty = dataService.findGameObjectTypeProperty(gameObjectTypePropertyId);
+    /**
+     * Delete a game object property
+     */
+    public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
+        bulkDeleteGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(gameObjectTypePropertyId));
+    }
 
-        if (gameObjectTypeProperty == null || !(gameObjectTypeProperty.getGameObjectType().equals(gameObjectType))) {
-            throw new CrazyDumplingsGameWorldRegistryException("The game object type [" + gameObjectType.getUniqueName() + "] does not contain the referenced property");
+    /**
+     * Create a new game object type property in memory and without saving it into the registry
+     */
+    public GameObjectTypeProperty createGameObjectTypePropertyInstance(
+            Long gameObjectTypeId, Long gameObjectTypePropertyId,
+            String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
+        ) {
+            GameObjectTypeProperty ret = dataService.newGameObjectTypeProperty(gameObjectTypePropertyId);
+
+            ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
+            ret.setPropertyName(propertyName);
+            ret.setPropertyDefaultValue(propertyDefaultValue);
+            ret.setPropertyMinValue(propertyMinValue);
+            ret.setPropertyMaxValue(propertyMaxValue);
+
+            return ret;
         }
-
-        return gameObjectTypeProperty;
-    }
 
  // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
     private static GameObjectTypeProperty cleanupGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) {
         gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType()));
         return gameObjectTypeProperty;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * Performs database operations while verifying consistency
+     */
+    private static class GenericOperationsDelegate <T extends ParentableGameAsset> {
+        private UnaryOperator<List<T>> bulkSaveOperation;
+        private BiFunction<IdentifiableGameAsset,List<Long>,List<T>> searchFunction;
+        private BiFunction<Long,Long, IdentifiableGameAsset> parentSearchOperation;
+        Function<IdentifiableGameAsset,List<T>> searchByParentFunction;
+        private BiConsumer<T,T> propertyMergingConsumer;
+        private Consumer<List<Long>> bulkDeleteConsumer;
+
+        public GenericOperationsDelegate(
+            UnaryOperator<List<T>> bulkSaveOperation,
+            BiFunction<IdentifiableGameAsset,List<Long>,List<T>> searchFunction,
+            BiFunction<Long,Long, IdentifiableGameAsset> parentSearchOperation,
+            Function<IdentifiableGameAsset,List<T>> searchByParentFunction,
+            BiConsumer<T,T> propertyMergingConsumer,
+            Consumer<List<Long>> bulkDeleteConsumer
+        ) {
+            this.bulkSaveOperation = bulkSaveOperation;
+            this.searchFunction = searchFunction;
+            this.parentSearchOperation = parentSearchOperation;
+            this.searchByParentFunction = searchByParentFunction;
+            this.propertyMergingConsumer = propertyMergingConsumer;
+            this.bulkDeleteConsumer = bulkDeleteConsumer;
+        }
+
+        /**
+         * Get a list of all the children of the referenced parent game asset
+         */
+        public List<T> getByParentId(Long repositoryId, Long parentId) {
+            IdentifiableGameAsset parent = parentSearchOperation.apply(repositoryId, parentId);
+            return searchByParentFunction.apply(parent);
+        }
+
+        /**
+         * Add or update each of the game assets in the given list using a minimum amount of database operations
+         * while also performing consistency checks
+         */
+        public List<T> bulkSaveGameAssets(Long repositoryId, Long parentAssetId, List<T> childAssets) {
+         // Fail-safe in case garbage data is provided
+            if (childAssets == null || childAssets.size() == 0) {
+                return childAssets;
+            }
+
+         // Get the referenced parent game asset from the registry or throw an error if the reference is invalid
+            IdentifiableGameAsset parentAsset = parentSearchOperation.apply(repositoryId, parentAssetId);
+
+         // If the parent reference is correct, then split the input into two separate lists: 
+            List<T> toBeUpdated = new ArrayList<>(); // one for child assets that have to be updated and
+            List<T> toBeAdded   = new ArrayList<>(); // one for newly updated child assets that have to be added to the registry
+            splitAssetsList(childAssets, toBeUpdated, toBeAdded);
+
+         // This list will combine the results of the following two operations
+            List<T> ret = new ArrayList<>();
+
+         // The list of assets to be updated needs to be treated differently than that of assets to be added:
+            if (toBeUpdated.size() > 0) ret.addAll(bulkUpdateGameAssets(parentAsset, toBeUpdated)); // Assets to be updated need to be verified to make sure they are mapped in the registry to the same parent that the caller states they are mapped to
+            if (toBeAdded  .size() > 0) ret.addAll(bulkAddGameAssets   (parentAsset, toBeAdded  )); // Assets to be added can just be inserted into the database since they will get new id's and there is no risk to update the wrong assets by mistake
+
+         // return ret.stream().map(prop -> cleanupGameObjectTypeProperty(prop)).collect(Collectors.toList());
+            return ret;
+        }
+
+        private List<T> bulkUpdateGameAssets(IdentifiableGameAsset parentAsset, List<T> childAssets) throws CrazyDumplingsGameWorldRegistryException {
+            List<Long> assetIds = childAssets.stream().map(prop -> prop.getId()).collect(Collectors.toList());
+
+         // Query the registry for the child assets of the given parent asset having the given ids
+            List<T> registeredAssets = searchFunction.apply(parentAsset, assetIds);
+
+         // Check that all the given child assets have been found in the registry for the referenced parent asset
+            childAssets.forEach(givenChildAsset -> {
+                if (false == registeredAssets.stream().anyMatch(registeredChildAsset -> givenChildAsset.getId().equals(registeredChildAsset.getId()))) {
+                    throw new CrazyDumplingsGameWorldRegistryException("The given assets mapping is not consistent with that in the registry. The registry may have been modified prior to the current operation. ");
+                }
+            });
+
+         // If the consistency check was successful, the only thing left to do is update the registry
+            registeredAssets.forEach(registeredAsset -> {
+            // Find the input data - OK, this could have been done with less loops, but in this day and age it's better to not mix up different scopes in the same loop
+               T inputData = childAssets.stream()
+                                            .filter(property -> property.getId().equals(registeredAsset.getId()))
+                                            .findFirst()
+                                            .orElse(null);
+
+            // The input data should always be found unless the registry contains more properties than given by the caller
+               if (inputData != null) {
+                 // One or more attributes may be missing in the input data
+                 // This indicates that the caller requires only certain attributes to be updated while the others should be left alone
+                 // This is context specific and, as such, it has to be handled by the caller
+                    propertyMergingConsumer.accept(inputData, registeredAsset);
+               }
+            });
+
+         // Finally, save the data
+            return bulkSaveOperation.apply(registeredAssets);
+        }
+
+        private List<T> bulkAddGameAssets(IdentifiableGameAsset parent, List<T> assets) {
+            assets.forEach(asset -> { asset.setParent(parent); });
+            return bulkSaveOperation.apply(assets);
+        }
+
+        private static <T extends IdentifiableGameAsset> void splitAssetsList(List<T> source, List<T> toBeUpdated, List<T> toBeAdded) {
+            source.forEach(property -> { 
+                if (property.getId() == null) {
+                    toBeAdded.add(property);
+                } else {
+                    toBeUpdated.add(property);
+                }
+            });
+        }
+
+        /**
+         * Deletes a list of items with a minimum amount of database operations while also verifying consistency
+         */
+        public void bulkDeleteGameAssets(Long repositoryId, Long parentAssetId, List<Long> childAssetIds) {
+            if (childAssetIds != null && childAssetIds.size() > 0) {
+                // Get the parent asset from the registry
+                   IdentifiableGameAsset parentAsset = parentSearchOperation.apply(repositoryId, parentAssetId);
+
+                // Get the list of child assets having the given ids
+                   List<T> registeredAssets = searchFunction.apply(parentAsset, childAssetIds);
+
+                // Consistency check
+                   childAssetIds.forEach(assetId -> {
+                       if (false == registeredAssets.stream().anyMatch(asset -> asset.getId() == assetId)) {
+                           throw new CrazyDumplingsGameWorldRegistryException("The given game assets mapping is not consistent with that in the registry. The registry may have been modified prior to the current operation. ");
+                       }
+                   });
+
+                // Bulk delete
+                   bulkDeleteConsumer.accept(childAssetIds);
+           }
+        }
+    }
+
+
 
 }
