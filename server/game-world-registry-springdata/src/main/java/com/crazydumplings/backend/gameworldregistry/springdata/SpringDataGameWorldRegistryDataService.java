@@ -24,6 +24,7 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.Automat
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAddonInteractionReceivingPropertyModifierEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAssetsRepositoryEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAssetsRepositoryOwnerEntity;
+import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAssetsRepositoryPictureEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameClientTypeEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeAllowedAddonTypeEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeAutomationEntity;
@@ -53,6 +54,7 @@ import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 import com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
+import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameClientType;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeAllowedAddonType;
@@ -1994,4 +1996,39 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
     public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(GameAssetsRepository gameAssetsRepository, Long ownerUserId) {
         return new GameAssetsRepositoryOwnerEntity((GameAssetsRepositoryEntity) gameAssetsRepository, ownerUserId);
     }
+
+	@Override
+	public GameAssetsRepositoryPicture newGameAssetsRepositoryPicture() throws GameWorldRegistryDataServiceException {
+		return new GameAssetsRepositoryPictureEntity();
+	}
+
+	@Override
+	public List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPictures() throws GameWorldRegistryDataServiceException {
+		return new ArrayList<>(daoBundle.gameAssetsRepositoryPicturesRepository.findAll());
+	}
+
+	@Override
+	public GameAssetsRepositoryPicture findGameAssetsRepositoryPicture(Long id) throws GameWorldRegistryDataServiceException {
+		return daoBundle.gameAssetsRepositoryPicturesRepository.findOneById(id);
+	}
+
+	@Override
+	public GameAssetsRepositoryPicture findOneGameAssetsRepositoryPictureByGameAssetsRepositoryId(Long gameAssetsRepositoryId) throws GameWorldRegistryDataServiceException {
+		return daoBundle.gameAssetsRepositoryPicturesRepository.findOneByGameAssetsRepositoryId(gameAssetsRepositoryId);
+	}
+
+	@Override
+	public GameAssetsRepositoryPicture saveGameAssetsRepositoryPicture( GameAssetsRepositoryPicture gameAssetsRepositoryPicture) throws GameWorldRegistryDataServiceException {
+		return daoBundle.gameAssetsRepositoryPicturesRepository.save(gameAssetsRepositoryPicture);
+	}
+
+	@Override
+	public void deleteGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) throws GameWorldRegistryDataServiceException {
+		daoBundle.gameAssetsRepositoryPicturesRepository.delete(gameAssetsRepositoryPicture);
+	}
+
+	@Override
+	public void deleteGameAssetsRepositoryPicturesByGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException {
+		daoBundle.gameAssetsRepositoryPicturesRepository.deleteByGameAssetsRepository(gameAssetsRepository);
+	}
 }

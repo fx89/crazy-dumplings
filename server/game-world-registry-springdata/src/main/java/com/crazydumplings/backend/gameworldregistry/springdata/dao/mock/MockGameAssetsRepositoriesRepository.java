@@ -45,7 +45,6 @@ public class MockGameAssetsRepositoriesRepository implements GameAssetsRepositor
 
         gameAssetsRepository.setUniqueName("GAME ASSETS REPOSITORY " + id + " UNIQUE NAME");
         gameAssetsRepository.setDescription("GAME ASSETS REPOSITORY " + id + " DESCRIPTION");
-        gameAssetsRepository.setPictureHash("GAME ASSETS REPOSITORY " + id + " PICTURE REF PATH");
 
         if (withDependencies) {
         }
@@ -73,8 +72,7 @@ public class MockGameAssetsRepositoriesRepository implements GameAssetsRepositor
     public List<GameAssetsRepositoryEntity> findAllByAnyTextFieldContaining(String content) {
         return gameAssetsRepositories.stream()
                 .filter(item -> ((item.getUniqueName() != null && item.getUniqueName().contains(content))
-                        || (item.getDescription() != null && item.getDescription().contains(content))
-                        || (item.getPictureHash() != null && item.getPictureHash().contains(content))))
+                        || (item.getDescription() != null && item.getDescription().contains(content))))
                 .collect(Collectors.toList());
     }
 

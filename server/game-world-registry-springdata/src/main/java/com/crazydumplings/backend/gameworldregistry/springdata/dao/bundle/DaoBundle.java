@@ -9,6 +9,7 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.AutomationObj
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAddonInteractionReceivingPropertyModifiersRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAssetsRepositoriesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAssetsRepositoryOwnersRepository;
+import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAssetsRepositoryPicturesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameClientTypesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameObjectTypeAllowedAddonTypesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameObjectTypeAutomationsRepository;
@@ -55,6 +56,7 @@ public abstract class DaoBundle {
     public GameAssetsRepositoriesRepository                         gameAssetsRepositoriesRepository;
     public GameObjectTypesRepository                                gameObjectTypesRepository;
     public GameAssetsRepositoryOwnersRepository                     gameAssetsRepositoryOwnersRepository;
+    public GameAssetsRepositoryPicturesRepository                   gameAssetsRepositoryPicturesRepository;
 
     public void verify() {
         Objects.requireNonNull(playableCharacterTypesRepository, MSG__DID_NOT_INITIALIZE + "the playable character types repository");
@@ -86,5 +88,6 @@ public abstract class DaoBundle {
         Objects.requireNonNull(gameAssetsRepositoriesRepository, MSG__DID_NOT_INITIALIZE + "the game assets repositories repository");
         Objects.requireNonNull(gameObjectTypesRepository, MSG__DID_NOT_INITIALIZE + "the game object types repository");
         Objects.requireNonNull(gameAssetsRepositoryOwnersRepository, MSG__DID_NOT_INITIALIZE + "the game assets repository owners repository");
+        Objects.requireNonNull(gameAssetsRepositoryPicturesRepository, MSG__DID_NOT_INITIALIZE + "the game assets repository pictures repository");
     }
 }

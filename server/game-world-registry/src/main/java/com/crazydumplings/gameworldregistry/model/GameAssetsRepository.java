@@ -17,9 +17,4 @@ public interface GameAssetsRepository extends IdentifiableGameAsset, Comparable<
     String getDescription();
 
     void setDescription(String description);
-
-    // TODO: move the picture hash in a different entity so that it does not get downloaded when not needed
-    String getPictureHash();
-
-    void setPictureHash(String pictureHash);
 }

@@ -40,7 +40,6 @@ public class GameAssetsRepositoryEntity implements GameAssetsRepository {
         this.id = id;
         this.uniqueName = entity.uniqueName;
         this.description = entity.description;
-        this.pictureHash = entity.pictureHash;
     }
 
     @Column(name = "UNIQUE_NAME")
@@ -49,9 +48,6 @@ public class GameAssetsRepositoryEntity implements GameAssetsRepository {
 
     @Column(name = "DESCRIPTION")
     private String description;
-
-    @Column(name = "PICTURE_HASH")
-    private String pictureHash;
 
     public String getUniqueName() {
         return uniqueName;
@@ -67,14 +63,6 @@ public class GameAssetsRepositoryEntity implements GameAssetsRepository {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPictureHash() {
-        return pictureHash;
-    }
-
-    public void setPictureHash(String pictureHash) {
-        this.pictureHash = pictureHash;
     }
 
     @Override

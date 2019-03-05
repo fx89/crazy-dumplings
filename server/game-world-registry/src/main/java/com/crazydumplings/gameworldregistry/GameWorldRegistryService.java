@@ -17,6 +17,7 @@ import com.crazydumplings.gameworldregistry.exception.CrazyDumplingsGameWorldReg
 import com.crazydumplings.gameworldregistry.helper.GameWorldRegistrySerializationHelper;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
+import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
@@ -91,21 +92,23 @@ public class GameWorldRegistryService {
 
 
 
-
-    public List<GameAssetsRepository> getAllRepositories() {
-        return dataService.findAllGameAssetsRepositories();
+    public List<GameAssetsRepository> getAllGameAssetsRepositories() {
+    	return dataService.findAllGameAssetsRepositories();
     }
 
-    public GameAssetsRepository setPictureForGameAssetsRepository(String repositoryUniqueName, String pictureHash) {
-        GameAssetsRepository rep = dataService.findGameAssetsRepositoryByUniqueName(repositoryUniqueName);
-        rep.setPictureHash(pictureHash);
-        return dataService.saveGameAssetsRepository(rep);
+    public List<GameAssetsRepositoryPicture> getAllGameAssetsRepositoryPictures() {
+    	return dataService.findAllGameAssetsRepositoryPictures();
+    }
+
+    public GameAssetsRepositoryPicture createGameAssetsRepositoryPicture() {
+    	return dataService.newGameAssetsRepositoryPicture();
     }
 
     public void deleteGameAssetsRepository(Long repoId) {
         GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
 
         dataService.deleteGameAssetsRepositoryOwnersByGameAssetsRepository(rep);
+        dataService.deleteGameAssetsRepositoryPicturesByGameAssetsRepository(rep);
 
         dataService.deleteGameAssetsRepository(rep);
     }
@@ -126,7 +129,6 @@ public class GameWorldRegistryService {
      // Attributes should be set only if provided
         if (uniqueName  != null) rep.setUniqueName (uniqueName );
         if (description != null) rep.setDescription(description);
-        if (pictureHash != null) rep.setPictureHash(pictureHash);
 
         rep = dataService.saveGameAssetsRepository(rep);
 
@@ -134,6 +136,19 @@ public class GameWorldRegistryService {
         if (repoId == null || repoId <= 0) {
             GameAssetsRepositoryOwner repOwner = dataService.newGameAssetsRepositoryOwner(rep, currentUserId);
             dataService.saveGameAssetsRepositoryOwner(repOwner);
+        }
+
+     // Set the picture hash (if any provided)
+        if (pictureHash != null) {
+        	GameAssetsRepositoryPicture pic = dataService.findOneGameAssetsRepositoryPictureByGameAssetsRepositoryId(rep.getId());
+        	if (pic == null) {
+        		pic = dataService.newGameAssetsRepositoryPicture();
+        	}
+
+        	pic.setHash(pictureHash);
+        	pic.setParent(rep);
+
+        	pic = dataService.saveGameAssetsRepositoryPicture(pic);
         }
 
      // Return a reference to the newly created repository
@@ -181,9 +196,7 @@ public class GameWorldRegistryService {
 
 
     public List<GameObjectType> getGameObjectTypes(Long repostoryId) {
-        return dataService.findAllGameObjectTypesByGameAssetsRepository(getRepositoryOrThrow(repostoryId))
-                        .stream().map(asset ->cleanupGameobjectType(asset))
-                        .collect(Collectors.toList());
+        return dataService.findAllGameObjectTypesByGameAssetsRepository(getRepositoryOrThrow(repostoryId));
     }
 
     /**
@@ -211,21 +224,13 @@ public class GameWorldRegistryService {
 
      // Then the type must be saved into the repository
      // The saved instance should be returned to the caller for eventual future reference
-        return cleanupGameobjectType(dataService.saveGameObjectType(gameObjectType));
+        return dataService.saveGameObjectType(gameObjectType);
     }
 
     public void deleteGameObjectType(Long repositoryId, Long gameObjectTypeId) {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
         dataService.deleteGameObjectTypePropertiesByGameObjectType(gameObjectType);
         dataService.deleteGameObjectType(gameObjectType);
-    }
-
-    // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
-    private static GameObjectType cleanupGameobjectType(GameObjectType gameObjectType) {
-        gameObjectType.getGameAssetsRepository().setPictureHash("removed");
-        gameObjectType.getGameAssetsRepository().setDescription("removed");
-
-        return gameObjectType;
     }
 
     private GameObjectType getGameObjectTypeOrThrow(Long repoId, Long assetId) throws CrazyDumplingsGameWorldRegistryException {
@@ -252,40 +257,25 @@ public class GameWorldRegistryService {
      * List the properties of the referenced game object type
      */
     public List<GameObjectTypeProperty> getGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId) {
-        return gameObjectTypePropertiesOperationsDelegate.getByParentId(repositoryId, gameObjectTypeId)
-                  .stream()
-                  .map(prop -> {  prop.setGameObjectType(cleanupGameobjectType(prop.getGameObjectType())); return prop; })
-                  .collect(Collectors.toList())
-               ;
+        return gameObjectTypePropertiesOperationsDelegate.getByParentId(repositoryId, gameObjectTypeId);
     }
 
     /**
      * Update or create a game object type property depending on the presence of a valid gameObjectTypePropertyId
      */
-    public GameObjectTypeProperty saveGameObjectTypeProperty(
-            Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId,
-            String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
-    ) throws CrazyDumplingsGameWorldRegistryException {
+    public GameObjectTypeProperty saveGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) throws CrazyDumplingsGameWorldRegistryException {
         GameObjectTypeProperty gameObjectTypeProperty = createGameObjectTypePropertyInstance(
-                                                                gameObjectTypeId, gameObjectTypePropertyId,
-                                                                propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue
-                                                            );
-        return bulkSaveGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(gameObjectTypeProperty))
-                    .stream()
-                    .findFirst()
-                    .orElseThrow(
-                        () -> new CrazyDumplingsGameWorldRegistryException("There was an error while attempting to save the game object type property. Please report this as a bug. ")
-                     )
-        ;
+        		gameObjectTypeId, gameObjectTypePropertyId, propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue
+        );
+
+        return bulkSaveGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(gameObjectTypeProperty)).get(0);
     }
 
     /**
      * Update or save one or more game object properties
      */
     public List<GameObjectTypeProperty> bulkSaveGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId, List<GameObjectTypeProperty> gameObjectTypeProperties) {
-        return gameObjectTypePropertiesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, gameObjectTypeProperties)
-                    .stream().map(property -> cleanupGameObjectTypeProperty(property))
-                        .collect(Collectors.toList());
+        return gameObjectTypePropertiesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, gameObjectTypeProperties);
     }
 
     /**
@@ -308,23 +298,18 @@ public class GameWorldRegistryService {
     public GameObjectTypeProperty createGameObjectTypePropertyInstance(
             Long gameObjectTypeId, Long gameObjectTypePropertyId,
             String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
-        ) {
-            GameObjectTypeProperty ret = dataService.newGameObjectTypeProperty(gameObjectTypePropertyId);
+    ) {
+        GameObjectTypeProperty ret = dataService.newGameObjectTypeProperty(gameObjectTypePropertyId);
 
-            ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
-            ret.setPropertyName(propertyName);
-            ret.setPropertyDefaultValue(propertyDefaultValue);
-            ret.setPropertyMinValue(propertyMinValue);
-            ret.setPropertyMaxValue(propertyMaxValue);
+        ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
+        ret.setPropertyName(propertyName);
+        ret.setPropertyDefaultValue(propertyDefaultValue);
+        ret.setPropertyMinValue(propertyMinValue);
+        ret.setPropertyMaxValue(propertyMaxValue);
 
-            return ret;
-        }
-
- // TODO: remove this garbage workaround after the picture hash has been moved into a different entity
-    private static GameObjectTypeProperty cleanupGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) {
-        gameObjectTypeProperty.setGameObjectType(cleanupGameobjectType(gameObjectTypeProperty.getGameObjectType()));
-        return gameObjectTypeProperty;
+        return ret;
     }
+
 
 
 

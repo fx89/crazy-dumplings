@@ -8,6 +8,7 @@ import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 import com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
+import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameClientType;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeAllowedAddonType;
@@ -501,8 +502,22 @@ public interface GameWorldRegistryDataService {
 
     void deleteGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException;
 
+    GameAssetsRepositoryPicture newGameAssetsRepositoryPicture() throws GameWorldRegistryDataServiceException;
+
+    List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPictures() throws GameWorldRegistryDataServiceException;
+
+    GameAssetsRepositoryPicture findGameAssetsRepositoryPicture(Long id) throws GameWorldRegistryDataServiceException;
+
     List<GameAssetsRepository> findAllGameAssetsRepositoriesByExample(GameAssetsRepository example)
             throws GameWorldRegistryDataServiceException;
+
+    GameAssetsRepositoryPicture findOneGameAssetsRepositoryPictureByGameAssetsRepositoryId(Long gameAssetsRepositoryId) throws GameWorldRegistryDataServiceException;
+
+    GameAssetsRepositoryPicture saveGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) throws GameWorldRegistryDataServiceException;
+
+    void deleteGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) throws GameWorldRegistryDataServiceException;
+
+    void deleteGameAssetsRepositoryPicturesByGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException;
 
     GameAssetsRepository findGameAssetsRepositoryByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
 

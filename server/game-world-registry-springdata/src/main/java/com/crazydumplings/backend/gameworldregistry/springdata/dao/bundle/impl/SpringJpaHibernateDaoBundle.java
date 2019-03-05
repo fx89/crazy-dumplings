@@ -7,6 +7,7 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.AutomationObj
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAddonInteractionReceivingPropertyModifiersRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAssetsRepositoriesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAssetsRepositoryOwnersRepository;
+import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameAssetsRepositoryPicturesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameClientTypesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameObjectTypeAllowedAddonTypesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.GameObjectTypeAutomationsRepository;
@@ -57,5 +58,6 @@ public class SpringJpaHibernateDaoBundle extends DaoBundle {
         gameAssetsRepositoriesRepository = springApplicationContext.getBean(GameAssetsRepositoriesRepository.class);
         gameObjectTypesRepository = springApplicationContext.getBean(GameObjectTypesRepository.class);
         gameAssetsRepositoryOwnersRepository = springApplicationContext.getBean(GameAssetsRepositoryOwnersRepository.class);
+        gameAssetsRepositoryPicturesRepository = springApplicationContext.getBean(GameAssetsRepositoryPicturesRepository.class);
     }
 }
