@@ -3,7 +3,9 @@ package com.crazydumplings.backend.gameworldregistry.springdata.dao.spring;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -35,4 +37,12 @@ public interface SpringJpaGameObjectTypeStatesRepository
             + "where " + "(:gameObjectType is null or gameObjectTypeState.gameObjectType = :gameObjectType) and"
             + "(:name is null or gameObjectTypeState.name = :name)")
     List<GameObjectTypeStateEntity> findAllByExample(GameObjectTypeEntity gameObjectType, String name);
+
+    @Query("select distinct gameObjectTypeState from GameObjectTypeStateEntity gameObjectTypeState left join fetch gameObjectTypeState.gameObjectType where gameObjectTypeState.gameObjectType = ?1 and gameObjectTypeState.id in ?2")
+    List<GameObjectTypeStateEntity> findAllByGameObjectTypeAndIds(GameObjectTypeEntity gameObjectType, List<Long> ids);
+
+    @Transactional
+    @Modifying
+    @Query("delete GameObjectTypeStateEntity where id in ?1")
+    void bulkDelete(List<Long> gameObjectTypeStateIds);
 }

@@ -1284,6 +1284,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
     }
 
     @Override
+    public void deleteGameObjectTypeStatesByIds(List<Long> gameObjectTypeStateIds) throws GameWorldRegistryDataServiceException {
+    	try {
+            daoBundle.gameObjectTypeStatesRepository.bulkDelete(gameObjectTypeStateIds);
+        } catch (Exception ex) {
+            throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game object type state", ex);
+        }
+    }
+
+    @Override
     public List<GameObjectTypeState> findAllGameObjectTypeStatesByExample(GameObjectTypeState example) {
         try {
             return new ArrayList<>(daoBundle.gameObjectTypeStatesRepository.findAllByExample((GameObjectTypeEntity) example.getGameObjectType(),
@@ -2030,5 +2039,14 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public void deleteGameAssetsRepositoryPicturesByGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException {
 		daoBundle.gameAssetsRepositoryPicturesRepository.deleteByGameAssetsRepository(gameAssetsRepository);
+	}
+
+	@Override
+	public List<GameObjectTypeState> findAllGameObjectTypeStatesByGameObjectTypeAndIds(GameObjectType gameObjectType, List<Long> ids) {
+		try {
+            return new ArrayList<>(daoBundle.gameObjectTypeStatesRepository.findAllByGameObjectTypeAndIds((GameObjectTypeEntity) gameObjectType, ids));
+        } catch (Exception ex) {
+            throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type states", ex);
+        }
 	}
 }

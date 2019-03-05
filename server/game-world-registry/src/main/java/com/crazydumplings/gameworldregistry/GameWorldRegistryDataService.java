@@ -346,9 +346,13 @@ public interface GameWorldRegistryDataService {
 
     GameObjectTypeState findGameObjectTypeState(Long id) throws GameWorldRegistryDataServiceException;
 
+    List<GameObjectTypeState> findAllGameObjectTypeStatesByGameObjectTypeAndIds(GameObjectType gameObjectType, List<Long> ids);
+
     GameObjectTypeState saveGameObjectTypeState(GameObjectTypeState gameObjectTypeState) throws GameWorldRegistryDataServiceException;
 
     void deleteGameObjectTypeState(GameObjectTypeState gameObjectTypeState) throws GameWorldRegistryDataServiceException;
+    
+    void deleteGameObjectTypeStatesByIds(List<Long> gameObjectTypeStateIds) throws GameWorldRegistryDataServiceException;
 
     List<GameObjectTypeState> findAllGameObjectTypeStatesByExample(GameObjectTypeState example) throws GameWorldRegistryDataServiceException;
 

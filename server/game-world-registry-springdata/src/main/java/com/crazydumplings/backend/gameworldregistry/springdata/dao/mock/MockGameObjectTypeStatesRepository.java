@@ -105,4 +105,17 @@ public class MockGameObjectTypeStatesRepository implements GameObjectTypeStatesR
     public void delete(GameObjectTypeStateEntity gameObjectTypeState) {
         gameObjectTypeStates.remove(gameObjectTypeState);
     }
+
+	@Override
+	public void bulkDelete(List<Long> gameObjectTypeStateIds) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<GameObjectTypeStateEntity> findAllByGameObjectTypeAndIds(GameObjectTypeEntity gameObjectType,
+			List<Long> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -21,6 +21,7 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypeState;
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
@@ -36,6 +37,7 @@ public class GameWorldRegistryService {
 
 
     private GenericOperationsDelegate<GameObjectTypeProperty> gameObjectTypePropertiesOperationsDelegate;
+    private GenericOperationsDelegate<GameObjectTypeState> gameObjectTypeStatesOperationsDelegate;
 
 
 
@@ -85,6 +87,28 @@ public class GameWorldRegistryService {
 
              // Bulk delete operation
                 (assetIds) -> dataService.deleteGameObjectTypePropertiesByIds(assetIds)
+        );
+
+        gameObjectTypeStatesOperationsDelegate = new GenericOperationsDelegate<GameObjectTypeState>(
+             // Bulk save operation -- There is no bulk save operation for game object type states
+                (assets) -> assets.stream().map(asset -> dataService.saveGameObjectTypeState((GameObjectTypeState)asset)).collect(Collectors.toList()) ,
+
+             // Bulk search operation -- There is no bulk search operation for game object type states
+                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypeStatesByGameObjectTypeAndIds((GameObjectType) parentAsset, childAssetIds),
+
+             // Parent search operation
+                (repoId, parentAssetId) -> getGameObjectTypeOrThrow(repoId, parentAssetId),
+
+             // Search by parent function
+                (parentAsset) -> dataService.findAllGameObjectTypeStatesByGameObjectType((GameObjectType)parentAsset),
+
+             // Properties update operation (inputData = what comes from the front end, registeredAsset = what's in the registry)
+                (inputData, registeredAsset) -> {
+                    if (inputData.getName() != null) registeredAsset.setName(inputData.getName());
+                },
+
+             // Bulk delete operation
+                (assetIds) -> dataService.deleteGameObjectTypeStatesByIds(assetIds)
         );
     }
 
@@ -306,6 +330,58 @@ public class GameWorldRegistryService {
         ret.setPropertyDefaultValue(propertyDefaultValue);
         ret.setPropertyMinValue(propertyMinValue);
         ret.setPropertyMaxValue(propertyMaxValue);
+
+        return ret;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * List the states of the referenced game object type
+     */
+    public List<GameObjectTypeState> getGameObjectTypeStates(Long repositoryId, Long gameObjectTypeId) {
+        return gameObjectTypeStatesOperationsDelegate.getByParentId(repositoryId, gameObjectTypeId);
+    }
+
+    /**
+     * Update or create a game object type state depending on the presence of a valid gameObjectTypePropertyId
+     */
+    public GameObjectTypeState saveGameObjectTypeState(Long repositoryId, Long gameObjectTypeId, String name) throws CrazyDumplingsGameWorldRegistryException {
+        GameObjectTypeState gameObjectTypeState = createGameObjectTypeStateInstance(gameObjectTypeId, name);
+        return gameObjectTypeStatesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, List.of(gameObjectTypeState)).get(0);
+    }
+
+    /**
+     * Delete one or more game object states
+     */
+    public void bulkDeleteGameObjectTypeStates(Long repositoryId, Long gameObjectTypeId, List<Long> gameObjectTypeStateIds) {
+        gameObjectTypeStatesOperationsDelegate.bulkDeleteGameAssets(repositoryId, gameObjectTypeId, gameObjectTypeStateIds);
+    }
+
+    /**
+     * Delete a game object state
+     */
+    public void deleteGameObjectTypeState(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypeStateId) {
+    	bulkDeleteGameObjectTypeStates(repositoryId, gameObjectTypeId, List.of(gameObjectTypeStateId));
+    }
+
+    /**
+     * Create a new game object type state in memory and without saving it into the registry
+     */
+    public GameObjectTypeState createGameObjectTypeStateInstance(Long gameObjectTypeId, String name) {
+        GameObjectTypeState ret = dataService.newGameObjectTypeState();
+
+        ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
+        ret.setName(name);
 
         return ret;
     }

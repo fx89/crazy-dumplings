@@ -1,16 +1,24 @@
 package com.crazydumplings.gameworldregistry.model;
 
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
-public interface GameObjectTypeState extends IdentifiableGameAsset, Comparable<GameObjectTypeState> {
-    Long getId();
+public interface GameObjectTypeState extends ParentableGameAsset, Comparable<GameObjectTypeState> {
+ // TODO: Turn parent references into ID's - we don't want to carry redundant game object type descriptions and stuff through all the layers
+	GameObjectType getGameObjectType();
 
-    GameObjectType getGameObjectType();
+	void setGameObjectType(GameObjectType gameObjectType);
 
-    void setGameObjectType(GameObjectType gameObjectType);
+	String getName();
 
-    String getName();
+	void setName(String name);
 
-    void setName(String name);
+	default IdentifiableGameAsset getParent() {
+		return getGameObjectType();
+	}
+
+	default void setParent(IdentifiableGameAsset parent) {
+		setGameObjectType((GameObjectType) parent);
+	}
 
 }

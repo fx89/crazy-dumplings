@@ -24,4 +24,8 @@ public interface GameObjectTypeStatesRepository {
     GameObjectTypeStateEntity save(GameObjectTypeStateEntity gameObjectTypeState);
 
     void delete(GameObjectTypeStateEntity gameObjectTypeState);
+
+    void bulkDelete(List<Long> gameObjectTypeStateIds);
+
+    List<GameObjectTypeStateEntity> findAllByGameObjectTypeAndIds(GameObjectTypeEntity gameObjectType, List<Long> ids);
 }

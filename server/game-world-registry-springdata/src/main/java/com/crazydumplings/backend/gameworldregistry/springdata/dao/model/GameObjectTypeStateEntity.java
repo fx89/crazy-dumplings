@@ -17,6 +17,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeState;
+import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
 @Entity
 @Table(name = "GAME_OBJECT_TYPE_STATE")
