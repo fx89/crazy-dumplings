@@ -1,16 +1,22 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameWorldCellType extends IdentifiableGameAsset, Comparable<GameWorldCellType> {
-    Long getId();
 
-    String getUniqueName();
+	String getUniqueName();
 
-    void setUniqueName(String uniqueName);
+	void setUniqueName(String uniqueName);
 
-    GameObjectType getGameObjectType();
+	Long getGameObjectTypeId();
 
-    void setGameObjectType(GameObjectType gameObjectType);
+	void setGameObjectTypeId(Long gameObjectTypeId);
 
 }

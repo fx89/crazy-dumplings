@@ -1,20 +1,25 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameAddonInteractionReceivingPropertyModifier extends IdentifiableGameAsset, Comparable<GameAddonInteractionReceivingPropertyModifier> {
-    Long getId();
 
-    GameObjectTypeAllowedAddonType getGameObjectTypeAllowedAddonType();
+	Long getGameObjectTypeAllowedAddonTypeId();
 
-    void setGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType);
+	void setGameObjectTypeAllowedAddonTypeId(Long gameObjectTypeAllowedAddonTypeId);
 
-    GameObjectTypeProperty getAffectedGameObjectTypeProperty();
+	Long getAffectedGameObjectTypePropertyId();
 
-    void setAffectedGameObjectTypeProperty(GameObjectTypeProperty affectedGameObjectTypeProperty);
+	void setAffectedGameObjectTypePropertyId(Long affectedGameObjectTypePropertyId);
 
-    Double getAppliedPropertyValueMultiplier();
+	Double getAppliedPropertyValueMultiplier();
 
-    void setAppliedPropertyValueMultiplier(Double appliedPropertyValueMultiplier);
+	void setAppliedPropertyValueMultiplier(Double appliedPropertyValueMultiplier);
 
 }

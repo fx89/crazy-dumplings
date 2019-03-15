@@ -101,7 +101,6 @@ CREATE TABLE `game_assets_repository` (
   `ID_GAME_ASSETS_REPOSITORY` int(11) NOT NULL AUTO_INCREMENT,
   `UNIQUE_NAME` varchar(250) DEFAULT NULL,
   `DESCRIPTION` text,
-  `PICTURE_HASH` longtext,
   PRIMARY KEY (`ID_GAME_ASSETS_REPOSITORY`)
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -112,9 +111,20 @@ CREATE TABLE `game_assets_repository` (
 
 LOCK TABLES `game_assets_repository` WRITE;
 /*!40000 ALTER TABLE `game_assets_repository` DISABLE KEYS */;
-INSERT INTO `game_assets_repository` VALUES (1,'PRIMUS','The primordial repository',NULL),(2,'TESTUS','Repository for testing assets in-game',NULL),(4,'DELETE_ME','da da da',NULL),(48,'Test Create and Edit','The purpose of this repository is to test the creation and editing functionality of the repositories management page. The picture has not yet been addressed because of missing hashing / de-hashing functionality, which will be added later, once there is time to think it through. Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, let\'s see the scroll bar !!! !!! !!! ha ha ha, the scroll bar looks nice :) but the text is not shown entirely. It is missing a line. Fuck Prime Faces !!! Motherfuckers ! aaaaaa aaaaa aaaaaaaaaaaaaaaaaaaa\n\n\n',NULL);
+INSERT INTO `game_assets_repository` VALUES (1,'PRIMUS','The primordial repository'),(2,'TESTUS','Repository for testing assets in-game'),(4,'DELETE_ME','da da da'),(48,'Test Create and Edit','The purpose of this repository is to test the creation and editing functionality of the repositories management page. The picture has not yet been addressed because of missing hashing / de-hashing functionality, which will be added later, once there is time to think it through. Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, blah, let\'s see the scroll bar !!! !!! !!! ha ha ha, the scroll bar looks nice :) but the text is not shown entirely. It is missing a line. Fuck Prime Faces !!! Motherfuckers ! aaaaaa aaaaa aaaaaaaaaaaaaaaaaaaa\n\n\n');
 /*!40000 ALTER TABLE `game_assets_repository` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `game_assets_repository_picture`
+--
+CREATE TABLE `game_assets_repository_picture` (
+   `ID_GAME_ASSETS_REPOSITORY_PICTURE` int(11) NOT NULL AUTO_INCREMENT,
+   `GAME_ASSETS_REPOSITORY_ID` int(11) NOT NULL,
+   `PICTURE` longtext,
+   PRIMARY KEY (`ID_GAME_ASSETS_REPOSITORY_PICTURE`)
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Table structure for table `game_assets_repository_owner`

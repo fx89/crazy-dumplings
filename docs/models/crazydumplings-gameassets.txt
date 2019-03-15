@@ -14,7 +14,11 @@
 game assets repository
 	unique name
 	description
-	picture ref path
+
+// The game assets repository has an optional picture, which may or may not have to be fetched
+game assets repository picture
+	game assets repository
+	picture hash
 
 //############################################################################################
 

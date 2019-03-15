@@ -1,16 +1,22 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface PlayableCharacterType extends IdentifiableGameAsset, Comparable<PlayableCharacterType> {
-    Long getId();
 
-    String getUniqueCharacterTypeName();
+	String getUniqueCharacterTypeName();
 
-    void setUniqueCharacterTypeName(String uniqueCharacterTypeName);
+	void setUniqueCharacterTypeName(String uniqueCharacterTypeName);
 
-    GameObjectType getGameObjectType();
+	Long getGameObjectTypeId();
 
-    void setGameObjectType(GameObjectType gameObjectType);
+	void setGameObjectTypeId(Long gameObjectTypeId);
 
 }

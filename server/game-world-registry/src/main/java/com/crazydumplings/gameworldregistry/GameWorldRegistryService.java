@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import com.crazydumplings.gameworldregistry.exception.CrazyDumplingsGameWorldRegistryException;
-import com.crazydumplings.gameworldregistry.helper.GameWorldRegistrySerializationHelper;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
@@ -32,22 +31,12 @@ import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 public class GameWorldRegistryService {
     private GameWorldRegistryDataService dataService;
 
-    private GameWorldRegistrySerializationHelper serializationHelper = new GameWorldRegistrySerializationHelper();
-
-
 
     private GenericOperationsDelegate<GameObjectTypeProperty> gameObjectTypePropertiesOperationsDelegate;
     private GenericOperationsDelegate<GameObjectTypeState> gameObjectTypeStatesOperationsDelegate;
 
 
 
-    public GameWorldRegistrySerializationHelper getSerializationHelper() {
-        return serializationHelper;
-    }
-
-    public void setSerializationHelper(GameWorldRegistrySerializationHelper serializationHelper) {
-        this.serializationHelper = serializationHelper;
-    }
 
     public GameWorldRegistryDataService getDataService() {
         return dataService;
@@ -69,13 +58,13 @@ public class GameWorldRegistryService {
                 (assets) -> dataService.saveGameObjectTypeProperties(assets), // Bulk save operation
 
              // Bulk search operation
-                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeAndIds((GameObjectType) parentAsset, childAssetIds),
+                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeIdAndIds(parentAsset.getId(), childAssetIds),
 
              // Parent search operation
                 (repoId, parentAssetId) -> getGameObjectTypeOrThrow(repoId, parentAssetId),
 
              // Search by parent function
-                (parentAsset) -> dataService.findAllGameObjectTypePropertiesByGameObjectType((GameObjectType)parentAsset),
+                (parentAsset) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeId(parentAsset.getId()),
 
              // Properties update operation (inputData = what comes from the front end, registeredAsset = what's in the registry)
                 (inputData, registeredAsset) -> {
@@ -94,13 +83,13 @@ public class GameWorldRegistryService {
                 (assets) -> assets.stream().map(asset -> dataService.saveGameObjectTypeState((GameObjectTypeState)asset)).collect(Collectors.toList()) ,
 
              // Bulk search operation -- There is no bulk search operation for game object type states
-                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypeStatesByGameObjectTypeAndIds((GameObjectType) parentAsset, childAssetIds),
+                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypeStatesByGameObjectTypeIdAndIds(parentAsset.getId(), childAssetIds),
 
              // Parent search operation
                 (repoId, parentAssetId) -> getGameObjectTypeOrThrow(repoId, parentAssetId),
 
              // Search by parent function
-                (parentAsset) -> dataService.findAllGameObjectTypeStatesByGameObjectType((GameObjectType)parentAsset),
+                (parentAsset) -> dataService.findAllGameObjectTypeStatesByGameObjectTypeId(parentAsset.getId()),
 
              // Properties update operation (inputData = what comes from the front end, registeredAsset = what's in the registry)
                 (inputData, registeredAsset) -> {
@@ -131,8 +120,8 @@ public class GameWorldRegistryService {
     public void deleteGameAssetsRepository(Long repoId) {
         GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
 
-        dataService.deleteGameAssetsRepositoryOwnersByGameAssetsRepository(rep);
-        dataService.deleteGameAssetsRepositoryPicturesByGameAssetsRepository(rep);
+        dataService.deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryId(rep.getId());
+        dataService.deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryId(rep.getId());
 
         dataService.deleteGameAssetsRepository(rep);
     }
@@ -158,19 +147,19 @@ public class GameWorldRegistryService {
 
      // IF the repository is new, then grant the current user access rights to the newly created repository
         if (repoId == null || repoId <= 0) {
-            GameAssetsRepositoryOwner repOwner = dataService.newGameAssetsRepositoryOwner(rep, currentUserId);
+            GameAssetsRepositoryOwner repOwner = dataService.newGameAssetsRepositoryOwner(rep.getId(), currentUserId);
             dataService.saveGameAssetsRepositoryOwner(repOwner);
         }
 
      // Set the picture hash (if any provided)
         if (pictureHash != null) {
-        	GameAssetsRepositoryPicture pic = dataService.findOneGameAssetsRepositoryPictureByGameAssetsRepositoryId(rep.getId());
+        	GameAssetsRepositoryPicture pic = dataService.findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryId(rep.getId()).get(0);
         	if (pic == null) {
         		pic = dataService.newGameAssetsRepositoryPicture();
         	}
 
-        	pic.setHash(pictureHash);
-        	pic.setParent(rep);
+        	pic.setPictureHash(pictureHash);
+        	pic.setGameAssetsRepositoryId(rep.getId());
 
         	pic = dataService.saveGameAssetsRepositoryPicture(pic);
         }
@@ -220,7 +209,8 @@ public class GameWorldRegistryService {
 
 
     public List<GameObjectType> getGameObjectTypes(Long repostoryId) {
-        return dataService.findAllGameObjectTypesByGameAssetsRepository(getRepositoryOrThrow(repostoryId));
+    	getRepositoryOrThrow(repostoryId);
+        return dataService.findAllGameObjectTypesByGameAssetsRepositoryId(repostoryId);
     }
 
     /**
@@ -236,12 +226,14 @@ public class GameWorldRegistryService {
             gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
         } else {
             gameObjectType = dataService.newGameObjectType();
-            gameObjectType.setGameAssetsRepository(getRepositoryOrThrow(repositoryId));
+            getRepositoryOrThrow(repositoryId);
+            gameObjectType.setGameAssetsRepositoryId(repositoryId);
         }
 
      // Regardless of whether or not the game object type already exists, the attributes must be set
      // Attributes should be set only if provided
-        if (gameObjectTypeClassId != null) gameObjectType.setGameObjectTypeClass(getGameObjectTypeClassyOrThrow(gameObjectTypeClassId));
+        getGameObjectTypeClassyOrThrow(gameObjectTypeClassId);
+        if (gameObjectTypeClassId != null) gameObjectType.setGameObjectTypeClassId(gameObjectTypeClassId);
         if (uniqueName            != null) gameObjectType.setUniqueName         (uniqueName);
                                            gameObjectType.setIsExperimental     (experimental);
         if (description           != null) gameObjectType.setDescription        (description);
@@ -253,7 +245,7 @@ public class GameWorldRegistryService {
 
     public void deleteGameObjectType(Long repositoryId, Long gameObjectTypeId) {
         GameObjectType gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
-        dataService.deleteGameObjectTypePropertiesByGameObjectType(gameObjectType);
+        dataService.deleteGameObjectTypePropertiesByGameObjectTypeId(gameObjectType.getId());
         dataService.deleteGameObjectType(gameObjectType);
     }
 
@@ -264,7 +256,7 @@ public class GameWorldRegistryService {
             throw new CrazyDumplingsGameWorldRegistryException("A game object type having the id [" + assetId + "] does not exist in the registry");
         }
 
-        if (gameObjectType.getGameAssetsRepository().getId() != repoId) {
+        if (gameObjectType.getGameAssetsRepositoryId() != repoId) {
             throw new CrazyDumplingsGameWorldRegistryException("The referenced game object type is not part of the referenced repository");
         }
 
@@ -325,7 +317,7 @@ public class GameWorldRegistryService {
     ) {
         GameObjectTypeProperty ret = dataService.newGameObjectTypeProperty(gameObjectTypePropertyId);
 
-        ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
+        ret.setGameObjectTypeId(gameObjectTypeId);
         ret.setPropertyName(propertyName);
         ret.setPropertyDefaultValue(propertyDefaultValue);
         ret.setPropertyMinValue(propertyMinValue);
@@ -380,7 +372,7 @@ public class GameWorldRegistryService {
     public GameObjectTypeState createGameObjectTypeStateInstance(Long gameObjectTypeId, String name) {
         GameObjectTypeState ret = dataService.newGameObjectTypeState();
 
-        ret.setGameObjectType(dataService.newGameObjectType(gameObjectTypeId));
+        ret.setGameObjectTypeId(gameObjectTypeId);
         ret.setName(name);
 
         return ret;
@@ -499,7 +491,7 @@ public class GameWorldRegistryService {
         }
 
         private List<T> bulkAddGameAssets(IdentifiableGameAsset parent, List<T> assets) {
-            assets.forEach(asset -> { asset.setParent(parent); });
+            assets.forEach(asset -> { asset.setParentId(parent.getId()); });
             return bulkSaveOperation.apply(assets);
         }
 

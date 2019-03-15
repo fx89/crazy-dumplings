@@ -1,16 +1,21 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameWorldSpawnPointType extends IdentifiableGameAsset, Comparable<GameWorldSpawnPointType> {
-    Long getId();
 
-    GameObjectType getSpawnPointGameObjectType();
+	Long getSpawnPointGameObjectTypeId();
 
-    void setSpawnPointGameObjectType(GameObjectType spawnPointGameObjectType);
+	void setSpawnPointGameObjectTypeId(Long spawnPointGameObjectTypeId);
 
-    GameObjectType getSpawnedGameObjectType();
+	Long getSpawnedGameObjectTypeId();
 
-    void setSpawnedGameObjectType(GameObjectType spawnedGameObjectType);
+	void setSpawnedGameObjectTypeId(Long spawnedGameObjectTypeId);
 
 }

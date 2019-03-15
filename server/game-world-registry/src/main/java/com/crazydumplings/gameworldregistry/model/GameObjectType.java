@@ -1,28 +1,34 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectType extends IdentifiableGameAsset, Comparable<GameObjectType> {
-    Long getId();
 
-    GameAssetsRepository getGameAssetsRepository();
+	Long getGameAssetsRepositoryId();
 
-    void setGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
+	void setGameAssetsRepositoryId(Long gameAssetsRepositoryId);
 
-    GameObjectTypeClass getGameObjectTypeClass();
+	Long getGameObjectTypeClassId();
 
-    void setGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass);
+	void setGameObjectTypeClassId(Long gameObjectTypeClassId);
 
-    String getUniqueName();
+	String getUniqueName();
 
-    void setUniqueName(String uniqueName);
+	void setUniqueName(String uniqueName);
 
-    Boolean getIsExperimental();
+	String getDescription();
 
-    void setIsExperimental(Boolean isExperimental);
+	void setDescription(String description);
 
-    String getDescription();
+	Boolean getIsExperimental();
 
-    void setDescription(String description);
+	void setIsExperimental(Boolean isExperimental);
 
 }

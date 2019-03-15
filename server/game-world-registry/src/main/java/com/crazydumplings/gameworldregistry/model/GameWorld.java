@@ -1,28 +1,34 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameWorld extends IdentifiableGameAsset, Comparable<GameWorld> {
-    Long getId();
 
-    String getUniqueName();
+	String getUniqueName();
 
-    void setUniqueName(String uniqueName);
+	void setUniqueName(String uniqueName);
 
-    String getDescription();
+	String getDescription();
 
-    void setDescription(String description);
+	void setDescription(String description);
 
-    String getPictureRefPath();
+	String getPictureRefPath();
 
-    void setPictureRefPath(String pictureRefPath);
+	void setPictureRefPath(String pictureRefPath);
 
-    Integer getWidth();
+	Integer getWidth();
 
-    void setWidth(Integer width);
+	void setWidth(Integer width);
 
-    Integer getHeight();
+	Integer getHeight();
 
-    void setHeight(Integer height);
+	void setHeight(Integer height);
 
 }

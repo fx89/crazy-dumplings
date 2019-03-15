@@ -2,7 +2,6 @@ package com.crazydumplings.gameworldregistry;
 
 import java.util.List;
 
-import com.crazydumplings.gameworldregistry.exception.GameWorldRegistryDataServiceException;
 import com.crazydumplings.gameworldregistry.model.Action;
 import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 import com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier;
@@ -29,534 +28,780 @@ import com.crazydumplings.gameworldregistry.model.GameWorldSpawnPointType;
 import com.crazydumplings.gameworldregistry.model.PlayableCharacterType;
 
 /**
- * Any implementation of this interface can be injected into the {@link GameWorldRegistryService} to provide persistence to various media
+ * Any implementation of this interface can be injected into the
+ * {@link GameWorldRegistryService} to provide persistence to various media
  */
 public interface GameWorldRegistryDataService {
-    List<PlayableCharacterType> findAllPlayableCharacterTypes();
+	List<PlayableCharacterType> findAllPlayableCharacterTypes();
 
-    PlayableCharacterType newPlayableCharacterType() throws GameWorldRegistryDataServiceException;
+	PlayableCharacterType newPlayableCharacterType();
 
-    PlayableCharacterType findPlayableCharacterType(Long id) throws GameWorldRegistryDataServiceException;
+	PlayableCharacterType newPlayableCharacterType(Long id);
 
-    PlayableCharacterType savePlayableCharacterType(PlayableCharacterType playableCharacterType) throws GameWorldRegistryDataServiceException;
+	PlayableCharacterType findPlayableCharacterType(Long id);
 
-    void deletePlayableCharacterType(PlayableCharacterType playableCharacterType) throws GameWorldRegistryDataServiceException;
+	PlayableCharacterType savePlayableCharacterType(PlayableCharacterType playableCharacterType);
 
-    List<PlayableCharacterType> findAllPlayableCharacterTypesByExample(PlayableCharacterType example)
-            throws GameWorldRegistryDataServiceException;
+	List<PlayableCharacterType> savePlayableCharacterTypes(List<PlayableCharacterType> playableCharacterTypes);
 
-    PlayableCharacterType findPlayableCharacterTypeByUniqueCharacterTypeName(String uniqueCharacterTypeName)
-            throws GameWorldRegistryDataServiceException;
+	void deletePlayableCharacterType(PlayableCharacterType playableCharacterType);
 
-    List<PlayableCharacterType> findAllPlayableCharacterTypesByGameObjectType(GameObjectType gameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	void deletePlayableCharacterTypesByIds(List<Long> ids);
 
-    List<PlayableCharacterType> findAllPlayableCharacterTypesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	List<PlayableCharacterType> findAllPlayableCharacterTypesByExample(PlayableCharacterType example);
 
-    List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypes() throws GameWorldRegistryDataServiceException;
+	PlayableCharacterType findPlayableCharacterTypeByUniqueCharacterTypeName(String uniqueCharacterTypeName);
 
-    GameWorldSpawnPointType newGameWorldSpawnPointType() throws GameWorldRegistryDataServiceException;
+	List<PlayableCharacterType> findAllPlayableCharacterTypesByGameObjectTypeId(Long gameObjectTypeId);
 
-    GameWorldSpawnPointType findGameWorldSpawnPointType(Long id) throws GameWorldRegistryDataServiceException;
+	List<PlayableCharacterType> findAllPlayableCharacterTypesByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
 
-    GameWorldSpawnPointType saveGameWorldSpawnPointType(GameWorldSpawnPointType gameWorldSpawnPointType)
-            throws GameWorldRegistryDataServiceException;
+	void deletePlayableCharacterTypesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
 
-    void deleteGameWorldSpawnPointType(GameWorldSpawnPointType gameWorldSpawnPointType) throws GameWorldRegistryDataServiceException;
+	void deletePlayableCharacterTypesByGameObjectTypeId(Long gameObjectTypeId);
 
-    List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesByExample(GameWorldSpawnPointType example)
-            throws GameWorldRegistryDataServiceException;
 
-    List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesBySpawnPointGameObjectType(GameObjectType spawnPointGameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypes();
 
-    List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesBySpawnedGameObjectType(GameObjectType spawnedGameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldSpawnPointType newGameWorldSpawnPointType();
 
-    List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldSpawnPointType newGameWorldSpawnPointType(Long id);
 
-    List<GameWorldCellType> findAllGameWorldCellTypes() throws GameWorldRegistryDataServiceException;
+	GameWorldSpawnPointType findGameWorldSpawnPointType(Long id);
 
-    GameWorldCellType newGameWorldCellType() throws GameWorldRegistryDataServiceException;
+	GameWorldSpawnPointType saveGameWorldSpawnPointType(GameWorldSpawnPointType gameWorldSpawnPointType);
 
-    GameWorldCellType findGameWorldCellType(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> saveGameWorldSpawnPointTypes(List<GameWorldSpawnPointType> gameWorldSpawnPointTypes);
 
-    GameWorldCellType saveGameWorldCellType(GameWorldCellType gameWorldCellType) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldSpawnPointType(GameWorldSpawnPointType gameWorldSpawnPointType);
 
-    void deleteGameWorldCellType(GameWorldCellType gameWorldCellType) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldSpawnPointTypesByIds(List<Long> ids);
 
-    List<GameWorldCellType> findAllGameWorldCellTypesByExample(GameWorldCellType example) throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesByExample(GameWorldSpawnPointType example);
 
-    GameWorldCellType findGameWorldCellTypeByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesBySpawnPointGameObjectTypeId(Long spawnPointGameObjectTypeId);
 
-    List<GameWorldCellType> findAllGameWorldCellTypesByGameObjectType(GameObjectType gameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesBySpawnPointGameObjectTypeIdAndIds(Long spawnPointGameObjectTypeIds, List<Long> ids);
 
-    List<GameWorldCellType> findAllGameWorldCellTypesByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldSpawnPointTypesBySpawnPointGameObjectTypeIdAndIds(Long spawnPointGameObjectTypeId, List<Long> spawnPointGameObjectTypeIds);
 
-    List<GameWorld> findAllGameWorlds() throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldSpawnPointTypesBySpawnPointGameObjectTypeId(Long spawnPointGameObjectTypeId);
 
-    GameWorld newGameWorld() throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesBySpawnedGameObjectTypeId(Long spawnedGameObjectTypeId);
 
-    GameWorld findGameWorld(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameWorldSpawnPointType> findAllGameWorldSpawnPointTypesBySpawnedGameObjectTypeIdAndIds(Long spawnedGameObjectTypeIds, List<Long> ids);
 
-    GameWorld saveGameWorld(GameWorld gameWorld) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldSpawnPointTypesBySpawnedGameObjectTypeIdAndIds(Long spawnedGameObjectTypeId, List<Long> spawnedGameObjectTypeIds);
 
-    void deleteGameWorld(GameWorld gameWorld) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldSpawnPointTypesBySpawnedGameObjectTypeId(Long spawnedGameObjectTypeId);
 
-    List<GameWorld> findAllGameWorldsByExample(GameWorld example) throws GameWorldRegistryDataServiceException;
 
-    GameWorld findGameWorldByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellType> findAllGameWorldCellTypes();
 
-    List<GameWorld> findAllGameWorldsByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	GameWorldCellType newGameWorldCellType();
 
-    List<GameWorldCell> findAllGameWorldCells() throws GameWorldRegistryDataServiceException;
+	GameWorldCellType newGameWorldCellType(Long id);
 
-    GameWorldCell newGameWorldCell() throws GameWorldRegistryDataServiceException;
+	GameWorldCellType findGameWorldCellType(Long id);
 
-    GameWorldCell findGameWorldCell(Long id) throws GameWorldRegistryDataServiceException;
+	GameWorldCellType saveGameWorldCellType(GameWorldCellType gameWorldCellType);
 
-    GameWorldCell saveGameWorldCell(GameWorldCell gameWorldCell) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellType> saveGameWorldCellTypes(List<GameWorldCellType> gameWorldCellTypes);
 
-    void deleteGameWorldCell(GameWorldCell gameWorldCell) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellType(GameWorldCellType gameWorldCellType);
 
-    List<GameWorldCell> findAllGameWorldCellsByExample(GameWorldCell example) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellTypesByIds(List<Long> ids);
 
-    List<GameWorldCell> findAllGameWorldCellsByGameWorld(GameWorld gameWorld) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellType> findAllGameWorldCellTypesByExample(GameWorldCellType example);
 
-    List<GameWorldCell> findAllGameWorldCellsByGameWorldCellType(GameWorldCellType gameWorldCellType)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldCellType findGameWorldCellTypeByUniqueName(String uniqueName);
 
-    List<GameWorldCell> findAllGameWorldCellsByAttachedGameWorldSpawnPointType(GameWorldSpawnPointType attachedGameWorldSpawnPointType)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellType> findAllGameWorldCellTypesByGameObjectTypeId(Long gameObjectTypeId);
 
-    List<GameWorldCell> findAllGameWorldCellsHavingTargetSmallnumberBetweenXIndexAndYIndex(Integer targetSmallnumber)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellType> findAllGameWorldCellTypesByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
 
-    List<GameWorldCell> findAllGameWorldCellsByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellTypesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
 
-    List<GameWorldCellProperty> findAllGameWorldCellProperties() throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellTypesByGameObjectTypeId(Long gameObjectTypeId);
 
-    GameWorldCellProperty newGameWorldCellProperty() throws GameWorldRegistryDataServiceException;
 
-    GameWorldCellProperty findGameWorldCellProperty(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameWorld> findAllGameWorlds();
 
-    GameWorldCellProperty saveGameWorldCellProperty(GameWorldCellProperty gameWorldCellProperty) throws GameWorldRegistryDataServiceException;
+	GameWorld newGameWorld();
 
-    void deleteGameWorldCellProperty(GameWorldCellProperty gameWorldCellProperty) throws GameWorldRegistryDataServiceException;
+	GameWorld newGameWorld(Long id);
 
-    List<GameWorldCellProperty> findAllGameWorldCellPropertiesByExample(GameWorldCellProperty example)
-            throws GameWorldRegistryDataServiceException;
+	GameWorld findGameWorld(Long id);
 
-    List<GameWorldCellProperty> findAllGameWorldCellPropertiesByGameWorldCell(GameWorldCell gameWorldCell)
-            throws GameWorldRegistryDataServiceException;
+	GameWorld saveGameWorld(GameWorld gameWorld);
 
-    List<GameWorldCellProperty> findAllGameWorldCellPropertiesByGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorld> saveGameWorlds(List<GameWorld> gameWorlds);
 
-    List<GameWorldCellProperty> findAllGameWorldCellPropertiesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorld(GameWorld gameWorld);
 
-    List<AutomationObjectProvider> findAllAutomationObjectProviders() throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldsByIds(List<Long> ids);
 
-    AutomationObjectProvider newAutomationObjectProvider() throws GameWorldRegistryDataServiceException;
+	List<GameWorld> findAllGameWorldsByExample(GameWorld example);
 
-    AutomationObjectProvider findAutomationObjectProvider(Long id) throws GameWorldRegistryDataServiceException;
+	GameWorld findGameWorldByUniqueName(String uniqueName);
 
-    AutomationObjectProvider saveAutomationObjectProvider(AutomationObjectProvider automationObjectProvider)
-            throws GameWorldRegistryDataServiceException;
 
-    void deleteAutomationObjectProvider(AutomationObjectProvider automationObjectProvider) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCells();
 
-    List<AutomationObjectProvider> findAllAutomationObjectProvidersByExample(AutomationObjectProvider example)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldCell newGameWorldCell();
 
-    AutomationObjectProvider findAutomationObjectProviderByName(String name) throws GameWorldRegistryDataServiceException;
+	GameWorldCell newGameWorldCell(Long id);
 
-    List<AutomationObjectProvider> findAllAutomationObjectProvidersByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldCell findGameWorldCell(Long id);
 
-    List<GameObjectTypeAutomation> findAllGameObjectTypeAutomations() throws GameWorldRegistryDataServiceException;
+	GameWorldCell saveGameWorldCell(GameWorldCell gameWorldCell);
 
-    GameObjectTypeAutomation newGameObjectTypeAutomation() throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> saveGameWorldCells(List<GameWorldCell> gameWorldCells);
 
-    GameObjectTypeAutomation findGameObjectTypeAutomation(Long id) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCell(GameWorldCell gameWorldCell);
 
-    GameObjectTypeAutomation saveGameObjectTypeAutomation(GameObjectTypeAutomation gameObjectTypeAutomation)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByIds(List<Long> ids);
 
-    void deleteGameObjectTypeAutomation(GameObjectTypeAutomation gameObjectTypeAutomation) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByExample(GameWorldCell example);
 
-    List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByExample(GameObjectTypeAutomation example)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByGameWorldId(Long gameWorldId);
 
-    List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByGameObjectType(GameObjectType gameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByGameWorldIdAndIds(Long gameWorldIds, List<Long> ids);
 
-    List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByAutomationObjectProvider(AutomationObjectProvider automationObjectProvider)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByGameWorldIdAndIds(Long gameWorldId, List<Long> gameWorldIds);
 
-    List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByGameWorldId(Long gameWorldId);
 
-    List<Action> findAllActions() throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByGameWorldCellTypeId(Long gameWorldCellTypeId);
 
-    Action newAction() throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByGameWorldCellTypeIdAndIds(Long gameWorldCellTypeIds, List<Long> ids);
 
-    Action findAction(Long id) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByGameWorldCellTypeIdAndIds(Long gameWorldCellTypeId, List<Long> gameWorldCellTypeIds);
 
-    Action saveAction(Action action) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByGameWorldCellTypeId(Long gameWorldCellTypeId);
 
-    void deleteAction(Action action) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByAttachedGameWorldSpawnPointTypeId(Long attachedGameWorldSpawnPointTypeId);
 
-    List<Action> findAllActionsByExample(Action example) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsByAttachedGameWorldSpawnPointTypeIdAndIds(Long attachedGameWorldSpawnPointTypeIds, List<Long> ids);
 
-    Action findActionByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByAttachedGameWorldSpawnPointTypeIdAndIds(Long attachedGameWorldSpawnPointTypeId, List<Long> attachedGameWorldSpawnPointTypeIds);
 
-    List<Action> findAllActionsByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellsByAttachedGameWorldSpawnPointTypeId(Long attachedGameWorldSpawnPointTypeId);
 
-    List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitions() throws GameWorldRegistryDataServiceException;
+	List<GameWorldCell> findAllGameWorldCellsHavingTargetSmallnumberBetweenXIndexAndYIndex(Integer targetSmallnumber);
 
-    GameObjectTypeStateTransition newGameObjectTypeStateTransition() throws GameWorldRegistryDataServiceException;
 
-    GameObjectTypeStateTransition findGameObjectTypeStateTransition(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> findAllGameWorldCellProperties();
 
-    GameObjectTypeStateTransition saveGameObjectTypeStateTransition(GameObjectTypeStateTransition gameObjectTypeStateTransition)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldCellProperty newGameWorldCellProperty();
 
-    void deleteGameObjectTypeStateTransition(GameObjectTypeStateTransition gameObjectTypeStateTransition)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldCellProperty newGameWorldCellProperty(Long id);
 
-    List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByExample(GameObjectTypeStateTransition example)
-            throws GameWorldRegistryDataServiceException;
+	GameWorldCellProperty findGameWorldCellProperty(Long id);
 
-    List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsBySourceGameObjectTypeState(
-            GameObjectTypeState sourceGameObjectTypeState) throws GameWorldRegistryDataServiceException;
+	GameWorldCellProperty saveGameWorldCellProperty(GameWorldCellProperty gameWorldCellProperty);
 
-    List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByTargetGameObjectTypeState(
-            GameObjectTypeState targetGameObjectTypeState) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> saveGameWorldCellProperties(List<GameWorldCellProperty> gameWorldCellProperties);
 
-    List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByTriggerAction(Action triggerAction)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellProperty(GameWorldCellProperty gameWorldCellProperty);
 
-    List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellPropertiesByIds(List<Long> ids);
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypes() throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> findAllGameWorldCellPropertiesByExample(GameWorldCellProperty example);
 
-    GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType() throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> findAllGameWorldCellPropertiesByGameWorldCellId(Long gameWorldCellId);
 
-    GameObjectTypeAllowedAddonType findGameObjectTypeAllowedAddonType(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> findAllGameWorldCellPropertiesByGameWorldCellIdAndIds(Long gameWorldCellIds, List<Long> ids);
 
-    GameObjectTypeAllowedAddonType saveGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellPropertiesByGameWorldCellIdAndIds(Long gameWorldCellId, List<Long> gameWorldCellIds);
 
-    void deleteGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellPropertiesByGameWorldCellId(Long gameWorldCellId);
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByExample(GameObjectTypeAllowedAddonType example)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> findAllGameWorldCellPropertiesByGameObjectTypePropertyId(Long gameObjectTypePropertyId);
 
-    GameObjectTypeAllowedAddonType findGameObjectTypeAllowedAddonTypeByUniqueName(String uniqueName)
-            throws GameWorldRegistryDataServiceException;
+	List<GameWorldCellProperty> findAllGameWorldCellPropertiesByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyIds, List<Long> ids);
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByAddonGameObjectType(GameObjectType addonGameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellPropertiesByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyId, List<Long> gameObjectTypePropertyIds);
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByApplicableToGameObjectType(
-            GameObjectType applicableToGameObjectType) throws GameWorldRegistryDataServiceException;
+	void deleteGameWorldCellPropertiesByGameObjectTypePropertyId(Long gameObjectTypePropertyId);
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByTriggerAction(Action triggerAction)
-            throws GameWorldRegistryDataServiceException;
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesBySpawnableGameObjectType(GameObjectType spawnableGameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<AutomationObjectProvider> findAllAutomationObjectProviders();
 
-    List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	AutomationObjectProvider newAutomationObjectProvider();
 
-    List<GameObjectTypeInteraction> findAllGameObjectTypeInteractions() throws GameWorldRegistryDataServiceException;
+	AutomationObjectProvider newAutomationObjectProvider(Long id);
 
-    GameObjectTypeInteraction newGameObjectTypeInteraction() throws GameWorldRegistryDataServiceException;
+	AutomationObjectProvider findAutomationObjectProvider(Long id);
 
-    GameObjectTypeInteraction findGameObjectTypeInteraction(Long id) throws GameWorldRegistryDataServiceException;
+	AutomationObjectProvider saveAutomationObjectProvider(AutomationObjectProvider automationObjectProvider);
 
-    GameObjectTypeInteraction saveGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction)
-            throws GameWorldRegistryDataServiceException;
+	List<AutomationObjectProvider> saveAutomationObjectProviders(List<AutomationObjectProvider> automationObjectProviders);
 
-    void deleteGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction) throws GameWorldRegistryDataServiceException;
+	void deleteAutomationObjectProvider(AutomationObjectProvider automationObjectProvider);
 
-    List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByExample(GameObjectTypeInteraction example)
-            throws GameWorldRegistryDataServiceException;
+	void deleteAutomationObjectProvidersByIds(List<Long> ids);
 
-    List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByDonatingGameObjectType(GameObjectType donatingGameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<AutomationObjectProvider> findAllAutomationObjectProvidersByExample(AutomationObjectProvider example);
 
-    List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByReceivingGameObjectType(GameObjectType receivingGameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	AutomationObjectProvider findAutomationObjectProviderByName(String name);
 
-    List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
 
-    List<GameClientType> findAllGameClientTypes() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> findAllGameObjectTypeAutomations();
 
-    GameClientType newGameClientType() throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAutomation newGameObjectTypeAutomation();
 
-    GameClientType findGameClientType(Long id) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAutomation newGameObjectTypeAutomation(Long id);
 
-    GameClientType saveGameClientType(GameClientType gameClientType) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAutomation findGameObjectTypeAutomation(Long id);
 
-    void deleteGameClientType(GameClientType gameClientType) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAutomation saveGameObjectTypeAutomation(GameObjectTypeAutomation gameObjectTypeAutomation);
 
-    List<GameClientType> findAllGameClientTypesByExample(GameClientType example) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> saveGameObjectTypeAutomations(List<GameObjectTypeAutomation> gameObjectTypeAutomations);
 
-    GameClientType findGameClientTypeByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAutomation(GameObjectTypeAutomation gameObjectTypeAutomation);
 
-    List<GameClientType> findAllGameClientTypesByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAutomationsByIds(List<Long> ids);
 
-    List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentations() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByExample(GameObjectTypeAutomation example);
 
-    GameObjectTypeRepresentation newGameObjectTypeRepresentation() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByGameObjectTypeId(Long gameObjectTypeId);
 
-    GameObjectTypeRepresentation findGameObjectTypeRepresentation(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
 
-    GameObjectTypeRepresentation saveGameObjectTypeRepresentation(GameObjectTypeRepresentation gameObjectTypeRepresentation)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAutomationsByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
 
-    void deleteGameObjectTypeRepresentation(GameObjectTypeRepresentation gameObjectTypeRepresentation)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAutomationsByGameObjectTypeId(Long gameObjectTypeId);
 
-    List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByExample(GameObjectTypeRepresentation example)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByAutomationObjectProviderId(Long automationObjectProviderId);
 
-    List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByGameObjectType(GameObjectType gameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAutomation> findAllGameObjectTypeAutomationsByAutomationObjectProviderIdAndIds(Long automationObjectProviderIds, List<Long> ids);
 
-    List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByGameClientType(GameClientType gameClientType)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAutomationsByAutomationObjectProviderIdAndIds(Long automationObjectProviderId, List<Long> automationObjectProviderIds);
 
-    List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAutomationsByAutomationObjectProviderId(Long automationObjectProviderId);
 
-    List<GameObjectTypeState> findAllGameObjectTypeStates() throws GameWorldRegistryDataServiceException;
 
-    GameObjectTypeState newGameObjectTypeState() throws GameWorldRegistryDataServiceException;
+	List<Action> findAllActions();
 
-    GameObjectTypeState findGameObjectTypeState(Long id) throws GameWorldRegistryDataServiceException;
+	Action newAction();
 
-    List<GameObjectTypeState> findAllGameObjectTypeStatesByGameObjectTypeAndIds(GameObjectType gameObjectType, List<Long> ids);
+	Action newAction(Long id);
 
-    GameObjectTypeState saveGameObjectTypeState(GameObjectTypeState gameObjectTypeState) throws GameWorldRegistryDataServiceException;
+	Action findAction(Long id);
 
-    void deleteGameObjectTypeState(GameObjectTypeState gameObjectTypeState) throws GameWorldRegistryDataServiceException;
-    
-    void deleteGameObjectTypeStatesByIds(List<Long> gameObjectTypeStateIds) throws GameWorldRegistryDataServiceException;
+	Action saveAction(Action action);
 
-    List<GameObjectTypeState> findAllGameObjectTypeStatesByExample(GameObjectTypeState example) throws GameWorldRegistryDataServiceException;
+	List<Action> saveActions(List<Action> actions);
 
-    List<GameObjectTypeState> findAllGameObjectTypeStatesByGameObjectType(GameObjectType gameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	void deleteAction(Action action);
 
-    GameObjectTypeState findGameObjectTypeStateByName(String name) throws GameWorldRegistryDataServiceException;
+	void deleteActionsByIds(List<Long> ids);
 
-    List<GameObjectTypeState> findAllGameObjectTypeStatesByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	List<Action> findAllActionsByExample(Action example);
 
-    List<GameObjectTypeProperty> findAllGameObjectTypeProperties() throws GameWorldRegistryDataServiceException;
+	Action findActionByUniqueName(String uniqueName);
 
-    GameObjectTypeProperty newGameObjectTypeProperty() throws GameWorldRegistryDataServiceException;
 
-    GameObjectTypeProperty newGameObjectTypeProperty(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitions();
 
-    GameObjectTypeProperty findGameObjectTypeProperty(Long id) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeStateTransition newGameObjectTypeStateTransition();
 
-    GameObjectTypeProperty saveGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeStateTransition newGameObjectTypeStateTransition(Long id);
 
-    List<GameObjectTypeProperty> saveGameObjectTypeProperties(List<GameObjectTypeProperty> gameObjectTypeProperties)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeStateTransition findGameObjectTypeStateTransition(Long id);
 
-    void deleteGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeStateTransition saveGameObjectTypeStateTransition(GameObjectTypeStateTransition gameObjectTypeStateTransition);
 
-    void deleteGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> saveGameObjectTypeStateTransitions(List<GameObjectTypeStateTransition> gameObjectTypeStateTransitions);
 
-    void deleteGameObjectTypePropertiesByIds(List<Long> gameObjectTypePropertyIds) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransition(GameObjectTypeStateTransition gameObjectTypeStateTransition);
 
-    List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByExample(GameObjectTypeProperty example)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsByIds(List<Long> ids);
 
-    List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectType(GameObjectType gameObjectType)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByExample(GameObjectTypeStateTransition example);
 
-    List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectTypeAndIds(GameObjectType gameObjectType, List<Long> ids)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsBySourceGameObjectTypeStateId(Long sourceGameObjectTypeStateId);
 
-    GameObjectTypeProperty findGameObjectTypePropertyByPropertyName(String propertyName) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsBySourceGameObjectTypeStateIdAndIds(Long sourceGameObjectTypeStateIds, List<Long> ids);
 
-    List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsBySourceGameObjectTypeStateIdAndIds(Long sourceGameObjectTypeStateId, List<Long> sourceGameObjectTypeStateIds);
 
-    List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiers()
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsBySourceGameObjectTypeStateId(Long sourceGameObjectTypeStateId);
 
-    GameAddonInteractionReceivingPropertyModifier newGameAddonInteractionReceivingPropertyModifier()
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByTargetGameObjectTypeStateId(Long targetGameObjectTypeStateId);
 
-    GameAddonInteractionReceivingPropertyModifier findGameAddonInteractionReceivingPropertyModifier(Long id)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByTargetGameObjectTypeStateIdAndIds(Long targetGameObjectTypeStateIds, List<Long> ids);
 
-    GameAddonInteractionReceivingPropertyModifier saveGameAddonInteractionReceivingPropertyModifier(
-            GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsByTargetGameObjectTypeStateIdAndIds(Long targetGameObjectTypeStateId, List<Long> targetGameObjectTypeStateIds);
 
-    void deleteGameAddonInteractionReceivingPropertyModifier(
-            GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier)
-            throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsByTargetGameObjectTypeStateId(Long targetGameObjectTypeStateId);
 
-    List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByExample(
-            GameAddonInteractionReceivingPropertyModifier example) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByTriggerActionId(Long triggerActionId);
 
-    List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByGameObjectTypeAllowedAddonType(
-            GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeStateTransition> findAllGameObjectTypeStateTransitionsByTriggerActionIdAndIds(Long triggerActionIds, List<Long> ids);
 
-    List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByAffectedGameObjectTypeProperty(
-            GameObjectTypeProperty affectedGameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsByTriggerActionIdAndIds(Long triggerActionId, List<Long> triggerActionIds);
 
-    List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByAnyTextFieldContaining(
-            String content) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeStateTransitionsByTriggerActionId(Long triggerActionId);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionProperties() throws GameWorldRegistryDataServiceException;
 
-    GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypes();
 
-    GameObjectTypeInteractionProperty findGameObjectTypeInteractionProperty(Long id) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType();
 
-    GameObjectTypeInteractionProperty saveGameObjectTypeInteractionProperty(GameObjectTypeInteractionProperty gameObjectTypeInteractionProperty)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType(Long id);
 
-    void deleteGameObjectTypeInteractionProperty(GameObjectTypeInteractionProperty gameObjectTypeInteractionProperty)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAllowedAddonType findGameObjectTypeAllowedAddonType(Long id);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByExample(GameObjectTypeInteractionProperty example)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAllowedAddonType saveGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByGameObjectTypeInteraction(
-            GameObjectTypeInteraction gameObjectTypeInteraction) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> saveGameObjectTypeAllowedAddonTypes(List<GameObjectTypeAllowedAddonType> gameObjectTypeAllowedAddonTypes);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByDonatingGameObjectTypeProperty(
-            GameObjectTypeProperty donatingGameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByReceivingGameObjectTypeProperty(
-            GameObjectTypeProperty receivingGameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByIds(List<Long> ids);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByOverflowGameObjectTypeProperty(
-            GameObjectTypeProperty overflowGameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByExample(GameObjectTypeAllowedAddonType example);
 
-    List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeAllowedAddonType findGameObjectTypeAllowedAddonTypeByUniqueName(String uniqueName);
 
-    List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiers() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByAddonGameObjectTypeId(Long addonGameObjectTypeId);
 
-    GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByAddonGameObjectTypeIdAndIds(Long addonGameObjectTypeIds, List<Long> ids);
 
-    GameObjectTypeStatePropertyModifier findGameObjectTypeStatePropertyModifier(Long id) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByAddonGameObjectTypeIdAndIds(Long addonGameObjectTypeId, List<Long> addonGameObjectTypeIds);
 
-    GameObjectTypeStatePropertyModifier saveGameObjectTypeStatePropertyModifier(
-            GameObjectTypeStatePropertyModifier gameObjectTypeStatePropertyModifier) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByAddonGameObjectTypeId(Long addonGameObjectTypeId);
 
-    void deleteGameObjectTypeStatePropertyModifier(GameObjectTypeStatePropertyModifier gameObjectTypeStatePropertyModifier)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByApplicableToGameObjectTypeId(Long applicableToGameObjectTypeId);
 
-    List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByExample(GameObjectTypeStatePropertyModifier example)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByApplicableToGameObjectTypeIdAndIds(Long applicableToGameObjectTypeIds, List<Long> ids);
 
-    List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByGameObjectTypeState(
-            GameObjectTypeState gameObjectTypeState) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByApplicableToGameObjectTypeIdAndIds(Long applicableToGameObjectTypeId, List<Long> applicableToGameObjectTypeIds);
 
-    List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByGameObjectTypeProperty(
-            GameObjectTypeProperty gameObjectTypeProperty) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByApplicableToGameObjectTypeId(Long applicableToGameObjectTypeId);
 
-    List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByTriggerActionId(Long triggerActionId);
 
-    List<GameObjectTypeClass> findAllGameObjectTypeClasses() throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesByTriggerActionIdAndIds(Long triggerActionIds, List<Long> ids);
 
-    GameObjectTypeClass newGameObjectTypeClass() throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByTriggerActionIdAndIds(Long triggerActionId, List<Long> triggerActionIds);
 
-    GameObjectTypeClass findGameObjectTypeClass(Long id) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesByTriggerActionId(Long triggerActionId);
 
-    GameObjectTypeClass saveGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesBySpawnableGameObjectTypeId(Long spawnableGameObjectTypeId);
 
-    void deleteGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeAllowedAddonType> findAllGameObjectTypeAllowedAddonTypesBySpawnableGameObjectTypeIdAndIds(Long spawnableGameObjectTypeIds, List<Long> ids);
 
-    List<GameObjectTypeClass> findAllGameObjectTypeClassesByExample(GameObjectTypeClass example) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesBySpawnableGameObjectTypeIdAndIds(Long spawnableGameObjectTypeId, List<Long> spawnableGameObjectTypeIds);
 
-    GameObjectTypeClass findGameObjectTypeClassByName(String name) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeAllowedAddonTypesBySpawnableGameObjectTypeId(Long spawnableGameObjectTypeId);
 
-    List<GameObjectTypeClass> findAllGameObjectTypeClassesByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
 
-    List<GameAssetsRepository> findAllGameAssetsRepositories() throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiers();
 
-    GameAssetsRepository newGameAssetsRepository() throws GameWorldRegistryDataServiceException;
+	GameAddonInteractionReceivingPropertyModifier newGameAddonInteractionReceivingPropertyModifier();
 
-    GameAssetsRepository findGameAssetsRepository(Long id) throws GameWorldRegistryDataServiceException;
+	GameAddonInteractionReceivingPropertyModifier newGameAddonInteractionReceivingPropertyModifier(Long id);
 
-    GameAssetsRepository saveGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException;
+	GameAddonInteractionReceivingPropertyModifier findGameAddonInteractionReceivingPropertyModifier(Long id);
 
-    void deleteGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException;
+	GameAddonInteractionReceivingPropertyModifier saveGameAddonInteractionReceivingPropertyModifier(GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier);
 
-    GameAssetsRepositoryPicture newGameAssetsRepositoryPicture() throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> saveGameAddonInteractionReceivingPropertyModifiers(List<GameAddonInteractionReceivingPropertyModifier> gameAddonInteractionReceivingPropertyModifiers);
 
-    List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPictures() throws GameWorldRegistryDataServiceException;
+	void deleteGameAddonInteractionReceivingPropertyModifier(GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier);
 
-    GameAssetsRepositoryPicture findGameAssetsRepositoryPicture(Long id) throws GameWorldRegistryDataServiceException;
+	void deleteGameAddonInteractionReceivingPropertyModifiersByIds(List<Long> ids);
 
-    List<GameAssetsRepository> findAllGameAssetsRepositoriesByExample(GameAssetsRepository example)
-            throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByExample(GameAddonInteractionReceivingPropertyModifier example);
 
-    GameAssetsRepositoryPicture findOneGameAssetsRepositoryPictureByGameAssetsRepositoryId(Long gameAssetsRepositoryId) throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByGameObjectTypeAllowedAddonTypeId(Long gameObjectTypeAllowedAddonTypeId);
 
-    GameAssetsRepositoryPicture saveGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByGameObjectTypeAllowedAddonTypeIdAndIds(Long gameObjectTypeAllowedAddonTypeIds, List<Long> ids);
 
-    void deleteGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) throws GameWorldRegistryDataServiceException;
+	void deleteGameAddonInteractionReceivingPropertyModifiersByGameObjectTypeAllowedAddonTypeIdAndIds(Long gameObjectTypeAllowedAddonTypeId, List<Long> gameObjectTypeAllowedAddonTypeIds);
 
-    void deleteGameAssetsRepositoryPicturesByGameAssetsRepository(GameAssetsRepository gameAssetsRepository) throws GameWorldRegistryDataServiceException;
+	void deleteGameAddonInteractionReceivingPropertyModifiersByGameObjectTypeAllowedAddonTypeId(Long gameObjectTypeAllowedAddonTypeId);
 
-    GameAssetsRepository findGameAssetsRepositoryByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByAffectedGameObjectTypePropertyId(Long affectedGameObjectTypePropertyId);
 
-    List<GameAssetsRepository> findAllGameAssetsRepositoriesByAnyTextFieldContaining(String content)
-            throws GameWorldRegistryDataServiceException;
+	List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiersByAffectedGameObjectTypePropertyIdAndIds(Long affectedGameObjectTypePropertyIds, List<Long> ids);
 
-    List<GameObjectType> findAllGameObjectTypes() throws GameWorldRegistryDataServiceException;
+	void deleteGameAddonInteractionReceivingPropertyModifiersByAffectedGameObjectTypePropertyIdAndIds(Long affectedGameObjectTypePropertyId, List<Long> affectedGameObjectTypePropertyIds);
 
-    GameObjectType newGameObjectType() throws GameWorldRegistryDataServiceException;
+	void deleteGameAddonInteractionReceivingPropertyModifiersByAffectedGameObjectTypePropertyId(Long affectedGameObjectTypePropertyId);
 
-    GameObjectType newGameObjectType(Long id) throws GameWorldRegistryDataServiceException;
 
-    GameObjectType findGameObjectType(Long id) throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeInteraction> findAllGameObjectTypeInteractions();
 
-    GameObjectType saveGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeInteraction newGameObjectTypeInteraction();
 
-    void deleteGameObjectType(GameObjectType gameObjectType) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeInteraction newGameObjectTypeInteraction(Long id);
 
-    List<GameObjectType> findAllGameObjectTypesByExample(GameObjectType example) throws GameWorldRegistryDataServiceException;
+	GameObjectTypeInteraction findGameObjectTypeInteraction(Long id);
 
-    List<GameObjectType> findAllGameObjectTypesByGameAssetsRepository(GameAssetsRepository gameAssetsRepository)
-            throws GameWorldRegistryDataServiceException;
+	GameObjectTypeInteraction saveGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction);
 
-    List<GameObjectType> findAllGameObjectTypesByGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass)
-            throws GameWorldRegistryDataServiceException;
+	List<GameObjectTypeInteraction> saveGameObjectTypeInteractions(List<GameObjectTypeInteraction> gameObjectTypeInteractions);
 
-    GameObjectType findGameObjectTypeByUniqueName(String uniqueName) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction);
 
-    List<GameObjectType> findAllGameObjectTypesByAnyTextFieldContaining(String content) throws GameWorldRegistryDataServiceException;
+	void deleteGameObjectTypeInteractionsByIds(List<Long> ids);
 
-    GameAssetsRepositoryOwner findGameAssetsRepositoryOwnerByGameAssetsRepositoryIdAndOwnerId(Long gameAssetsRepositoryId, Long ownerId);
+	List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByExample(GameObjectTypeInteraction example);
 
-    void deleteGameAssetsRepositoryOwnersByGameAssetsRepository(GameAssetsRepository rep);
+	List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByDonatingGameObjectTypeId(Long donatingGameObjectTypeId);
 
-    GameAssetsRepositoryOwner saveGameAssetsRepositoryOwner(GameAssetsRepositoryOwner repOwner);
+	List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByDonatingGameObjectTypeIdAndIds(Long donatingGameObjectTypeIds, List<Long> ids);
 
-    GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(GameAssetsRepository gameAssetsRepository, Long ownerUserId);
+	void deleteGameObjectTypeInteractionsByDonatingGameObjectTypeIdAndIds(Long donatingGameObjectTypeId, List<Long> donatingGameObjectTypeIds);
+
+	void deleteGameObjectTypeInteractionsByDonatingGameObjectTypeId(Long donatingGameObjectTypeId);
+
+	List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByReceivingGameObjectTypeId(Long receivingGameObjectTypeId);
+
+	List<GameObjectTypeInteraction> findAllGameObjectTypeInteractionsByReceivingGameObjectTypeIdAndIds(Long receivingGameObjectTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypeInteractionsByReceivingGameObjectTypeIdAndIds(Long receivingGameObjectTypeId, List<Long> receivingGameObjectTypeIds);
+
+	void deleteGameObjectTypeInteractionsByReceivingGameObjectTypeId(Long receivingGameObjectTypeId);
+
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionProperties();
+
+	GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty();
+
+	GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty(Long id);
+
+	GameObjectTypeInteractionProperty findGameObjectTypeInteractionProperty(Long id);
+
+	GameObjectTypeInteractionProperty saveGameObjectTypeInteractionProperty(GameObjectTypeInteractionProperty gameObjectTypeInteractionProperty);
+
+	List<GameObjectTypeInteractionProperty> saveGameObjectTypeInteractionProperties(List<GameObjectTypeInteractionProperty> gameObjectTypeInteractionProperties);
+
+	void deleteGameObjectTypeInteractionProperty(GameObjectTypeInteractionProperty gameObjectTypeInteractionProperty);
+
+	void deleteGameObjectTypeInteractionPropertiesByIds(List<Long> ids);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByExample(GameObjectTypeInteractionProperty example);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByGameObjectTypeInteractionId(Long gameObjectTypeInteractionId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByGameObjectTypeInteractionIdAndIds(Long gameObjectTypeInteractionIds, List<Long> ids);
+
+	void deleteGameObjectTypeInteractionPropertiesByGameObjectTypeInteractionIdAndIds(Long gameObjectTypeInteractionId, List<Long> gameObjectTypeInteractionIds);
+
+	void deleteGameObjectTypeInteractionPropertiesByGameObjectTypeInteractionId(Long gameObjectTypeInteractionId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByDonatingGameObjectTypePropertyId(Long donatingGameObjectTypePropertyId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByDonatingGameObjectTypePropertyIdAndIds(Long donatingGameObjectTypePropertyIds, List<Long> ids);
+
+	void deleteGameObjectTypeInteractionPropertiesByDonatingGameObjectTypePropertyIdAndIds(Long donatingGameObjectTypePropertyId, List<Long> donatingGameObjectTypePropertyIds);
+
+	void deleteGameObjectTypeInteractionPropertiesByDonatingGameObjectTypePropertyId(Long donatingGameObjectTypePropertyId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByReceivingGameObjectTypePropertyId(Long receivingGameObjectTypePropertyId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByReceivingGameObjectTypePropertyIdAndIds(Long receivingGameObjectTypePropertyIds, List<Long> ids);
+
+	void deleteGameObjectTypeInteractionPropertiesByReceivingGameObjectTypePropertyIdAndIds(Long receivingGameObjectTypePropertyId, List<Long> receivingGameObjectTypePropertyIds);
+
+	void deleteGameObjectTypeInteractionPropertiesByReceivingGameObjectTypePropertyId(Long receivingGameObjectTypePropertyId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByOverflowGameObjectTypePropertyId(Long overflowGameObjectTypePropertyId);
+
+	List<GameObjectTypeInteractionProperty> findAllGameObjectTypeInteractionPropertiesByOverflowGameObjectTypePropertyIdAndIds(Long overflowGameObjectTypePropertyIds, List<Long> ids);
+
+	void deleteGameObjectTypeInteractionPropertiesByOverflowGameObjectTypePropertyIdAndIds(Long overflowGameObjectTypePropertyId, List<Long> overflowGameObjectTypePropertyIds);
+
+	void deleteGameObjectTypeInteractionPropertiesByOverflowGameObjectTypePropertyId(Long overflowGameObjectTypePropertyId);
+
+
+	List<GameClientType> findAllGameClientTypes();
+
+	GameClientType newGameClientType();
+
+	GameClientType newGameClientType(Long id);
+
+	GameClientType findGameClientType(Long id);
+
+	GameClientType saveGameClientType(GameClientType gameClientType);
+
+	List<GameClientType> saveGameClientTypes(List<GameClientType> gameClientTypes);
+
+	void deleteGameClientType(GameClientType gameClientType);
+
+	void deleteGameClientTypesByIds(List<Long> ids);
+
+	List<GameClientType> findAllGameClientTypesByExample(GameClientType example);
+
+	GameClientType findGameClientTypeByUniqueName(String uniqueName);
+
+
+	List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentations();
+
+	GameObjectTypeRepresentation newGameObjectTypeRepresentation();
+
+	GameObjectTypeRepresentation newGameObjectTypeRepresentation(Long id);
+
+	GameObjectTypeRepresentation findGameObjectTypeRepresentation(Long id);
+
+	GameObjectTypeRepresentation saveGameObjectTypeRepresentation(GameObjectTypeRepresentation gameObjectTypeRepresentation);
+
+	List<GameObjectTypeRepresentation> saveGameObjectTypeRepresentations(List<GameObjectTypeRepresentation> gameObjectTypeRepresentations);
+
+	void deleteGameObjectTypeRepresentation(GameObjectTypeRepresentation gameObjectTypeRepresentation);
+
+	void deleteGameObjectTypeRepresentationsByIds(List<Long> ids);
+
+	List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByExample(GameObjectTypeRepresentation example);
+
+	List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByGameObjectTypeId(Long gameObjectTypeId);
+
+	List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypeRepresentationsByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
+
+	void deleteGameObjectTypeRepresentationsByGameObjectTypeId(Long gameObjectTypeId);
+
+	List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByGameClientTypeId(Long gameClientTypeId);
+
+	List<GameObjectTypeRepresentation> findAllGameObjectTypeRepresentationsByGameClientTypeIdAndIds(Long gameClientTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypeRepresentationsByGameClientTypeIdAndIds(Long gameClientTypeId, List<Long> gameClientTypeIds);
+
+	void deleteGameObjectTypeRepresentationsByGameClientTypeId(Long gameClientTypeId);
+
+
+	List<GameObjectTypeState> findAllGameObjectTypeStates();
+
+	GameObjectTypeState newGameObjectTypeState();
+
+	GameObjectTypeState newGameObjectTypeState(Long id);
+
+	GameObjectTypeState findGameObjectTypeState(Long id);
+
+	GameObjectTypeState saveGameObjectTypeState(GameObjectTypeState gameObjectTypeState);
+
+	List<GameObjectTypeState> saveGameObjectTypeStates(List<GameObjectTypeState> gameObjectTypeStates);
+
+	void deleteGameObjectTypeState(GameObjectTypeState gameObjectTypeState);
+
+	void deleteGameObjectTypeStatesByIds(List<Long> ids);
+
+	List<GameObjectTypeState> findAllGameObjectTypeStatesByExample(GameObjectTypeState example);
+
+	List<GameObjectTypeState> findAllGameObjectTypeStatesByGameObjectTypeId(Long gameObjectTypeId);
+
+	List<GameObjectTypeState> findAllGameObjectTypeStatesByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypeStatesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
+
+	void deleteGameObjectTypeStatesByGameObjectTypeId(Long gameObjectTypeId);
+
+	GameObjectTypeState findGameObjectTypeStateByName(String name);
+
+
+	List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiers();
+
+	GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier();
+
+	GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier(Long id);
+
+	GameObjectTypeStatePropertyModifier findGameObjectTypeStatePropertyModifier(Long id);
+
+	GameObjectTypeStatePropertyModifier saveGameObjectTypeStatePropertyModifier(GameObjectTypeStatePropertyModifier gameObjectTypeStatePropertyModifier);
+
+	List<GameObjectTypeStatePropertyModifier> saveGameObjectTypeStatePropertyModifiers(List<GameObjectTypeStatePropertyModifier> gameObjectTypeStatePropertyModifiers);
+
+	void deleteGameObjectTypeStatePropertyModifier(GameObjectTypeStatePropertyModifier gameObjectTypeStatePropertyModifier);
+
+	void deleteGameObjectTypeStatePropertyModifiersByIds(List<Long> ids);
+
+	List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByExample(GameObjectTypeStatePropertyModifier example);
+
+	List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByGameObjectTypeStateId(Long gameObjectTypeStateId);
+
+	List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByGameObjectTypeStateIdAndIds(Long gameObjectTypeStateIds, List<Long> ids);
+
+	void deleteGameObjectTypeStatePropertyModifiersByGameObjectTypeStateIdAndIds(Long gameObjectTypeStateId, List<Long> gameObjectTypeStateIds);
+
+	void deleteGameObjectTypeStatePropertyModifiersByGameObjectTypeStateId(Long gameObjectTypeStateId);
+
+	List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByGameObjectTypePropertyId(Long gameObjectTypePropertyId);
+
+	List<GameObjectTypeStatePropertyModifier> findAllGameObjectTypeStatePropertyModifiersByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyIds, List<Long> ids);
+
+	void deleteGameObjectTypeStatePropertyModifiersByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyId, List<Long> gameObjectTypePropertyIds);
+
+	void deleteGameObjectTypeStatePropertyModifiersByGameObjectTypePropertyId(Long gameObjectTypePropertyId);
+
+
+	List<GameObjectTypeClass> findAllGameObjectTypeClasses();
+
+	GameObjectTypeClass newGameObjectTypeClass();
+
+	GameObjectTypeClass newGameObjectTypeClass(Long id);
+
+	GameObjectTypeClass findGameObjectTypeClass(Long id);
+
+	GameObjectTypeClass saveGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass);
+
+	List<GameObjectTypeClass> saveGameObjectTypeClasses(List<GameObjectTypeClass> gameObjectTypeClasses);
+
+	void deleteGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass);
+
+	void deleteGameObjectTypeClassesByIds(List<Long> ids);
+
+	List<GameObjectTypeClass> findAllGameObjectTypeClassesByExample(GameObjectTypeClass example);
+
+	GameObjectTypeClass findGameObjectTypeClassByName(String name);
+
+
+	List<GameAssetsRepository> findAllGameAssetsRepositories();
+
+	GameAssetsRepository newGameAssetsRepository();
+
+	GameAssetsRepository newGameAssetsRepository(Long id);
+
+	GameAssetsRepository findGameAssetsRepository(Long id);
+
+	GameAssetsRepository saveGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
+
+	List<GameAssetsRepository> saveGameAssetsRepositories(List<GameAssetsRepository> gameAssetsRepositories);
+
+	void deleteGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
+
+	void deleteGameAssetsRepositoriesByIds(List<Long> ids);
+
+	List<GameAssetsRepository> findAllGameAssetsRepositoriesByExample(GameAssetsRepository example);
+
+	GameAssetsRepository findGameAssetsRepositoryByUniqueName(String uniqueName);
+
+
+	List<GameObjectType> findAllGameObjectTypes();
+
+	GameObjectType newGameObjectType();
+
+	GameObjectType newGameObjectType(Long id);
+
+	GameObjectType findGameObjectType(Long id);
+
+	GameObjectType saveGameObjectType(GameObjectType gameObjectType);
+
+	List<GameObjectType> saveGameObjectTypes(List<GameObjectType> gameObjectTypes);
+
+	void deleteGameObjectType(GameObjectType gameObjectType);
+
+	void deleteGameObjectTypesByIds(List<Long> ids);
+
+	List<GameObjectType> findAllGameObjectTypesByExample(GameObjectType example);
+
+	List<GameObjectType> findAllGameObjectTypesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
+
+	List<GameObjectType> findAllGameObjectTypesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryIds, List<Long> ids);
+
+	void deleteGameObjectTypesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds);
+
+	void deleteGameObjectTypesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
+
+	List<GameObjectType> findAllGameObjectTypesByGameObjectTypeClassId(Long gameObjectTypeClassId);
+
+	List<GameObjectType> findAllGameObjectTypesByGameObjectTypeClassIdAndIds(Long gameObjectTypeClassIds, List<Long> ids);
+
+	void deleteGameObjectTypesByGameObjectTypeClassIdAndIds(Long gameObjectTypeClassId, List<Long> gameObjectTypeClassIds);
+
+	void deleteGameObjectTypesByGameObjectTypeClassId(Long gameObjectTypeClassId);
+
+	GameObjectType findGameObjectTypeByUniqueName(String uniqueName);
+
+
+	List<GameObjectTypeProperty> findAllGameObjectTypeProperties();
+
+	GameObjectTypeProperty newGameObjectTypeProperty();
+
+	GameObjectTypeProperty newGameObjectTypeProperty(Long id);
+
+	GameObjectTypeProperty findGameObjectTypeProperty(Long id);
+
+	GameObjectTypeProperty saveGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);
+
+	List<GameObjectTypeProperty> saveGameObjectTypeProperties(List<GameObjectTypeProperty> gameObjectTypeProperties);
+
+	void deleteGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);
+
+	void deleteGameObjectTypePropertiesByIds(List<Long> ids);
+
+	List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByExample(GameObjectTypeProperty example);
+
+	List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectTypeId(Long gameObjectTypeId);
+
+	List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypePropertiesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
+
+	void deleteGameObjectTypePropertiesByGameObjectTypeId(Long gameObjectTypeId);
+
+	GameObjectTypeProperty findGameObjectTypePropertyByPropertyName(String propertyName);
+
+
+	List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwners();
+
+	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner();
+
+	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long id);
+
+	GameAssetsRepositoryOwner findGameAssetsRepositoryOwner(Long id);
+
+	GameAssetsRepositoryOwner saveGameAssetsRepositoryOwner(GameAssetsRepositoryOwner gameAssetsRepositoryOwner);
+
+	List<GameAssetsRepositoryOwner> saveGameAssetsRepositoryOwners(List<GameAssetsRepositoryOwner> gameAssetsRepositoryOwners);
+
+	void deleteGameAssetsRepositoryOwner(GameAssetsRepositoryOwner gameAssetsRepositoryOwner);
+
+	void deleteGameAssetsRepositoryOwnersByIds(List<Long> ids);
+
+	List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByExample(GameAssetsRepositoryOwner example);
+
+	List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
+
+	List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryIds, List<Long> ids);
+
+	void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds);
+
+	void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
+
+
+	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPictures();
+
+	GameAssetsRepositoryPicture newGameAssetsRepositoryPicture();
+
+	GameAssetsRepositoryPicture newGameAssetsRepositoryPicture(Long id);
+
+	GameAssetsRepositoryPicture findGameAssetsRepositoryPicture(Long id);
+
+	GameAssetsRepositoryPicture saveGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture);
+
+	List<GameAssetsRepositoryPicture> saveGameAssetsRepositoryPictures(List<GameAssetsRepositoryPicture> gameAssetsRepositoryPictures);
+
+	void deleteGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture);
+
+	void deleteGameAssetsRepositoryPicturesByIds(List<Long> ids);
+
+	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByExample(GameAssetsRepositoryPicture example);
+
+	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
+
+	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryIds, List<Long> ids);
+
+	void deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds);
+
+	void deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
+
+	GameAssetsRepositoryOwner findGameAssetsRepositoryOwnerByGameAssetsRepositoryIdAndOwnerId(Long repoId, Long userId);
+
+	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long repId, Long ownerId);
 }

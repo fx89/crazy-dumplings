@@ -1,52 +1,58 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectTypeAllowedAddonType extends IdentifiableGameAsset, Comparable<GameObjectTypeAllowedAddonType> {
-    Long getId();
 
-    String getUniqueName();
+	String getUniqueName();
 
-    void setUniqueName(String uniqueName);
+	void setUniqueName(String uniqueName);
 
-    GameObjectType getAddonGameObjectType();
+	Long getAddonGameObjectTypeId();
 
-    void setAddonGameObjectType(GameObjectType addonGameObjectType);
+	void setAddonGameObjectTypeId(Long addonGameObjectTypeId);
 
-    GameObjectType getApplicableToGameObjectType();
+	Long getApplicableToGameObjectTypeId();
 
-    void setApplicableToGameObjectType(GameObjectType applicableToGameObjectType);
+	void setApplicableToGameObjectTypeId(Long applicableToGameObjectTypeId);
 
-    Boolean getIsEquipedByDefault();
+	Boolean getIsEquipedByDefault();
 
-    void setIsEquipedByDefault(Boolean isEquipedByDefault);
+	void setIsEquipedByDefault(Boolean isEquipedByDefault);
 
-    Boolean getIsIncremental();
+	Boolean getIsIncremental();
 
-    void setIsIncremental(Boolean isIncremental);
+	void setIsIncremental(Boolean isIncremental);
 
-    Boolean getIsTriggered();
+	Boolean getIsTriggered();
 
-    void setIsTriggered(Boolean isTriggered);
+	void setIsTriggered(Boolean isTriggered);
 
-    Action getTriggerAction();
+	Long getTriggerActionId();
 
-    void setTriggerAction(Action triggerAction);
+	void setTriggerActionId(Long triggerActionId);
 
-    Boolean getIsSpawning();
+	Boolean getIsSpawning();
 
-    void setIsSpawning(Boolean isSpawning);
+	void setIsSpawning(Boolean isSpawning);
 
-    GameObjectType getSpawnableGameObjectType();
+	Long getSpawnableGameObjectTypeId();
 
-    void setSpawnableGameObjectType(GameObjectType spawnableGameObjectType);
+	void setSpawnableGameObjectTypeId(Long spawnableGameObjectTypeId);
 
-    Boolean getHasLimitedDuration();
+	Boolean getHasLimitedDuration();
 
-    void setHasLimitedDuration(Boolean hasLimitedDuration);
+	void setHasLimitedDuration(Boolean hasLimitedDuration);
 
-    Integer getDuration();
+	Integer getDuration();
 
-    void setDuration(Integer duration);
+	void setDuration(Integer duration);
 
 }

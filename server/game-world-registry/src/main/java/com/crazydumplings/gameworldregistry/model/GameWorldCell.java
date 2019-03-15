@@ -1,28 +1,33 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameWorldCell extends IdentifiableGameAsset, Comparable<GameWorldCell> {
-    Long getId();
 
-    GameWorld getGameWorld();
+	Long getGameWorldId();
 
-    void setGameWorld(GameWorld gameWorld);
+	void setGameWorldId(Long gameWorldId);
 
-    GameWorldCellType getGameWorldCellType();
+	Long getGameWorldCellTypeId();
 
-    void setGameWorldCellType(GameWorldCellType gameWorldCellType);
+	void setGameWorldCellTypeId(Long gameWorldCellTypeId);
 
-    Integer getXIndex();
+	Integer getXIndex();
 
-    void setXIndex(Integer xIndex);
+	void setXIndex(Integer xIndex);
 
-    Integer getYIndex();
+	Integer getYIndex();
 
-    void setYIndex(Integer yIndex);
+	void setYIndex(Integer yIndex);
 
-    GameWorldSpawnPointType getAttachedGameWorldSpawnPointType();
+	Long getAttachedGameWorldSpawnPointTypeId();
 
-    void setAttachedGameWorldSpawnPointType(GameWorldSpawnPointType attachedGameWorldSpawnPointType);
+	void setAttachedGameWorldSpawnPointTypeId(Long attachedGameWorldSpawnPointTypeId);
 
 }

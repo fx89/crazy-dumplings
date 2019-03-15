@@ -10,8 +10,8 @@ public interface ParentableGameAsset extends IdentifiableGameAsset {
 	// TODO: Reevaluate the dependency on Jackson at this point - the game world registry should not have anything to do with DTOs and JSONs
 
 	@JsonIgnore
-	IdentifiableGameAsset getParent();
+	Long getParentId();
 
 	@JsonIgnore
-	void setParent(IdentifiableGameAsset parent);
+	void setParentId(Long parentId);
 }

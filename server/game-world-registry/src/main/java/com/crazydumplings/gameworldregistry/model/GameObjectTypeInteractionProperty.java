@@ -1,32 +1,37 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectTypeInteractionProperty extends IdentifiableGameAsset, Comparable<GameObjectTypeInteractionProperty> {
-    Long getId();
 
-    GameObjectTypeInteraction getGameObjectTypeInteraction();
+	Long getGameObjectTypeInteractionId();
 
-    void setGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction);
+	void setGameObjectTypeInteractionId(Long gameObjectTypeInteractionId);
 
-    GameObjectTypeProperty getDonatingGameObjectTypeProperty();
+	Long getDonatingGameObjectTypePropertyId();
 
-    void setDonatingGameObjectTypeProperty(GameObjectTypeProperty donatingGameObjectTypeProperty);
+	void setDonatingGameObjectTypePropertyId(Long donatingGameObjectTypePropertyId);
 
-    GameObjectTypeProperty getReceivingGameObjectTypeProperty();
+	Long getReceivingGameObjectTypePropertyId();
 
-    void setReceivingGameObjectTypeProperty(GameObjectTypeProperty receivingGameObjectTypeProperty);
+	void setReceivingGameObjectTypePropertyId(Long receivingGameObjectTypePropertyId);
 
-    GameObjectTypeProperty getOverflowGameObjectTypeProperty();
+	Long getOverflowGameObjectTypePropertyId();
 
-    void setOverflowGameObjectTypeProperty(GameObjectTypeProperty overflowGameObjectTypeProperty);
+	void setOverflowGameObjectTypePropertyId(Long overflowGameObjectTypePropertyId);
 
-    Boolean getIsIncremental();
+	Boolean getIsIncremental();
 
-    void setIsIncremental(Boolean isIncremental);
+	void setIsIncremental(Boolean isIncremental);
 
-    Boolean getIsInverted();
+	Boolean getIsInverted();
 
-    void setIsInverted(Boolean isInverted);
+	void setIsInverted(Boolean isInverted);
 
 }

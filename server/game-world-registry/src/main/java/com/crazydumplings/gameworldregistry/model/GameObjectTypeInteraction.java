@@ -1,20 +1,25 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectTypeInteraction extends IdentifiableGameAsset, Comparable<GameObjectTypeInteraction> {
-    Long getId();
 
-    GameObjectType getDonatingGameObjectType();
+	Long getDonatingGameObjectTypeId();
 
-    void setDonatingGameObjectType(GameObjectType donatingGameObjectType);
+	void setDonatingGameObjectTypeId(Long donatingGameObjectTypeId);
 
-    GameObjectType getReceivingGameObjectType();
+	Long getReceivingGameObjectTypeId();
 
-    void setReceivingGameObjectType(GameObjectType receivingGameObjectType);
+	void setReceivingGameObjectTypeId(Long receivingGameObjectTypeId);
 
-    Integer getRadius();
+	Integer getRadius();
 
-    void setRadius(Integer radius);
+	void setRadius(Integer radius);
 
 }

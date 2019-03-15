@@ -43,7 +43,7 @@ public class GameWorldRegistryRepositoriesController {
     					rep.getId(),
     					rep.getUniqueName(),
     					rep.getDescription(),
-    					pictures.stream().filter(pic -> pic.getGameAssetsRepository().equals(rep)).findFirst().orElse(registryService.createGameAssetsRepositoryPicture()).getHash()
+    					pictures.stream().filter(pic -> pic.getGameAssetsRepositoryId().equals(rep.getId())).findFirst().orElse(registryService.createGameAssetsRepositoryPicture()).getPictureHash()
     			)
     		)
     		.collect(Collectors.toList());

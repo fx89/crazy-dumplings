@@ -1,22 +1,21 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
-import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
-public interface GameAssetsRepositoryPicture extends ParentableGameAsset {
-	GameAssetsRepository getGameAssetsRepository();
+@Generated(value="fx.codegen.builder version 1.0.0")
+public interface GameAssetsRepositoryPicture extends IdentifiableGameAsset, Comparable<GameAssetsRepositoryPicture> {
 
-	void setGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
+	Long getGameAssetsRepositoryId();
 
-	String getHash();
+	void setGameAssetsRepositoryId(Long gameAssetsRepositoryId);
 
-	void setHash(String hash);
+	String getPictureHash();
 
-	default IdentifiableGameAsset getParent() {
-		return getGameAssetsRepository();
-	};
+	void setPictureHash(String pictureHash);
 
-	default void setParent(IdentifiableGameAsset parent) {
-		setGameAssetsRepository((GameAssetsRepository) parent);
-	};
 }

@@ -1,125 +1,123 @@
+// package com.crazydumplings.gameregistry.gameassetmanager.dao.model;
 package com.crazydumplings.backend.gameworldregistry.springdata.dao.model;
+
+// import com.crazydumplings.gameregistry.gameassetmanager.model.GameObjectTypeStatePropertyModifier;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypeStatePropertyModifier;
 
 import java.util.Objects;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeState;
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeStatePropertyModifier;
+import javax.annotation.Generated;
+
 
 @Entity
 @Table(name = "GAME_OBJECT_TYPE_STATE_PROPERTY_MODIFIER")
-@Generated(value = "fx.codegen.builder version 1.0.0")
+@Generated(value="fx.codegen.builder version 1.0.0")
 public class GameObjectTypeStatePropertyModifierEntity implements GameObjectTypeStatePropertyModifier {
-    @Id
-    @Column(name = "ID_GAME_OBJECT_TYPE_STATE_PROPERTY_MODIFIER")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@Column(name = "ID_GAME_OBJECT_TYPE_STATE_PROPERTY_MODIFIER")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public GameObjectTypeStatePropertyModifierEntity() {
+	public GameObjectTypeStatePropertyModifierEntity() {
+		
+	}
 
-    }
+	public GameObjectTypeStatePropertyModifierEntity(Long id) {
+		this.id = id;
+	}
 
-    public GameObjectTypeStatePropertyModifierEntity(Long id) {
-        this.id = id;
-    }
+	public GameObjectTypeStatePropertyModifierEntity(GameObjectTypeStatePropertyModifierEntity entity, Long id) {
+		this.id = id;
+		this.gameObjectTypeStateId = entity.gameObjectTypeStateId;
+		this.gameObjectTypePropertyId = entity.gameObjectTypePropertyId;
+		this.propertyActualValue = entity.propertyActualValue;
+	}
 
-    public GameObjectTypeStatePropertyModifierEntity(GameObjectTypeStatePropertyModifierEntity entity, Long id) {
-        this.id = id;
-        this.gameObjectTypeState = entity.gameObjectTypeState;
-        this.gameObjectTypeProperty = entity.gameObjectTypeProperty;
-        this.propertyActualValue = entity.propertyActualValue;
-    }
+	@Column(name = "GAME_OBJECT_TYPE_STATE_ID")
+	private Long gameObjectTypeStateId;
 
-    @ManyToOne
-    @JoinColumn(name = "GAME_OBJECT_TYPE_STATE_ID")
-    private GameObjectTypeStateEntity    gameObjectTypeState;
+	@Column(name = "GAME_OBJECT_TYPE_PROPERTY_ID")
+	private Long gameObjectTypePropertyId;
 
-    @ManyToOne
-    @JoinColumn(name = "GAME_OBJECT_TYPE_PROPERTY_ID")
-    private GameObjectTypePropertyEntity gameObjectTypeProperty;
+	@Column(name = "PROPERTY_ACTUAL_VALUE")
+	private Double propertyActualValue;
 
-    @Column(name = "PROPERTY_ACTUAL_VALUE")
-    private Double                       propertyActualValue;
+	public Long getGameObjectTypeStateId() {
+		return gameObjectTypeStateId;
+	}
 
-    public GameObjectTypeState getGameObjectTypeState() {
-        return (GameObjectTypeState) gameObjectTypeState;
-    }
+	public void setGameObjectTypeStateId(Long gameObjectTypeStateId) {
+		this.gameObjectTypeStateId = gameObjectTypeStateId;
+	}
 
-    public void setGameObjectTypeState(GameObjectTypeState gameObjectTypeState) {
-        this.gameObjectTypeState = (GameObjectTypeStateEntity) gameObjectTypeState;
-    }
+	public Long getGameObjectTypePropertyId() {
+		return gameObjectTypePropertyId;
+	}
 
-    public GameObjectTypeProperty getGameObjectTypeProperty() {
-        return (GameObjectTypeProperty) gameObjectTypeProperty;
-    }
+	public void setGameObjectTypePropertyId(Long gameObjectTypePropertyId) {
+		this.gameObjectTypePropertyId = gameObjectTypePropertyId;
+	}
 
-    public void setGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty) {
-        this.gameObjectTypeProperty = (GameObjectTypePropertyEntity) gameObjectTypeProperty;
-    }
+	public Double getPropertyActualValue() {
+		return propertyActualValue;
+	}
 
-    public Double getPropertyActualValue() {
-        return propertyActualValue;
-    }
+	public void setPropertyActualValue(Double propertyActualValue) {
+		this.propertyActualValue = propertyActualValue;
+	}
 
-    public void setPropertyActualValue(Double propertyActualValue) {
-        this.propertyActualValue = propertyActualValue;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+		if (!(obj instanceof GameObjectTypeStatePropertyModifierEntity)) {
+			return false;
+		}
 
-        if (!(obj instanceof GameObjectTypeStatePropertyModifierEntity)) {
-            return false;
-        }
+		GameObjectTypeStatePropertyModifierEntity other = (GameObjectTypeStatePropertyModifierEntity) obj;
 
-        GameObjectTypeStatePropertyModifierEntity other = (GameObjectTypeStatePropertyModifierEntity) obj;
+		return Objects.equals(this.getId(), other.getId());
+	}
 
-        return Objects.equals(this.getId(), other.getId());
-    }
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getId()).build();
+	}
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(getId()).build();
-    }
+	public int compareTo(GameObjectTypeStatePropertyModifier obj) {
+		if (obj == this) {
+			return 0;
+		}
 
-    public int compareTo(GameObjectTypeStatePropertyModifier obj) {
-        if (obj == this) {
-            return 0;
-        }
+		if (!(obj instanceof GameObjectTypeStatePropertyModifierEntity)) {
+			return -1;
+		}
 
-        if (!(obj instanceof GameObjectTypeStatePropertyModifierEntity)) {
-            return -1;
-        }
+		GameObjectTypeStatePropertyModifierEntity other = (GameObjectTypeStatePropertyModifierEntity) obj;
 
-        GameObjectTypeStatePropertyModifierEntity other = (GameObjectTypeStatePropertyModifierEntity) obj;
+		if (this.getId() == null) {
+			return 1;
+		}
 
-        if (this.getId() == null) {
-            return 1;
-        }
+		if (other.getId() == null) {
+			return -1;
+		}
 
-        if (other.getId() == null) {
-            return -1;
-        }
-
-        return this.getId().compareTo(other.getId());
-    }
+		return this.getId().compareTo(other.getId());
+	}
 }

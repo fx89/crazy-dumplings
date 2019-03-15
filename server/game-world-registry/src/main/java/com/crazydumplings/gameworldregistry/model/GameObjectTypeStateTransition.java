@@ -1,24 +1,29 @@
 package com.crazydumplings.gameworldregistry.model;
 
+
+
+import javax.annotation.Generated;
+
+
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectTypeStateTransition extends IdentifiableGameAsset, Comparable<GameObjectTypeStateTransition> {
-    Long getId();
 
-    GameObjectTypeState getSourceGameObjectTypeState();
+	Long getSourceGameObjectTypeStateId();
 
-    void setSourceGameObjectTypeState(GameObjectTypeState sourceGameObjectTypeState);
+	void setSourceGameObjectTypeStateId(Long sourceGameObjectTypeStateId);
 
-    GameObjectTypeState getTargetGameObjectTypeState();
+	Long getTargetGameObjectTypeStateId();
 
-    void setTargetGameObjectTypeState(GameObjectTypeState targetGameObjectTypeState);
+	void setTargetGameObjectTypeStateId(Long targetGameObjectTypeStateId);
 
-    Boolean getIsAutomatic();
+	Boolean getIsAutomatic();
 
-    void setIsAutomatic(Boolean isAutomatic);
+	void setIsAutomatic(Boolean isAutomatic);
 
-    Action getTriggerAction();
+	Long getTriggerActionId();
 
-    void setTriggerAction(Action triggerAction);
+	void setTriggerActionId(Long triggerActionId);
 
 }

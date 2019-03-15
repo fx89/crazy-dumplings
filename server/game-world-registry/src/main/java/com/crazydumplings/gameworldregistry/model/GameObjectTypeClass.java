@@ -1,17 +1,18 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+
+import javax.annotation.Generated;
+
+
 
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 
+@Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectTypeClass extends IdentifiableGameAsset, Comparable<GameObjectTypeClass> {
-    Long getId();
 
-    @NotNull
-    @Size(min=3, max=60)
-    String getName();
+	String getName();
 
-    void setName(String name);
+	void setName(String name);
 
 }

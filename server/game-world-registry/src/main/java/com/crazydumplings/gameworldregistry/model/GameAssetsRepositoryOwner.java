@@ -1,15 +1,11 @@
 package com.crazydumplings.gameworldregistry.model;
 
-import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+public interface GameAssetsRepositoryOwner {
+	void setGameAssetsRepositoryId(Long gameAssetsRepositoryId);
 
-public interface GameAssetsRepositoryOwner extends IdentifiableGameAsset, Comparable<GameAssetsRepositoryOwner> {
-    Long getId();
+	Long getGameAssetsRepositoryId();
 
-    GameAssetsRepository getGameAssetsRepository();
+	Long getOwnerUserId();
 
-    void setGameAssetsRepository(GameAssetsRepository gameAssetsRepository);
-
-    Long getOwnerUserId();
-
-    void setOwnerUserId(Long ownerUserId);
+	void setOwnerUserId(Long ownerUserId);
 }

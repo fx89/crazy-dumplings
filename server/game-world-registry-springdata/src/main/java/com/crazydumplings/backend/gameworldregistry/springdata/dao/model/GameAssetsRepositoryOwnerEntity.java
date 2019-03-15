@@ -1,91 +1,110 @@
+// package com.crazydumplings.gameregistry.gameassetmanager.dao.model;
 package com.crazydumplings.backend.gameworldregistry.springdata.dao.model;
+
+// import com.crazydumplings.gameregistry.gameassetmanager.model.GameAssetsRepositoryOwner;
+import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
+
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
-import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
+import javax.annotation.Generated;
+
 
 @Entity
 @Table(name = "GAME_ASSETS_REPOSITORY_OWNER")
+@Generated(value="fx.codegen.builder version 1.0.0")
 public class GameAssetsRepositoryOwnerEntity implements GameAssetsRepositoryOwner {
-    @Id
-    @Column(name = "ID_GAME_ASSETS_REPOSITORY_OWNER")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long                       id;
+	@Id
+	@Column(name = "ID_GAME_ASSETS_REPOSITORY_OWNER")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "GAME_ASSETS_REPOSITORY_ID")
-    private GameAssetsRepositoryEntity gameAssetsRepository;
+	public Long getId() {
+		return id;
+	}
 
-    @Column(name = "OWNER_USER_ID")
-    private Long                       ownerUserId;
+	public GameAssetsRepositoryOwnerEntity() {
+		
+	}
 
-    public GameAssetsRepositoryOwnerEntity() {
-        
-    }
+	public GameAssetsRepositoryOwnerEntity(Long id) {
+		this.id = id;
+	}
 
-    public GameAssetsRepositoryOwnerEntity(GameAssetsRepositoryEntity gameAssetsRepository, Long ownerUserId) {
-        this.gameAssetsRepository = gameAssetsRepository;
-        this.ownerUserId = ownerUserId;
-    }
+	public GameAssetsRepositoryOwnerEntity(Long repId, Long ownerId) {
+		this.gameAssetsRepositoryId = repId;
+		this.ownerUserId = ownerId;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "GAME_ASSETS_REPOSITORY_ID")
+	private Long gameAssetsRepositoryId;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "OWNER_USER_ID")
+	private Long ownerUserId;
 
-    public void setGameAssetsRepository(GameAssetsRepository gameAssetsRepository) {
-        this.gameAssetsRepository = (GameAssetsRepositoryEntity) gameAssetsRepository;
-    }
+	public Long getGameAssetsRepositoryId() {
+		return gameAssetsRepositoryId;
+	}
 
-    public GameAssetsRepository getGameAssetsRepository() {
-        return gameAssetsRepository;
-    }
+	public void setGameAssetsRepositoryId(Long gameAssetsRepositoryId) {
+		this.gameAssetsRepositoryId = gameAssetsRepositoryId;
+	}
 
-    public Long getOwnerUserId() {
-        return ownerUserId;
-    }
+	public Long getOwnerUserId() {
+		return ownerUserId;
+	}
 
-    public void setOwnerUserId(Long ownerUserId) {
-        this.ownerUserId = ownerUserId;
-    }
+	public void setOwnerUserId(Long ownerUserId) {
+		this.ownerUserId = ownerUserId;
+	}
 
-    public int compareTo(GameAssetsRepositoryOwner obj) {
-        if (obj == this) {
-            return 0;
-        }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
 
-        if (!(obj instanceof GameAssetsRepositoryOwnerEntity)) {
-            return -1;
-        }
+		if (!(obj instanceof GameAssetsRepositoryOwnerEntity)) {
+			return false;
+		}
 
-        GameAssetsRepositoryOwnerEntity other = (GameAssetsRepositoryOwnerEntity) obj;
+		GameAssetsRepositoryOwnerEntity other = (GameAssetsRepositoryOwnerEntity) obj;
 
-        if (this.getId() == null) {
-            return 1;
-        }
+		return Objects.equals(this.getId(), other.getId());
+	}
 
-        if (other.getId() == null) {
-            return -1;
-        }
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getId()).build();
+	}
 
-        return this.getId().compareTo(other.getId());
-    }
+	public int compareTo(GameAssetsRepositoryOwner obj) {
+		if (obj == this) {
+			return 0;
+		}
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(getId()).build();
-    }
+		if (!(obj instanceof GameAssetsRepositoryOwnerEntity)) {
+			return -1;
+		}
+
+		GameAssetsRepositoryOwnerEntity other = (GameAssetsRepositoryOwnerEntity) obj;
+
+		if (this.getId() == null) {
+			return 1;
+		}
+
+		if (other.getId() == null) {
+			return -1;
+		}
+
+		return this.getId().compareTo(other.getId());
+	}
 }

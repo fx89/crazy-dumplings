@@ -1,163 +1,159 @@
+// package com.crazydumplings.gameregistry.gameassetmanager.dao.model;
 package com.crazydumplings.backend.gameworldregistry.springdata.dao.model;
+
+// import com.crazydumplings.gameregistry.gameassetmanager.model.GameObjectTypeInteractionProperty;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteractionProperty;
 
 import java.util.Objects;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteraction;
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteractionProperty;
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
+import javax.annotation.Generated;
+
 
 @Entity
 @Table(name = "GAME_OBJECT_TYPE_INTERACTION_PROPERTY")
-@Generated(value = "fx.codegen.builder version 1.0.0")
+@Generated(value="fx.codegen.builder version 1.0.0")
 public class GameObjectTypeInteractionPropertyEntity implements GameObjectTypeInteractionProperty {
-    @Id
-    @Column(name = "ID_GAME_OBJECT_TYPE_INTERACTION_PROPERTY")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@Column(name = "ID_GAME_OBJECT_TYPE_INTERACTION_PROPERTY")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public GameObjectTypeInteractionPropertyEntity() {
+	public GameObjectTypeInteractionPropertyEntity() {
+		
+	}
 
-    }
+	public GameObjectTypeInteractionPropertyEntity(Long id) {
+		this.id = id;
+	}
 
-    public GameObjectTypeInteractionPropertyEntity(Long id) {
-        this.id = id;
-    }
+	public GameObjectTypeInteractionPropertyEntity(GameObjectTypeInteractionPropertyEntity entity, Long id) {
+		this.id = id;
+		this.gameObjectTypeInteractionId = entity.gameObjectTypeInteractionId;
+		this.donatingGameObjectTypePropertyId = entity.donatingGameObjectTypePropertyId;
+		this.receivingGameObjectTypePropertyId = entity.receivingGameObjectTypePropertyId;
+		this.overflowGameObjectTypePropertyId = entity.overflowGameObjectTypePropertyId;
+		this.isIncremental = entity.isIncremental;
+		this.isInverted = entity.isInverted;
+	}
 
-    public GameObjectTypeInteractionPropertyEntity(GameObjectTypeInteractionPropertyEntity entity, Long id) {
-        this.id = id;
-        this.gameObjectTypeInteraction = entity.gameObjectTypeInteraction;
-        this.donatingGameObjectTypeProperty = entity.donatingGameObjectTypeProperty;
-        this.receivingGameObjectTypeProperty = entity.receivingGameObjectTypeProperty;
-        this.overflowGameObjectTypeProperty = entity.overflowGameObjectTypeProperty;
-        this.isIncremental = entity.isIncremental;
-        this.isInverted = entity.isInverted;
-    }
+	@Column(name = "GAME_OBJECT_TYPE_INTERACTION_ID")
+	private Long gameObjectTypeInteractionId;
 
-    @ManyToOne
-    @JoinColumn(name = "GAME_OBJECT_TYPE_INTERACTION_ID")
-    private GameObjectTypeInteractionEntity gameObjectTypeInteraction;
+	@Column(name = "DONATING_GAME_OBJECT_TYPE_PROPERTY_ID")
+	private Long donatingGameObjectTypePropertyId;
 
-    @ManyToOne
-    @JoinColumn(name = "DONATING_GAME_OBJECT_TYPE_PROPERTY_ID")
-    private GameObjectTypePropertyEntity    donatingGameObjectTypeProperty;
+	@Column(name = "RECEIVING_GAME_OBJECT_TYPE_PROPERTY_ID")
+	private Long receivingGameObjectTypePropertyId;
 
-    @ManyToOne
-    @JoinColumn(name = "RECEIVING_GAME_OBJECT_TYPE_PROPERTY_ID")
-    private GameObjectTypePropertyEntity    receivingGameObjectTypeProperty;
+	@Column(name = "OVERFLOW_GAME_OBJECT_TYPE_PROPERTY_ID")
+	private Long overflowGameObjectTypePropertyId;
 
-    @ManyToOne
-    @JoinColumn(name = "OVERFLOW_GAME_OBJECT_TYPE_PROPERTY_ID")
-    private GameObjectTypePropertyEntity    overflowGameObjectTypeProperty;
+	@Column(name = "IS_INCREMENTAL")
+	private Boolean isIncremental;
 
-    @Column(name = "IS_INCREMENTAL")
-    private Boolean                         isIncremental;
+	@Column(name = "IS_INVERTED")
+	private Boolean isInverted;
 
-    @Column(name = "IS_INVERTED")
-    private Boolean                         isInverted;
+	public Long getGameObjectTypeInteractionId() {
+		return gameObjectTypeInteractionId;
+	}
 
-    public GameObjectTypeInteraction getGameObjectTypeInteraction() {
-        return (GameObjectTypeInteraction) gameObjectTypeInteraction;
-    }
+	public void setGameObjectTypeInteractionId(Long gameObjectTypeInteractionId) {
+		this.gameObjectTypeInteractionId = gameObjectTypeInteractionId;
+	}
 
-    public void setGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction) {
-        this.gameObjectTypeInteraction = (GameObjectTypeInteractionEntity) gameObjectTypeInteraction;
-    }
+	public Long getDonatingGameObjectTypePropertyId() {
+		return donatingGameObjectTypePropertyId;
+	}
 
-    public GameObjectTypeProperty getDonatingGameObjectTypeProperty() {
-        return (GameObjectTypeProperty) donatingGameObjectTypeProperty;
-    }
+	public void setDonatingGameObjectTypePropertyId(Long donatingGameObjectTypePropertyId) {
+		this.donatingGameObjectTypePropertyId = donatingGameObjectTypePropertyId;
+	}
 
-    public void setDonatingGameObjectTypeProperty(GameObjectTypeProperty donatingGameObjectTypeProperty) {
-        this.donatingGameObjectTypeProperty = (GameObjectTypePropertyEntity) donatingGameObjectTypeProperty;
-    }
+	public Long getReceivingGameObjectTypePropertyId() {
+		return receivingGameObjectTypePropertyId;
+	}
 
-    public GameObjectTypeProperty getReceivingGameObjectTypeProperty() {
-        return (GameObjectTypeProperty) receivingGameObjectTypeProperty;
-    }
+	public void setReceivingGameObjectTypePropertyId(Long receivingGameObjectTypePropertyId) {
+		this.receivingGameObjectTypePropertyId = receivingGameObjectTypePropertyId;
+	}
 
-    public void setReceivingGameObjectTypeProperty(GameObjectTypeProperty receivingGameObjectTypeProperty) {
-        this.receivingGameObjectTypeProperty = (GameObjectTypePropertyEntity) receivingGameObjectTypeProperty;
-    }
+	public Long getOverflowGameObjectTypePropertyId() {
+		return overflowGameObjectTypePropertyId;
+	}
 
-    public GameObjectTypeProperty getOverflowGameObjectTypeProperty() {
-        return (GameObjectTypeProperty) overflowGameObjectTypeProperty;
-    }
+	public void setOverflowGameObjectTypePropertyId(Long overflowGameObjectTypePropertyId) {
+		this.overflowGameObjectTypePropertyId = overflowGameObjectTypePropertyId;
+	}
 
-    public void setOverflowGameObjectTypeProperty(GameObjectTypeProperty overflowGameObjectTypeProperty) {
-        this.overflowGameObjectTypeProperty = (GameObjectTypePropertyEntity) overflowGameObjectTypeProperty;
-    }
+	public Boolean getIsIncremental() {
+		return isIncremental;
+	}
 
-    public Boolean getIsIncremental() {
-        return isIncremental;
-    }
+	public void setIsIncremental(Boolean isIncremental) {
+		this.isIncremental = isIncremental;
+	}
 
-    public void setIsIncremental(Boolean isIncremental) {
-        this.isIncremental = isIncremental;
-    }
+	public Boolean getIsInverted() {
+		return isInverted;
+	}
 
-    public Boolean getIsInverted() {
-        return isInverted;
-    }
+	public void setIsInverted(Boolean isInverted) {
+		this.isInverted = isInverted;
+	}
 
-    public void setIsInverted(Boolean isInverted) {
-        this.isInverted = isInverted;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
+		if (!(obj instanceof GameObjectTypeInteractionPropertyEntity)) {
+			return false;
+		}
 
-        if (!(obj instanceof GameObjectTypeInteractionPropertyEntity)) {
-            return false;
-        }
+		GameObjectTypeInteractionPropertyEntity other = (GameObjectTypeInteractionPropertyEntity) obj;
 
-        GameObjectTypeInteractionPropertyEntity other = (GameObjectTypeInteractionPropertyEntity) obj;
+		return Objects.equals(this.getId(), other.getId());
+	}
 
-        return Objects.equals(this.getId(), other.getId());
-    }
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getId()).build();
+	}
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(getId()).build();
-    }
+	public int compareTo(GameObjectTypeInteractionProperty obj) {
+		if (obj == this) {
+			return 0;
+		}
 
-    public int compareTo(GameObjectTypeInteractionProperty obj) {
-        if (obj == this) {
-            return 0;
-        }
+		if (!(obj instanceof GameObjectTypeInteractionPropertyEntity)) {
+			return -1;
+		}
 
-        if (!(obj instanceof GameObjectTypeInteractionPropertyEntity)) {
-            return -1;
-        }
+		GameObjectTypeInteractionPropertyEntity other = (GameObjectTypeInteractionPropertyEntity) obj;
 
-        GameObjectTypeInteractionPropertyEntity other = (GameObjectTypeInteractionPropertyEntity) obj;
+		if (this.getId() == null) {
+			return 1;
+		}
 
-        if (this.getId() == null) {
-            return 1;
-        }
+		if (other.getId() == null) {
+			return -1;
+		}
 
-        if (other.getId() == null) {
-            return -1;
-        }
-
-        return this.getId().compareTo(other.getId());
-    }
+		return this.getId().compareTo(other.getId());
+	}
 }
