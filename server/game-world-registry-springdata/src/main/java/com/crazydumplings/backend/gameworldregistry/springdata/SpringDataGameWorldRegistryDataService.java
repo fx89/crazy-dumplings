@@ -16,7 +16,6 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.Automat
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAddonInteractionReceivingPropertyModifierEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAssetsRepositoryEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAssetsRepositoryOwnerEntity;
-import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameAssetsRepositoryPictureEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameClientTypeEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeAllowedAddonTypeEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeAutomationEntity;
@@ -40,7 +39,6 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.Spring
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameAddonInteractionReceivingPropertyModifiersRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameAssetsRepositoriesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameAssetsRepositoryOwnersRepository;
-import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameAssetsRepositoryPicturesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameClientTypesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeAllowedAddonTypesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeAutomationsRepository;
@@ -68,7 +66,6 @@ import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 import com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
-import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameClientType;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeAllowedAddonType;
@@ -160,9 +157,6 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 
 	@Autowired
 	SpringJpaGameAssetsRepositoryOwnersRepository gameAssetsRepositoryOwnersRepository;
-
-	@Autowired
-	SpringJpaGameAssetsRepositoryPicturesRepository gameAssetsRepositoryPicturesRepository;
 
 
 	public PlayableCharacterType newPlayableCharacterType() {
@@ -3178,107 +3172,6 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 		}
 	}
 
-	public GameAssetsRepositoryPicture newGameAssetsRepositoryPicture() {
-		return new GameAssetsRepositoryPictureEntity();
-	}
-
-	@Override
-	public GameAssetsRepositoryPicture newGameAssetsRepositoryPicture(Long id) {
-		return new GameAssetsRepositoryPictureEntity(id);
-	}
-
-	@Override
-	public List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPictures() {
-		try {
-			return StreamSupport.stream(gameAssetsRepositoryPicturesRepository.findAll().spliterator(), false).collect(Collectors.toList());
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to retrieve game assets repository pictures", ex);
-		}
-	}
-
-	@Override
-	public GameAssetsRepositoryPicture findGameAssetsRepositoryPicture(Long id) {
-		try {
-			return gameAssetsRepositoryPicturesRepository.findById(id).orElse(null);
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to retrieve game assets repository picture", ex);
-		}
-	}
-
-	@Override
-	public GameAssetsRepositoryPicture saveGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) {
-		try {
-			return gameAssetsRepositoryPicturesRepository.save((GameAssetsRepositoryPictureEntity) gameAssetsRepositoryPicture);
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game assets repository picture", ex);
-		}
-	}
-
-	@Override
-	public List<GameAssetsRepositoryPicture> saveGameAssetsRepositoryPictures(List<GameAssetsRepositoryPicture> gameAssetsRepositoryPictures) {
-		try {
-			Iterable<GameAssetsRepositoryPictureEntity> lst = gameAssetsRepositoryPictures.stream().map(a -> (GameAssetsRepositoryPictureEntity)a).collect(Collectors.toList());
-			lst = gameAssetsRepositoryPicturesRepository.saveAll(lst);
-			return StreamSupport.stream(lst.spliterator(), false).collect(Collectors.toList());
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game assets repository picture", ex);
-		}
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture) {
-		try {
-			gameAssetsRepositoryPicturesRepository.delete((GameAssetsRepositoryPictureEntity) gameAssetsRepositoryPicture);
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game assets repository picture", ex);
-		}
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryPicturesByIds(List<Long> ids) {
-		try {
-			gameAssetsRepositoryPicturesRepository.deleteAllByIds(ids);
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game assets repository pictures", ex);
-		}
-	}
-
-	@Override
-	public List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryId(Long gameAssetsRepositoryId) {
-		try {
-			return new ArrayList<>(gameAssetsRepositoryPicturesRepository.findAllByGameAssetsRepositoryId(gameAssetsRepositoryId));
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game assets repository pictures", ex);
-		}
-	}
-
-	@Override
-	public List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> ids) {
-		try {
-			return new ArrayList<>(gameAssetsRepositoryPicturesRepository.findAllByGameAssetsRepositoryIdAndIds(gameAssetsRepositoryId, ids));
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game assets repository pictures", ex);
-		}
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryId(Long gameAssetsRepositoryId) {
-		try {
-			gameAssetsRepositoryPicturesRepository.deleteAllByGameAssetsRepositoryId(gameAssetsRepositoryId);
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game assets repository pictures", ex);
-		}
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> ids) {
-		try {
-			gameAssetsRepositoryPicturesRepository.deleteAllByGameAssetsRepositoryIdAndIds(gameAssetsRepositoryId, ids);
-		} catch (Exception ex) {
-			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game assets repository pictures", ex);
-		}
-	}
-
 	@Override
 	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long repId, Long repOwnerId) {
 		return new GameAssetsRepositoryOwnerEntity(repId, repOwnerId);
@@ -3332,11 +3225,6 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 
 	@Override
 	public void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByExample(GameAssetsRepositoryPicture example) {
 		throw new UnsupportedOperationException("not implemented");
 	}
 

@@ -7,7 +7,6 @@ import com.crazydumplings.gameworldregistry.model.AutomationObjectProvider;
 import com.crazydumplings.gameworldregistry.model.GameAddonInteractionReceivingPropertyModifier;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
-import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameClientType;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeAllowedAddonType;
@@ -773,33 +772,6 @@ public interface GameWorldRegistryDataService {
 	void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds);
 
 	void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
-
-
-	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPictures();
-
-	GameAssetsRepositoryPicture newGameAssetsRepositoryPicture();
-
-	GameAssetsRepositoryPicture newGameAssetsRepositoryPicture(Long id);
-
-	GameAssetsRepositoryPicture findGameAssetsRepositoryPicture(Long id);
-
-	GameAssetsRepositoryPicture saveGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture);
-
-	List<GameAssetsRepositoryPicture> saveGameAssetsRepositoryPictures(List<GameAssetsRepositoryPicture> gameAssetsRepositoryPictures);
-
-	void deleteGameAssetsRepositoryPicture(GameAssetsRepositoryPicture gameAssetsRepositoryPicture);
-
-	void deleteGameAssetsRepositoryPicturesByIds(List<Long> ids);
-
-	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByExample(GameAssetsRepositoryPicture example);
-
-	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
-
-	List<GameAssetsRepositoryPicture> findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryIds, List<Long> ids);
-
-	void deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds);
-
-	void deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
 
 	GameAssetsRepositoryOwner findGameAssetsRepositoryOwnerByGameAssetsRepositoryIdAndOwnerId(Long repoId, Long userId);
 

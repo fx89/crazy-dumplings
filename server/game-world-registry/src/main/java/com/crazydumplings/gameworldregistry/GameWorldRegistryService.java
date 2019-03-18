@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.crazydumplings.gameworldregistry.exception.CrazyDumplingsGameWorldRegistryException;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
-import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryPicture;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
@@ -109,19 +108,10 @@ public class GameWorldRegistryService {
     	return dataService.findAllGameAssetsRepositories();
     }
 
-    public List<GameAssetsRepositoryPicture> getAllGameAssetsRepositoryPictures() {
-    	return dataService.findAllGameAssetsRepositoryPictures();
-    }
-
-    public GameAssetsRepositoryPicture createGameAssetsRepositoryPicture() {
-    	return dataService.newGameAssetsRepositoryPicture();
-    }
-
     public void deleteGameAssetsRepository(Long repoId) {
         GameAssetsRepository rep = dataService.findGameAssetsRepository(repoId);
 
         dataService.deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryId(rep.getId());
-        dataService.deleteGameAssetsRepositoryPicturesByGameAssetsRepositoryId(rep.getId());
 
         dataService.deleteGameAssetsRepository(rep);
     }
@@ -142,26 +132,14 @@ public class GameWorldRegistryService {
      // Attributes should be set only if provided
         if (uniqueName  != null) rep.setUniqueName (uniqueName );
         if (description != null) rep.setDescription(description);
+        if (pictureHash != null) rep.setPictureHash(pictureHash);
 
         rep = dataService.saveGameAssetsRepository(rep);
 
-     // IF the repository is new, then grant the current user access rights to the newly created repository
+     // If the repository is new, then grant the current user access rights to the newly created repository
         if (repoId == null || repoId <= 0) {
             GameAssetsRepositoryOwner repOwner = dataService.newGameAssetsRepositoryOwner(rep.getId(), currentUserId);
             dataService.saveGameAssetsRepositoryOwner(repOwner);
-        }
-
-     // Set the picture hash (if any provided)
-        if (pictureHash != null) {
-        	GameAssetsRepositoryPicture pic = dataService.findAllGameAssetsRepositoryPicturesByGameAssetsRepositoryId(rep.getId()).get(0);
-        	if (pic == null) {
-        		pic = dataService.newGameAssetsRepositoryPicture();
-        	}
-
-        	pic.setPictureHash(pictureHash);
-        	pic.setGameAssetsRepositoryId(rep.getId());
-
-        	pic = dataService.saveGameAssetsRepositoryPicture(pic);
         }
 
      // Return a reference to the newly created repository
