@@ -31,7 +31,7 @@ export class AdminPageObjectTypesComponent implements OnInit {
         this.gameObjectTypesService.getGameObjectClassesList()
                 .subscribe( (result: GameObjectTypeClass[]) => {
                     this.variables.currentGameObjectType = new GameObjectType();
-                    this.variables.currentGameObjectType.gameObjectTypeClass = result ? result[0] : null;
+                    this.variables.currentGameObjectType.gameObjectTypeClassId = result ? result[0].id : null;
                     this.variables.selectSection(AppSection.OBJECT_TYPES_EDIT);
                 });
     }

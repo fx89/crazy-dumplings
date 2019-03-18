@@ -26,11 +26,11 @@ export class GameObjectTypePropertiesService extends AbstractBackendRequestServi
     }
 
     public saveGameObjectTypeProperty(repoId: number, gameObjectTypeProperty: GameObjectTypeProperty): Observable<GameObjectTypeProperty> {
-        return this.save(repoId, gameObjectTypeProperty.gameObjectType.id, gameObjectTypeProperty.id, this.createGameObjectTypePropertyRequest(gameObjectTypeProperty), true);
+        return this.save(repoId, gameObjectTypeProperty.gameObjectTypeId, gameObjectTypeProperty.id, this.createGameObjectTypePropertyRequest(gameObjectTypeProperty), true);
     }
 
     public deleteGameObjectTypeProperty(repoId: number, gameObjectTypeProperty: GameObjectTypeProperty): Observable<EndpointResponse<any>> {
-        return this.delete(repoId, gameObjectTypeProperty.gameObjectType.id, gameObjectTypeProperty.gameObjectType.id, false);
+        return this.delete(repoId, gameObjectTypeProperty.gameObjectTypeId, gameObjectTypeProperty.gameObjectTypeId, false);
     }
 
 

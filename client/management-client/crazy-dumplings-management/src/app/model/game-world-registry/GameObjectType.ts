@@ -3,8 +3,8 @@ import { GameObjectTypeClass } from './GameObjectTypeClass';
 
 export class GameObjectType {
     id: number;
-    gameAssetsRepository: GameAssetsRepository;
-    gameObjectTypeClass: GameObjectTypeClass;
+    gameAssetsRepositoryId: number;
+    gameObjectTypeClassId: number;
     uniqueName: string;
     isExperimental: boolean;
     description: string;

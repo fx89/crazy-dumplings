@@ -68,7 +68,7 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
     }
 
     save() {
-        if (this.variables.currentGameObjectType.gameObjectTypeClass) {
+        if (this.variables.currentGameObjectType.gameObjectTypeClassId) {
             this.saveGameObjectType();
         } else {
             this.warnMissingClass();

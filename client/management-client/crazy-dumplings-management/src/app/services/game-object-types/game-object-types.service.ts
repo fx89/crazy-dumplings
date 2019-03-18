@@ -48,7 +48,7 @@ export class GameObjectTypesService extends AbstractBackendRequestService {
 
         request.description = gameObjectType.description;
         request.experimental = gameObjectType.isExperimental;
-        request.gameObjectTypeClassId = gameObjectType.gameObjectTypeClass.id;
+        request.gameObjectTypeClassId = gameObjectType.gameObjectTypeClassId;
         request.uniqueName = gameObjectType.uniqueName;
 
         return request;
