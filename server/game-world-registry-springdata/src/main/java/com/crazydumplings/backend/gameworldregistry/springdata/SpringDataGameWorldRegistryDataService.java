@@ -3232,7 +3232,7 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	public GameAssetsRepositoryOwner findGameAssetsRepositoryOwnerByGameAssetsRepositoryIdAndOwnerId(Long repoId, Long userId) {
 		List<GameAssetsRepositoryOwnerEntity> repOwners = gameAssetsRepositoryOwnersRepository.findAllByExample(repoId, userId);
 		
-		if (repOwners == null) {
+		if (repOwners == null || repOwners.size() == 0) {
 			return null;
 		}
 
