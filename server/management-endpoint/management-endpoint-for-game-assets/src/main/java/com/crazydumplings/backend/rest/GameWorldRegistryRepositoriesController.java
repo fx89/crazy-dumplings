@@ -3,7 +3,6 @@ package com.crazydumplings.backend.rest;
 import static com.crazydumplings.backend.utils.SecurityUtils.getCurrentUserId;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crazydumplings.backend.rest.model.GameAssetsRepositoryRequest;
-import com.crazydumplings.backend.rest.model.GameAssetsRepositoryResponse;
 import com.crazydumplings.backend.security.annotations.AssetType;
 import com.crazydumplings.backend.security.annotations.PreAuthorizeOwnAssets;
 import com.crazydumplings.gameworldregistry.GameWorldRegistryService;
@@ -31,27 +29,14 @@ public class GameWorldRegistryRepositoriesController {
     private GameWorldRegistryService registryService;
 
     @GetMapping("/list")
-    public List<GameAssetsRepositoryResponse> listRepositories() {
-     // TODO: Using the GameAssetsRepositoryResponse is not the best solution - this needs to be modified
-    	List<GameAssetsRepository> repositories = registryService.getAllGameAssetsRepositories();
-    	
-    	return
-    	repositories.stream().map(
-    			rep -> new GameAssetsRepositoryResponse(
-    					rep.getId(),
-    					rep.getUniqueName(),
-    					rep.getDescription(),
-    					rep.getPictureHash()
-    			)
-    		)
-    		.collect(Collectors.toList());
+    public List<GameAssetsRepository> listRepositories() {
+    	return registryService.getAllGameAssetsRepositories();
     }
 
     @PostMapping("/save")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public void updateRepository(@RequestParam("repo_id") Long repoId, @RequestBody GameAssetsRepositoryRequest request) {
-     // TODO: reconsider the usefulness of the GameAssetsRepositoryRequest type
-        registryService.saveGameAssetsRepository(repoId, request.uniqueName, request.description, request.pictureHash, getCurrentUserId());
+    public void updateRepository(@RequestParam("asset_id") Long assetId, @RequestParam("repo_id") Long repoId, @RequestBody GameAssetsRepositoryRequest request) {
+        registryService.saveGameAssetsRepository(repoId, request, getCurrentUserId());
     }
 
     @DeleteMapping("/delete")

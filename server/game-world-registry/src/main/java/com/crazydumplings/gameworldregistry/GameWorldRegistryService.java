@@ -116,7 +116,7 @@ public class GameWorldRegistryService {
         dataService.deleteGameAssetsRepository(rep);
     }
 
-    public GameAssetsRepository saveGameAssetsRepository(Long repoId, String uniqueName, String description, String pictureHash, Long currentUserId) {
+    public GameAssetsRepository saveGameAssetsRepository(Long repoId, GameAssetsRepository repository, Long currentUserId) {
         GameAssetsRepository rep;
 
      // If the caller supplies a valid id for the repository, then the repository must be updated.
@@ -130,9 +130,9 @@ public class GameWorldRegistryService {
 
      // Regardless of whether or not the repository already exists, the attributes must be set
      // Attributes should be set only if provided
-        if (uniqueName  != null) rep.setUniqueName (uniqueName );
-        if (description != null) rep.setDescription(description);
-        if (pictureHash != null) rep.setPictureHash(pictureHash);
+        if (repository.getUniqueName () != null) rep.setUniqueName (repository.getUniqueName ());
+        if (repository.getDescription() != null) rep.setDescription(repository.getDescription());
+        if (repository.getPictureHash() != null) rep.setPictureHash(repository.getPictureHash());
 
         rep = dataService.saveGameAssetsRepository(rep);
 

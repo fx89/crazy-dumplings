@@ -49,6 +49,7 @@ public class CommonResponseBodyEvelopeAdvice implements ResponseBodyAdvice<Objec
     @ResponseBody
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ApiResponse handleOtherExceptions(Exception ex, HttpServletRequest request, HttpServletResponse response) {
+    	ex.printStackTrace();
         String violation = getPotentialConstraintViolation(ex.getCause());
         return new ApiResponse(INTERNAL_SERVER_ERROR, (Serializable)nvl(ex.getMessage() + (violation == null ? "" : ": " + violation), ex.getClass().getName()));
     }
