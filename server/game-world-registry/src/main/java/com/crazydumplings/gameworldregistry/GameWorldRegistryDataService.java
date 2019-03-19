@@ -724,6 +724,8 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectTypeProperty newGameObjectTypeProperty(Long id);
 
+	GameObjectTypeProperty newGameObjectTypeProperty(GameObjectTypeProperty other);
+
 	GameObjectTypeProperty findGameObjectTypeProperty(Long id);
 
 	GameObjectTypeProperty saveGameObjectTypeProperty(GameObjectTypeProperty gameObjectTypeProperty);

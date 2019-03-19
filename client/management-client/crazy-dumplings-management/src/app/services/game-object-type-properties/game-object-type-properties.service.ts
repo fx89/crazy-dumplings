@@ -3,10 +3,8 @@ import { CrazyDumplingsHttpService } from '../crazy-dumplings-http/crazy-dumplin
 import { Observable } from 'rxjs';
 import { GameObjectType } from '../../model/game-world-registry/GameObjectType';
 import { GameObjectTypeProperty } from '../../model/game-world-registry/GameObjectTypeProperty';
-import { GameObjectTypePropertyRequest } from '../../model/game-world-registry/GameObjectTypePropertyRequest';
 import { EndpointResponse } from '../../model/game-world-registry/EndpointResponse';
 import { AbstractBackendRequestService } from '../../utils/abstract-backend-request-service';
-import { BulkRequestItem } from '../../model/game-world-registry/BulkRequestItem';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +24,7 @@ export class GameObjectTypePropertiesService extends AbstractBackendRequestServi
     }
 
     public saveGameObjectTypeProperty(repoId: number, gameObjectTypeProperty: GameObjectTypeProperty): Observable<GameObjectTypeProperty> {
-        return this.save(repoId, gameObjectTypeProperty.gameObjectTypeId, gameObjectTypeProperty.id, this.createGameObjectTypePropertyRequest(gameObjectTypeProperty), true);
+        return this.save(repoId, gameObjectTypeProperty.gameObjectTypeId, gameObjectTypeProperty.id, gameObjectTypeProperty, true);
     }
 
     public deleteGameObjectTypeProperty(repoId: number, gameObjectTypeProperty: GameObjectTypeProperty): Observable<EndpointResponse<any>> {
@@ -36,13 +34,7 @@ export class GameObjectTypePropertiesService extends AbstractBackendRequestServi
 
 
     public bulkSaveGameObjectTypeProperties(repoId: number, gameObjectTypeId: number, properties: GameObjectTypeProperty[]): Observable<EndpointResponse<any>> {
-        const bulkRequest: BulkRequestItem[] = [];
-
-        for(let property of properties) {
-            bulkRequest.push(new BulkRequestItem(property.id, this.createGameObjectTypePropertyRequest(property)));
-        }
-
-        return this.bulkSave(repoId, gameObjectTypeId, bulkRequest);
+        return this.bulkSave(repoId, gameObjectTypeId, properties);
     }
 
 
@@ -57,16 +49,4 @@ export class GameObjectTypePropertiesService extends AbstractBackendRequestServi
         return this.bulkDelete(repoId, gameObjectTypeId, bulkRequest);
     }
 
-
-
-    private createGameObjectTypePropertyRequest(gameObjectTypeProperty: GameObjectTypeProperty): GameObjectTypePropertyRequest {
-        const  request: GameObjectTypePropertyRequest = new GameObjectTypePropertyRequest();
-
-        request.propertyName = gameObjectTypeProperty.propertyName;
-        request.propertyDefaultValue = gameObjectTypeProperty.propertyDefaultValue;
-        request.propertyMinValue = gameObjectTypeProperty.propertyMinValue;
-        request.propertyMaxValue = gameObjectTypeProperty.propertyMaxValue;
-
-        return request;
-    }
 }

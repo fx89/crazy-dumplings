@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { GameObjectType } from '../../model/game-world-registry/GameObjectType';
 import { ResponseUtils } from '../../utils/response-utils';
 import { GameObjectTypeClass } from '../../model/game-world-registry/GameObjectTypeClass';
-import { GameObjectTypeRequest } from '../../model/game-world-registry/GameObjectTypeRequest';
 import { EndpointResponse } from '../../model/game-world-registry/EndpointResponse';
 import { AbstractBackendRequestService } from '../../utils/abstract-backend-request-service';
 import { GameObjectTypePropertiesService } from '../game-object-type-properties/game-object-type-properties.service';
@@ -36,21 +35,11 @@ export class GameObjectTypesService extends AbstractBackendRequestService {
     }
 
     public saveGameObjectType(repoId: number, gameObjectType: GameObjectType): Observable<GameObjectType> {
-        return this.save(repoId, null, gameObjectType.id, this.createGameObjectTypeRequest(gameObjectType), true);
+        return this.save(repoId, null, gameObjectType.id, gameObjectType, true);
     }
 
     public deleteGameObjectType(repoId: number, gameObjectType: GameObjectType): Observable<EndpointResponse<any>> {
         return this.delete(repoId, null, gameObjectType.id, false);
     }
 
-    private createGameObjectTypeRequest(gameObjectType: GameObjectType): GameObjectTypeRequest {
-        const  request: GameObjectTypeRequest = new GameObjectTypeRequest();
-
-        request.description = gameObjectType.description;
-        request.experimental = gameObjectType.isExperimental;
-        request.gameObjectTypeClassId = gameObjectType.gameObjectTypeClassId;
-        request.uniqueName = gameObjectType.uniqueName;
-
-        return request;
-    }
 }

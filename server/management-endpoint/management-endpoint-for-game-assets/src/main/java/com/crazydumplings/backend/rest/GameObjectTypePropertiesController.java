@@ -1,7 +1,7 @@
 package com.crazydumplings.backend.rest;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crazydumplings.backend.rest.model.BulkAssetRequestItem;
 import com.crazydumplings.backend.rest.model.GameObjectTypePropertyRequest;
 import com.crazydumplings.backend.security.annotations.AssetType;
 import com.crazydumplings.backend.security.annotations.PreAuthorizeOwnAssets;
@@ -35,17 +34,8 @@ public class GameObjectTypePropertiesController {
 
     @PostMapping("/save")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public GameObjectTypeProperty saveGameObjectTypeProperty(
-            @RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestParam("parent_id") Long assetId,
-            @RequestBody GameObjectTypePropertyRequest request
-    ) {
-        return registryService.saveGameObjectTypeProperty(
-                    repoId, parentId, assetId,
-                    request.propertyName,
-                    request.propertyDefaultValue,
-                    request.propertyMinValue,
-                    request.propertyMaxValue
-               );
+    public GameObjectTypeProperty saveGameObjectTypeProperty(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestBody GameObjectTypePropertyRequest request) {
+        return registryService.saveGameObjectTypeProperty(repoId, parentId, request);
     }
 
     @DeleteMapping("/delete")
@@ -57,17 +47,8 @@ public class GameObjectTypePropertiesController {
 
     @PostMapping("/bulkSave")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
-    public void bulkUpdateGameObjectTypeProperties(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestBody List<BulkAssetRequestItem<GameObjectTypePropertyRequest>> request) {
-        List<GameObjectTypeProperty> bulkRequest = request.stream().map(req -> registryService.createGameObjectTypePropertyInstance(
-                                                                                                    parentId, req.assetId,
-                                                                                                    req.assetRequest.propertyName,
-                                                                                                    req.assetRequest.propertyDefaultValue,
-                                                                                                    req.assetRequest.propertyMinValue,
-                                                                                                    req.assetRequest.propertyMaxValue
-                                                                                    )
-                                                               ).collect(Collectors.toList());
-
-        registryService.bulkSaveGameObjectTypeProperties(repoId, parentId, bulkRequest);
+    public void bulkUpdateGameObjectTypeProperties(@RequestParam("repo_id") Long repoId, @RequestParam("parent_id") Long parentId, @RequestBody List<GameObjectTypePropertyRequest> request) {
+        registryService.bulkSaveGameObjectTypeProperties(repoId, parentId, new ArrayList<>(request));
     }
 
     @DeleteMapping("/bulkDelete")

@@ -1,7 +1,6 @@
 import { CrazyDumplingsHttpService } from '../services/crazy-dumplings-http/crazy-dumplings-http.service';
 import { Observable } from 'rxjs';
 import { ResponseUtils } from './response-utils';
-import { BulkRequestItem } from '../model/game-world-registry/BulkRequestItem';
 
 export abstract class AbstractBackendRequestService {
     private static possiblyUnwrap(response: Observable<any>, unwrapEndpointResponse: boolean): Observable<any> {
@@ -40,7 +39,7 @@ export abstract class AbstractBackendRequestService {
         return this.deleteRequest('delete', this.createOpParams(params, repoId, parentId), unwrapEndpointResponse);
     }
 
-    protected bulkSave(repoId: number, parentId: number, bulkRequest: BulkRequestItem[]): Observable<any> {
+    protected bulkSave(repoId: number, parentId: number, bulkRequest: any[]): Observable<any> {
         return this.postRequest('bulkSave', bulkRequest, this.createOpParams(null, repoId, parentId), false);
     }
 

@@ -3040,6 +3040,11 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameObjectTypeProperty newGameObjectTypeProperty(GameObjectTypeProperty other) {
+		return new GameObjectTypePropertyEntity(other);
+	}
+
+	@Override
 	public List<GameObjectTypeProperty> findAllGameObjectTypeProperties() {
 		try {
 			return StreamSupport.stream(gameObjectTypePropertiesRepository.findAll().spliterator(), false).collect(Collectors.toList());

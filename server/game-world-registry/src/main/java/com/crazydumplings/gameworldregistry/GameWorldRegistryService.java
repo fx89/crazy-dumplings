@@ -54,7 +54,11 @@ public class GameWorldRegistryService {
     public void init() {
         gameObjectTypePropertiesOperationsDelegate = new GenericOperationsDelegate<>(
              // Bulk save operation
-                (assets) -> dataService.saveGameObjectTypeProperties(assets), // Bulk save operation
+                (assets) -> dataService.saveGameObjectTypeProperties(
+                				assets.stream()
+                						.map(asset -> dataService.newGameObjectTypeProperty(asset))
+                						.collect(Collectors.toList())
+                	        ),
 
              // Bulk search operation
                 (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeIdAndIds(parentAsset.getId(), childAssetIds),
@@ -257,12 +261,9 @@ public class GameWorldRegistryService {
     /**
      * Update or create a game object type property depending on the presence of a valid gameObjectTypePropertyId
      */
-    public GameObjectTypeProperty saveGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue) throws CrazyDumplingsGameWorldRegistryException {
-        GameObjectTypeProperty gameObjectTypeProperty = createGameObjectTypePropertyInstance(
-        		gameObjectTypeId, gameObjectTypePropertyId, propertyName, propertyDefaultValue, propertyMinValue, propertyMaxValue
-        );
-
-        return bulkSaveGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(gameObjectTypeProperty)).get(0);
+    public GameObjectTypeProperty saveGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, GameObjectTypeProperty property) throws CrazyDumplingsGameWorldRegistryException {
+        property.setGameObjectTypeId(gameObjectTypeId);
+        return bulkSaveGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(property)).get(0);
     }
 
     /**

@@ -50,6 +50,15 @@ public class GameObjectTypePropertyEntity implements GameObjectTypeProperty {
 		this.propertyMaxValue = entity.propertyMaxValue;
 	}
 
+	public GameObjectTypePropertyEntity(GameObjectTypeProperty other) {
+		this.id = other.getId();
+		this.gameObjectTypeId = other.getGameObjectTypeId();
+		this.propertyName = other.getPropertyName();
+		this.propertyDefaultValue = other.getPropertyDefaultValue();
+		this.propertyMinValue = other.getPropertyMinValue();
+		this.propertyMaxValue = other.getPropertyMaxValue();
+	}
+
 	@Column(name = "GAME_OBJECT_TYPE_ID")
 	private Long gameObjectTypeId;
 
