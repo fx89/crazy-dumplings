@@ -198,31 +198,31 @@ public class GameWorldRegistryService {
     /**
      * Update or create a game object type depending on the presence of a valid gameObjectTypeId
      */
-    public GameObjectType saveGameObjectType(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypeClassId, String uniqueName, String description, boolean experimental) {
-        GameObjectType gameObjectType;
+    public GameObjectType saveGameObjectType(Long repositoryId, GameObjectType gameObjectType) {
+        GameObjectType existingGameObjectType;
 
      // If the caller supplies a valid id for the game object type , then the type must be updated.
      // Since the type must be updated, it must first be retrieved from the repository so that it can be confirmed that the type is child to the given repository
      // If, however, the provided game object type id is not valid, then a new game object type must be created for the given repository
-        if (gameObjectTypeId != null && gameObjectTypeId > 0) {
-            gameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectTypeId);
+        if (gameObjectType.getId() != null && gameObjectType.getId() > 0) {
+            existingGameObjectType = getGameObjectTypeOrThrow(repositoryId, gameObjectType.getId());
         } else {
-            gameObjectType = dataService.newGameObjectType();
+            existingGameObjectType = dataService.newGameObjectType();
             getRepositoryOrThrow(repositoryId);
-            gameObjectType.setGameAssetsRepositoryId(repositoryId);
+            existingGameObjectType.setGameAssetsRepositoryId(repositoryId);
         }
 
      // Regardless of whether or not the game object type already exists, the attributes must be set
      // Attributes should be set only if provided
-        getGameObjectTypeClassyOrThrow(gameObjectTypeClassId);
-        if (gameObjectTypeClassId != null) gameObjectType.setGameObjectTypeClassId(gameObjectTypeClassId);
-        if (uniqueName            != null) gameObjectType.setUniqueName         (uniqueName);
-                                           gameObjectType.setIsExperimental     (experimental);
-        if (description           != null) gameObjectType.setDescription        (description);
+        getGameObjectTypeClassyOrThrow(gameObjectType.getGameObjectTypeClassId());
+        if (gameObjectType.getGameObjectTypeClassId() != null) existingGameObjectType.setGameObjectTypeClassId(gameObjectType.getGameObjectTypeClassId());
+        if (gameObjectType.getUniqueName()            != null) existingGameObjectType.setUniqueName           (gameObjectType.getUniqueName());
+                                                               existingGameObjectType.setIsExperimental       (gameObjectType.getIsExperimental());
+        if (gameObjectType.getDescription()           != null) existingGameObjectType.setDescription          (gameObjectType.getDescription());
 
      // Then the type must be saved into the repository
      // The saved instance should be returned to the caller for eventual future reference
-        return dataService.saveGameObjectType(gameObjectType);
+        return dataService.saveGameObjectType(existingGameObjectType);
     }
 
     public void deleteGameObjectType(Long repositoryId, Long gameObjectTypeId) {

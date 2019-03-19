@@ -47,7 +47,7 @@ public class GameObjectTypesController {
     @PostMapping("/save")
     @PreAuthorizeOwnAssets(assetType = AssetType.REPO_ID)
     public GameObjectType saveGameObjectType(@RequestParam("repo_id") Long repoId, @RequestParam("asset_id") Long assetId, @RequestBody GameObjectTypeRequest request) {
-        return registryService.saveGameObjectType(repoId, assetId, request.gameObjectTypeClassId, request.uniqueName, request.description, request.experimental);
+        return registryService.saveGameObjectType(repoId, request);
     }
 
     @DeleteMapping("/delete")

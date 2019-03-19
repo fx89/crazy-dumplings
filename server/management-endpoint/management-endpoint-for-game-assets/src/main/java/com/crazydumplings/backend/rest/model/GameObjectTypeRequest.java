@@ -1,45 +1,81 @@
 package com.crazydumplings.backend.rest.model;
 
+import com.crazydumplings.gameworldregistry.model.GameObjectType;
+
 /**
  * Used as a data transfer object. Allows the caller of the API to provide the
  * request in a simplified manner.
  */
-public class GameObjectTypeRequest {
-	public String uniqueName;
-	public boolean experimental;
-	public String description;
-	public Long gameObjectTypeClassId;
+public class GameObjectTypeRequest implements GameObjectType {
+	private Long id;
+	private Long gameAssetsRepositoryId;
+	private Long gameObjectTypeClassId;
+	private String uniqueName;
+	private Boolean isExperimental;
+	private String description;
 
-	public String getUniqueName() {
-		return uniqueName;
+	@Override
+	public Long getId() {
+		return id;
 	}
 
-	public void setUniqueName(String uniqueName) {
-		this.uniqueName = uniqueName;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public boolean isExperimental() {
-		return experimental;
+	@Override
+	public int compareTo(GameObjectType o) {
+		return id == null ? -1 : (o == null || o.getId() == null ? 1 : id.compareTo(o.getId()));
 	}
 
-	public void setExperimental(boolean experimental) {
-		this.experimental = experimental;
+	@Override
+	public Long getGameAssetsRepositoryId() {
+		return gameAssetsRepositoryId;
 	}
 
-	public String getDescription() {
-		return description;
+	@Override
+	public void setGameAssetsRepositoryId(Long gameAssetsRepositoryId) {
+		this.gameAssetsRepositoryId = gameAssetsRepositoryId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
+	@Override
 	public Long getGameObjectTypeClassId() {
 		return gameObjectTypeClassId;
 	}
 
+	@Override
 	public void setGameObjectTypeClassId(Long gameObjectTypeClassId) {
 		this.gameObjectTypeClassId = gameObjectTypeClassId;
+	}
+
+	@Override
+	public String getUniqueName() {
+		return uniqueName;
+	}
+
+	@Override
+	public void setUniqueName(String uniqueName) {
+		this.uniqueName = uniqueName;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public Boolean getIsExperimental() {
+		return isExperimental;
+	}
+
+	@Override
+	public void setIsExperimental(Boolean isExperimental) {
+		this.isExperimental = isExperimental;
 	}
 
 }

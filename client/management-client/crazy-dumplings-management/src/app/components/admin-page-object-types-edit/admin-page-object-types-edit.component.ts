@@ -17,6 +17,8 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
     protected properties: GameObjectTypeProperty[];
     protected deletedProperties: GameObjectTypeProperty[] = [];
 
+    protected currentGameObjectTypeClass: GameObjectTypeClass;
+
     protected propertiesTableCols = [
                            { field: 'propertyName'        , header: 'Property name' },
                            { field: 'propertyDefaultValue', header: 'Default value' },
@@ -32,7 +34,11 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
     ngOnInit() {
         this.gameObjectTypesService.getGameObjectClassesList()
             .subscribe(
-                result => { this.objectTypeClasses = result; }
+                result => {
+                        this.objectTypeClasses = result;
+
+                        result.forEach( typeClass => { if (typeClass.id === this.variables.currentGameObjectType.gameObjectTypeClassId) this.currentGameObjectTypeClass = typeClass; } )
+                    }
             );
 
         if (this.variables.currentGameObjectType.id > 0) {
@@ -68,7 +74,7 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
     }
 
     save() {
-        if (this.variables.currentGameObjectType.gameObjectTypeClassId) {
+        if (this.currentGameObjectTypeClass && this.currentGameObjectTypeClass.id) {
             this.saveGameObjectType();
         } else {
             this.warnMissingClass();
@@ -77,6 +83,8 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
 
     private saveGameObjectType() {
         this.variables.isLoading = true;
+
+        this.variables.currentGameObjectType.gameObjectTypeClassId = this.currentGameObjectTypeClass.id;
 
         this.gameObjectTypesService.saveGameObjectType(
                     this.variables.currentRepository.id,
