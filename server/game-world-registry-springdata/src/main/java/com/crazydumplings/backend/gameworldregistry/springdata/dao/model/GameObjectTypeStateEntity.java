@@ -47,6 +47,12 @@ public class GameObjectTypeStateEntity implements GameObjectTypeState {
 		this.name = entity.name;
 	}
 
+	public GameObjectTypeStateEntity(GameObjectTypeState entity) {
+		this.id = entity.getId();
+		this.gameObjectTypeId = entity.getGameObjectTypeId();
+		this.name = entity.getName();
+	}
+
 	@Column(name = "GAME_OBJECT_TYPE_ID")
 	private Long gameObjectTypeId;
 

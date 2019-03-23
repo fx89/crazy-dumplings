@@ -581,6 +581,8 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectTypeState newGameObjectTypeState(Long id);
 
+	GameObjectTypeState newGameObjectTypeState(GameObjectTypeState gameObjectTypeState);
+
 	GameObjectTypeState findGameObjectTypeState(Long id);
 
 	GameObjectTypeState saveGameObjectTypeState(GameObjectTypeState gameObjectTypeState);

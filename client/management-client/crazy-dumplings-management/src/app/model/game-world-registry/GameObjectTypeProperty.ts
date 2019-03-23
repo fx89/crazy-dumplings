@@ -1,5 +1,3 @@
-import { GameObjectType } from './GameObjectType';
-
 export class GameObjectTypeProperty {
     public id: number;
     public gameObjectTypeId: number;

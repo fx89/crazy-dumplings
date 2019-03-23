@@ -18,6 +18,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageService} from 'primeng/api';
 import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 // Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,7 +40,6 @@ import { AdminPageObjectTypesComponent } from './components/admin-page-object-ty
 import { RepositoryVerificationWrapperComponent } from './components/repository-verification-wrapper/repository-verification-wrapper.component';
 import { AdminPageObjectTypesEditComponent } from './components/admin-page-object-types-edit/admin-page-object-types-edit.component';
 import { ObjectTypeCardComponent } from './components/object-type-card/object-type-card.component';
-import {ToggleButtonModule} from 'primeng/togglebutton';
 import { AdminPageObjectTypesCategoryComponent } from './components/admin-page-object-types-category/admin-page-object-types-category.component';
 import { PageAlignmentWrapperComponent } from './components/page-alignment-wrapper/page-alignment-wrapper.component';
 import { RoundedContainerComponent } from './components/rounded-container/rounded-container.component';

@@ -28,6 +28,51 @@
                 <!--                                                                                            STATES -->
                 <app-rounded-container widthPX="400" heightPX="200">
                     <font style="font-size:20px"><b>STATES</b></font>
+
+                    <div style="height:120px">
+                    <p-table
+                        [columns]="statesTableCols"
+                        [value]="states"
+                        [scrollable]="true"
+                        scrollHeight="80px"
+                        width="360"
+                    >
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th width="300">State Name</th>
+                                <th>x</th> <!-- For the delete button -->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                            <tr>
+                                <td pEditableColumn width="300">
+                                    <p-cellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input type="text" [(ngModel)]="rowData.name">
+                                        </ng-template>
+                                        <ng-template pTemplate="output">
+                                            {{rowData.name}}
+                                        </ng-template>
+                                    </p-cellEditor>
+                                </td>
+                                <td>
+                                    <button pButton style="width: 25px; height: 25px;"
+                                        icon="pi pi-trash"
+                                        pTooltip="Remove property"
+                                        (click)="removeExistingState(rowIndex)"
+                                    ></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </div>
+
+                    <button pButton
+                        icon="pi pi-plus"
+                        pTooltip="Add new state"
+                        (click)="addNewState()"
+                    ></button>
+
                 </app-rounded-container>
 
 
@@ -40,7 +85,7 @@
                 <app-rounded-container widthPX="600" heightPX="460">
                     <font style="font-size:20px"><b>PROPERTIES</b></font>
 
-                    <div style="height:360px">
+                    <div style="height:380px">
                     <p-table
                         [columns]="propertiesTableCols"
                         [value]="properties"

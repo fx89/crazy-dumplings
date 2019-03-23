@@ -2449,6 +2449,11 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameObjectTypeState newGameObjectTypeState(GameObjectTypeState gameObjectTypeState) {
+		return new GameObjectTypeStateEntity(gameObjectTypeState);
+	}
+
+	@Override
 	public List<GameObjectTypeState> findAllGameObjectTypeStates() {
 		try {
 			return StreamSupport.stream(gameObjectTypeStatesRepository.findAll().spliterator(), false).collect(Collectors.toList());

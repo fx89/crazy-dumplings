@@ -82,10 +82,13 @@ public class GameWorldRegistryService {
         );
 
         gameObjectTypeStatesOperationsDelegate = new GenericOperationsDelegate<GameObjectTypeState>(
-             // Bulk save operation -- There is no bulk save operation for game object type states
-                (assets) -> assets.stream().map(asset -> dataService.saveGameObjectTypeState((GameObjectTypeState)asset)).collect(Collectors.toList()) ,
+             // Bulk save operation
+                (assets) -> dataService.saveGameObjectTypeStates(
+                                assets.stream().map(asset -> dataService.newGameObjectTypeState(asset))
+                                .collect(Collectors.toList())
+                            ),
 
-             // Bulk search operation -- There is no bulk search operation for game object type states
+             // Bulk search operation
                 (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypeStatesByGameObjectTypeIdAndIds(parentAsset.getId(), childAssetIds),
 
              // Parent search operation
@@ -97,6 +100,7 @@ public class GameWorldRegistryService {
              // Properties update operation (inputData = what comes from the front end, registeredAsset = what's in the registry)
                 (inputData, registeredAsset) -> {
                     if (inputData.getName() != null) registeredAsset.setName(inputData.getName());
+                    if (inputData.getGameObjectTypeId() != null) registeredAsset.setGameObjectTypeId(inputData.getGameObjectTypeId());
                 },
 
              // Bulk delete operation
@@ -329,6 +333,10 @@ public class GameWorldRegistryService {
     public GameObjectTypeState saveGameObjectTypeState(Long repositoryId, Long gameObjectTypeId, String name) throws CrazyDumplingsGameWorldRegistryException {
         GameObjectTypeState gameObjectTypeState = createGameObjectTypeStateInstance(gameObjectTypeId, name);
         return gameObjectTypeStatesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, List.of(gameObjectTypeState)).get(0);
+    }
+
+    public List<GameObjectTypeState> bulkSaveGameObjectTypeStates(Long repositoryId, Long gameObjectTypeId, List<GameObjectTypeState> gameObjectTypeStates) {
+        return gameObjectTypeStatesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, gameObjectTypeStates);
     }
 
     /**

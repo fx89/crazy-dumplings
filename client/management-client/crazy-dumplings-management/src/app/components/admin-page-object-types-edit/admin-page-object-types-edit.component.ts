@@ -4,6 +4,8 @@ import { GameObjectTypesService } from '../../services/game-object-types/game-ob
 import { GameObjectTypeClass } from '../../model/game-world-registry/GameObjectTypeClass';
 import { ImportantMessageIconType } from '../../model/gui/ImportantMessage';
 import { GameObjectTypeProperty } from '../../model/game-world-registry/GameObjectTypeProperty';
+import { GameObjectTypeState } from '../../model/game-world-registry/GameObjectTypeState';
+import { GameObjectTypeStatesService } from '../../services/game-object-type-states/game-object-type-states.service';
 
 @Component({
   selector: 'app-admin-page-object-types-edit',
@@ -26,9 +28,17 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
                            { field: 'propertyMaxValue'    , header: 'Maximum value' }
                        ];
 
+    protected states : GameObjectTypeState[];
+    protected deletedStates : GameObjectTypeState[] = [];
+
+    protected statesTableCols = [{ field: 'name', header: 'State name' }];
+
+
+
     constructor(
         protected variables: StatefulViewVariablesService,
-        private gameObjectTypesService: GameObjectTypesService
+        private gameObjectTypesService: GameObjectTypesService,
+        private gameObjectTypeStatesService: GameObjectTypeStatesService
     ) { }
 
     ngOnInit() {
@@ -49,12 +59,19 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
         } else {
             this.properties = [];
         }
+
+        this.gameObjectTypeStatesService.getGameObjectTypeStatesList(this.variables.currentRepository.id, this.variables.currentGameObjectType)
+            .subscribe(
+                    result => { this.states = result ? result : []; }
+            );
     }
+
 
     addNewProperty() {
         this.properties.push(new GameObjectTypeProperty());
     }
 
+ 
     removeExistingProperty(arrayIndex: number) {
         const property: GameObjectTypeProperty = this.properties[arrayIndex];
 
@@ -62,16 +79,38 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
             this.deletedProperties.push(property);
         }
 
-        const newProperties: GameObjectTypeProperty[] = [];
+        this.properties = this.removeElementAtIndex(this.properties, arrayIndex);;
+    }
 
-        let idx = 0; for (let property of this.properties) {
+
+    addNewState() {
+        this.states.push(new GameObjectTypeState());
+    }
+
+
+    removeExistingState(arrayIndex: number) {
+        const state : GameObjectTypeState = this.states[arrayIndex];
+
+        if (state.id > 0) {
+            this.deletedStates.push(state);
+        }
+
+        this.states = this.removeElementAtIndex(this.states, arrayIndex);
+    }
+
+
+    private removeElementAtIndex<T>(array: T[], arrayIndex: number) : T[] {
+        const newArray : T[] = [];
+
+        let idx = 0; for (let element of array) {
             if (idx !== arrayIndex) {
-                newProperties.push(property);
+                newArray.push(element);
             }
         idx++; }
 
-        this.properties = newProperties;
+        return newArray;
     }
+
 
     save() {
         if (this.currentGameObjectTypeClass && this.currentGameObjectTypeClass.id) {
@@ -80,6 +119,7 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
             this.warnMissingClass();
         }
     }
+
 
     private saveGameObjectType() {
         this.variables.isLoading = true;
@@ -107,18 +147,34 @@ export class AdminPageObjectTypesEditComponent implements OnInit {
                                              this.deletedProperties
                                       )
                                       .subscribe(() => {
-                                          this.variables.isLoading = false;
-                                          this.variables.selectSection(AppSection.OBJECT_TYPES);
+                                          this.gameObjectTypeStatesService.bulkSaveGameObjectTypeStates(
+                                                  this.variables.currentRepository.id,
+                                                  this.variables.currentGameObjectType.id,
+                                                  this.states
+                                          )
+                                          .subscribe(() => {
+                                              this.gameObjectTypeStatesService.bulkDeleteGameObjectTypeStates(
+                                                          this.variables.currentRepository.id,
+                                                          this.variables.currentGameObjectType.id,
+                                                          this.deletedStates
+                                                      )
+                                                      .subscribe(() => {
+                                                          this.variables.isLoading = false;
+                                                          this.variables.selectSection(AppSection.OBJECT_TYPES);
+                                                       })
+                                               })
+                                          })
                                       })
-                    })
-                });
+                    });
     }
+
 
     private warnMissingClass() {
         this.variables.importantMessage.iconType = ImportantMessageIconType.WARNING;
         this.variables.importantMessage.text = 'You must select a category';
         this.variables.selectSection(AppSection.IMPORTANT_MESSAGE);
     }
+
 
     addClass() {
         this.variables.selectSection(AppSection.OBJECT_TYPES_CATEGORY);
