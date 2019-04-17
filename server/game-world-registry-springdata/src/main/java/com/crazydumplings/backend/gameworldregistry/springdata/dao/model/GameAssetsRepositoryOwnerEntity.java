@@ -39,9 +39,22 @@ public class GameAssetsRepositoryOwnerEntity implements GameAssetsRepositoryOwne
 		this.id = id;
 	}
 
-	public GameAssetsRepositoryOwnerEntity(Long repId, Long ownerId) {
-		this.gameAssetsRepositoryId = repId;
-		this.ownerUserId = ownerId;
+	private void copyAttributesFromEntity(GameAssetsRepositoryOwner gameAssetsRepositoryOwner) {
+		this.gameAssetsRepositoryId = gameAssetsRepositoryOwner.getGameAssetsRepositoryId();
+		this.ownerUserId = gameAssetsRepositoryOwner.getOwnerUserId();
+	}
+
+	public GameAssetsRepositoryOwnerEntity(GameAssetsRepositoryOwnerEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
+		this.id = id;
+	}
+
+	public GameAssetsRepositoryOwnerEntity(GameAssetsRepositoryOwnerEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameAssetsRepositoryOwnerEntity(GameAssetsRepositoryOwner gameAssetsRepositoryOwner) {
+		this.copyAttributesFromEntity(gameAssetsRepositoryOwner);
 	}
 
 	@Column(name = "GAME_ASSETS_REPOSITORY_ID")

@@ -39,11 +39,23 @@ public class GameObjectTypeRepresentationEntity implements GameObjectTypeReprese
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeRepresentation gameObjectTypeRepresentation) {
+		this.gameObjectTypeId = gameObjectTypeRepresentation.getGameObjectTypeId();
+		this.gameClientTypeId = gameObjectTypeRepresentation.getGameClientTypeId();
+		this.objectHash = gameObjectTypeRepresentation.getObjectHash();
+	}
+
 	public GameObjectTypeRepresentationEntity(GameObjectTypeRepresentationEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.gameObjectTypeId = entity.gameObjectTypeId;
-		this.gameClientTypeId = entity.gameClientTypeId;
-		this.objectHash = entity.objectHash;
+	}
+
+	public GameObjectTypeRepresentationEntity(GameObjectTypeRepresentationEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeRepresentationEntity(GameObjectTypeRepresentation gameObjectTypeRepresentation) {
+		this.copyAttributesFromEntity(gameObjectTypeRepresentation);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_ID")
@@ -53,7 +65,7 @@ public class GameObjectTypeRepresentationEntity implements GameObjectTypeReprese
 	private Long gameClientTypeId;
 
 	@Column(name = "OBJECT_HASH")
-	private Boolean objectHash;
+	private String objectHash;
 
 	public Long getGameObjectTypeId() {
 		return gameObjectTypeId;
@@ -71,11 +83,11 @@ public class GameObjectTypeRepresentationEntity implements GameObjectTypeReprese
 		this.gameClientTypeId = gameClientTypeId;
 	}
 
-	public Boolean getObjectHash() {
+	public String getObjectHash() {
 		return objectHash;
 	}
 
-	public void setObjectHash(Boolean objectHash) {
+	public void setObjectHash(String objectHash) {
 		this.objectHash = objectHash;
 	}
 

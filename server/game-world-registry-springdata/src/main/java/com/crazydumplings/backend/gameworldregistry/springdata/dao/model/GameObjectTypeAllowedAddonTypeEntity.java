@@ -41,19 +41,31 @@ public class GameObjectTypeAllowedAddonTypeEntity implements GameObjectTypeAllow
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType) {
+		this.uniqueName = gameObjectTypeAllowedAddonType.getUniqueName();
+		this.addonGameObjectTypeId = gameObjectTypeAllowedAddonType.getAddonGameObjectTypeId();
+		this.applicableToGameObjectTypeId = gameObjectTypeAllowedAddonType.getApplicableToGameObjectTypeId();
+		this.isEquipedByDefault = gameObjectTypeAllowedAddonType.getIsEquipedByDefault();
+		this.isIncremental = gameObjectTypeAllowedAddonType.getIsIncremental();
+		this.isTriggered = gameObjectTypeAllowedAddonType.getIsTriggered();
+		this.triggerActionId = gameObjectTypeAllowedAddonType.getTriggerActionId();
+		this.isSpawning = gameObjectTypeAllowedAddonType.getIsSpawning();
+		this.spawnableGameObjectTypeId = gameObjectTypeAllowedAddonType.getSpawnableGameObjectTypeId();
+		this.hasLimitedDuration = gameObjectTypeAllowedAddonType.getHasLimitedDuration();
+		this.duration = gameObjectTypeAllowedAddonType.getDuration();
+	}
+
 	public GameObjectTypeAllowedAddonTypeEntity(GameObjectTypeAllowedAddonTypeEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueName = entity.uniqueName;
-		this.addonGameObjectTypeId = entity.addonGameObjectTypeId;
-		this.applicableToGameObjectTypeId = entity.applicableToGameObjectTypeId;
-		this.isEquipedByDefault = entity.isEquipedByDefault;
-		this.isIncremental = entity.isIncremental;
-		this.isTriggered = entity.isTriggered;
-		this.triggerActionId = entity.triggerActionId;
-		this.isSpawning = entity.isSpawning;
-		this.spawnableGameObjectTypeId = entity.spawnableGameObjectTypeId;
-		this.hasLimitedDuration = entity.hasLimitedDuration;
-		this.duration = entity.duration;
+	}
+
+	public GameObjectTypeAllowedAddonTypeEntity(GameObjectTypeAllowedAddonTypeEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeAllowedAddonTypeEntity(GameObjectTypeAllowedAddonType gameObjectTypeAllowedAddonType) {
+		this.copyAttributesFromEntity(gameObjectTypeAllowedAddonType);
 	}
 
 	@Column(name = "UNIQUE_NAME")

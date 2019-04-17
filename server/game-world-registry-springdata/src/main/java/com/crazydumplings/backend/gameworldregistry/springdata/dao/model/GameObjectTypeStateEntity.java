@@ -41,16 +41,22 @@ public class GameObjectTypeStateEntity implements GameObjectTypeState {
 		this.id = id;
 	}
 
-	public GameObjectTypeStateEntity(GameObjectTypeStateEntity entity, Long id) {
-		this.id = id;
-		this.gameObjectTypeId = entity.gameObjectTypeId;
-		this.name = entity.name;
+	private void copyAttributesFromEntity(GameObjectTypeState gameObjectTypeState) {
+		this.gameObjectTypeId = gameObjectTypeState.getGameObjectTypeId();
+		this.name = gameObjectTypeState.getName();
 	}
 
-	public GameObjectTypeStateEntity(GameObjectTypeState entity) {
-		this.id = entity.getId();
-		this.gameObjectTypeId = entity.getGameObjectTypeId();
-		this.name = entity.getName();
+	public GameObjectTypeStateEntity(GameObjectTypeStateEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
+		this.id = id;
+	}
+
+	public GameObjectTypeStateEntity(GameObjectTypeStateEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeStateEntity(GameObjectTypeState gameObjectTypeState) {
+		this.copyAttributesFromEntity(gameObjectTypeState);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_ID")

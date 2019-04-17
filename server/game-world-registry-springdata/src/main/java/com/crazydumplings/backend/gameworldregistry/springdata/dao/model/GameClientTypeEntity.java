@@ -41,9 +41,21 @@ public class GameClientTypeEntity implements GameClientType {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameClientType gameClientType) {
+		this.uniqueName = gameClientType.getUniqueName();
+	}
+
 	public GameClientTypeEntity(GameClientTypeEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueName = entity.uniqueName;
+	}
+
+	public GameClientTypeEntity(GameClientTypeEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameClientTypeEntity(GameClientType gameClientType) {
+		this.copyAttributesFromEntity(gameClientType);
 	}
 
 	@Column(name = "UNIQUE_NAME")

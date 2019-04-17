@@ -5,10 +5,10 @@ package com.crazydumplings.gameworldregistry.model;
 import javax.annotation.Generated;
 
 
-import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
 @Generated(value="fx.codegen.builder version 1.0.0")
-public interface GameObjectTypeInteractionProperty extends IdentifiableGameAsset, Comparable<GameObjectTypeInteractionProperty> {
+public interface GameObjectTypeInteractionProperty extends ParentableGameAsset, Comparable<GameObjectTypeInteractionProperty> {
 
 	Long getGameObjectTypeInteractionId();
 
@@ -33,5 +33,14 @@ public interface GameObjectTypeInteractionProperty extends IdentifiableGameAsset
 	Boolean getIsInverted();
 
 	void setIsInverted(Boolean isInverted);
+
+
+	default Long getParentId() {
+		return getGameObjectTypeInteractionId();
+	}
+
+	default void setParentId(Long parentId) {
+		setGameObjectTypeInteractionId(parentId);
+	}
 
 }

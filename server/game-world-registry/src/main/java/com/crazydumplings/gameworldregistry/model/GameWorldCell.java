@@ -5,10 +5,10 @@ package com.crazydumplings.gameworldregistry.model;
 import javax.annotation.Generated;
 
 
-import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
 @Generated(value="fx.codegen.builder version 1.0.0")
-public interface GameWorldCell extends IdentifiableGameAsset, Comparable<GameWorldCell> {
+public interface GameWorldCell extends ParentableGameAsset, Comparable<GameWorldCell> {
 
 	Long getGameWorldId();
 
@@ -29,5 +29,14 @@ public interface GameWorldCell extends IdentifiableGameAsset, Comparable<GameWor
 	Long getAttachedGameWorldSpawnPointTypeId();
 
 	void setAttachedGameWorldSpawnPointTypeId(Long attachedGameWorldSpawnPointTypeId);
+
+
+	default Long getParentId() {
+		return getGameWorldId();
+	}
+
+	default void setParentId(Long parentId) {
+		setGameWorldId(parentId);
+	}
 
 }

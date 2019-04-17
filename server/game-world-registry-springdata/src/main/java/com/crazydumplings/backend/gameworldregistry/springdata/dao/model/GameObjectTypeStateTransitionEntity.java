@@ -39,12 +39,24 @@ public class GameObjectTypeStateTransitionEntity implements GameObjectTypeStateT
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeStateTransition gameObjectTypeStateTransition) {
+		this.sourceGameObjectTypeStateId = gameObjectTypeStateTransition.getSourceGameObjectTypeStateId();
+		this.targetGameObjectTypeStateId = gameObjectTypeStateTransition.getTargetGameObjectTypeStateId();
+		this.isAutomatic = gameObjectTypeStateTransition.getIsAutomatic();
+		this.triggerActionId = gameObjectTypeStateTransition.getTriggerActionId();
+	}
+
 	public GameObjectTypeStateTransitionEntity(GameObjectTypeStateTransitionEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.sourceGameObjectTypeStateId = entity.sourceGameObjectTypeStateId;
-		this.targetGameObjectTypeStateId = entity.targetGameObjectTypeStateId;
-		this.isAutomatic = entity.isAutomatic;
-		this.triggerActionId = entity.triggerActionId;
+	}
+
+	public GameObjectTypeStateTransitionEntity(GameObjectTypeStateTransitionEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeStateTransitionEntity(GameObjectTypeStateTransition gameObjectTypeStateTransition) {
+		this.copyAttributesFromEntity(gameObjectTypeStateTransition);
 	}
 
 	@Column(name = "SOURCE_GAME_OBJECT_TYPE_STATE_ID")

@@ -41,9 +41,21 @@ public class AutomationObjectProviderEntity implements AutomationObjectProvider 
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(AutomationObjectProvider automationObjectProvider) {
+		this.name = automationObjectProvider.getName();
+	}
+
 	public AutomationObjectProviderEntity(AutomationObjectProviderEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.name = entity.name;
+	}
+
+	public AutomationObjectProviderEntity(AutomationObjectProviderEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public AutomationObjectProviderEntity(AutomationObjectProvider automationObjectProvider) {
+		this.copyAttributesFromEntity(automationObjectProvider);
 	}
 
 	@Column(name = "NAME")

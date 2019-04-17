@@ -41,9 +41,21 @@ public class GameObjectTypeClassEntity implements GameObjectTypeClass {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeClass gameObjectTypeClass) {
+		this.name = gameObjectTypeClass.getName();
+	}
+
 	public GameObjectTypeClassEntity(GameObjectTypeClassEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.name = entity.name;
+	}
+
+	public GameObjectTypeClassEntity(GameObjectTypeClassEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeClassEntity(GameObjectTypeClass gameObjectTypeClass) {
+		this.copyAttributesFromEntity(gameObjectTypeClass);
 	}
 
 	@Column(name = "NAME")

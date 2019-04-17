@@ -39,11 +39,23 @@ public class GameWorldCellPropertyEntity implements GameWorldCellProperty {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameWorldCellProperty gameWorldCellProperty) {
+		this.gameWorldCellId = gameWorldCellProperty.getGameWorldCellId();
+		this.gameObjectTypePropertyId = gameWorldCellProperty.getGameObjectTypePropertyId();
+		this.propertyActualValue = gameWorldCellProperty.getPropertyActualValue();
+	}
+
 	public GameWorldCellPropertyEntity(GameWorldCellPropertyEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.gameWorldCellId = entity.gameWorldCellId;
-		this.gameObjectTypePropertyId = entity.gameObjectTypePropertyId;
-		this.propertyActualValue = entity.propertyActualValue;
+	}
+
+	public GameWorldCellPropertyEntity(GameWorldCellPropertyEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameWorldCellPropertyEntity(GameWorldCellProperty gameWorldCellProperty) {
+		this.copyAttributesFromEntity(gameWorldCellProperty);
 	}
 
 	@Column(name = "GAME_WORLD_CELL_ID")

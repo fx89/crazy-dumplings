@@ -15,6 +15,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteraction;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteractionProperty;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypePropertyInstance;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeRepresentation;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeState;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeStatePropertyModifier;
@@ -36,6 +37,8 @@ public interface GameWorldRegistryDataService {
 	PlayableCharacterType newPlayableCharacterType();
 
 	PlayableCharacterType newPlayableCharacterType(Long id);
+
+	PlayableCharacterType newPlayableCharacterType(PlayableCharacterType template);
 
 	PlayableCharacterType findPlayableCharacterType(Long id);
 
@@ -65,6 +68,8 @@ public interface GameWorldRegistryDataService {
 	GameWorldSpawnPointType newGameWorldSpawnPointType();
 
 	GameWorldSpawnPointType newGameWorldSpawnPointType(Long id);
+
+	GameWorldSpawnPointType newGameWorldSpawnPointType(GameWorldSpawnPointType template);
 
 	GameWorldSpawnPointType findGameWorldSpawnPointType(Long id);
 
@@ -101,6 +106,8 @@ public interface GameWorldRegistryDataService {
 
 	GameWorldCellType newGameWorldCellType(Long id);
 
+	GameWorldCellType newGameWorldCellType(GameWorldCellType template);
+
 	GameWorldCellType findGameWorldCellType(Long id);
 
 	GameWorldCellType saveGameWorldCellType(GameWorldCellType gameWorldCellType);
@@ -130,6 +137,8 @@ public interface GameWorldRegistryDataService {
 
 	GameWorld newGameWorld(Long id);
 
+	GameWorld newGameWorld(GameWorld template);
+
 	GameWorld findGameWorld(Long id);
 
 	GameWorld saveGameWorld(GameWorld gameWorld);
@@ -150,6 +159,8 @@ public interface GameWorldRegistryDataService {
 	GameWorldCell newGameWorldCell();
 
 	GameWorldCell newGameWorldCell(Long id);
+
+	GameWorldCell newGameWorldCell(GameWorldCell template);
 
 	GameWorldCell findGameWorldCell(Long id);
 
@@ -196,6 +207,8 @@ public interface GameWorldRegistryDataService {
 
 	GameWorldCellProperty newGameWorldCellProperty(Long id);
 
+	GameWorldCellProperty newGameWorldCellProperty(GameWorldCellProperty template);
+
 	GameWorldCellProperty findGameWorldCellProperty(Long id);
 
 	GameWorldCellProperty saveGameWorldCellProperty(GameWorldCellProperty gameWorldCellProperty);
@@ -231,6 +244,8 @@ public interface GameWorldRegistryDataService {
 
 	AutomationObjectProvider newAutomationObjectProvider(Long id);
 
+	AutomationObjectProvider newAutomationObjectProvider(AutomationObjectProvider template);
+
 	AutomationObjectProvider findAutomationObjectProvider(Long id);
 
 	AutomationObjectProvider saveAutomationObjectProvider(AutomationObjectProvider automationObjectProvider);
@@ -251,6 +266,8 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeAutomation newGameObjectTypeAutomation();
 
 	GameObjectTypeAutomation newGameObjectTypeAutomation(Long id);
+
+	GameObjectTypeAutomation newGameObjectTypeAutomation(GameObjectTypeAutomation template);
 
 	GameObjectTypeAutomation findGameObjectTypeAutomation(Long id);
 
@@ -287,6 +304,8 @@ public interface GameWorldRegistryDataService {
 
 	Action newAction(Long id);
 
+	Action newAction(Action template);
+
 	Action findAction(Long id);
 
 	Action saveAction(Action action);
@@ -307,6 +326,8 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeStateTransition newGameObjectTypeStateTransition();
 
 	GameObjectTypeStateTransition newGameObjectTypeStateTransition(Long id);
+
+	GameObjectTypeStateTransition newGameObjectTypeStateTransition(GameObjectTypeStateTransition template);
 
 	GameObjectTypeStateTransition findGameObjectTypeStateTransition(Long id);
 
@@ -350,6 +371,8 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType();
 
 	GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType(Long id);
+
+	GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType template);
 
 	GameObjectTypeAllowedAddonType findGameObjectTypeAllowedAddonType(Long id);
 
@@ -404,6 +427,8 @@ public interface GameWorldRegistryDataService {
 
 	GameAddonInteractionReceivingPropertyModifier newGameAddonInteractionReceivingPropertyModifier(Long id);
 
+	GameAddonInteractionReceivingPropertyModifier newGameAddonInteractionReceivingPropertyModifier(GameAddonInteractionReceivingPropertyModifier template);
+
 	GameAddonInteractionReceivingPropertyModifier findGameAddonInteractionReceivingPropertyModifier(Long id);
 
 	GameAddonInteractionReceivingPropertyModifier saveGameAddonInteractionReceivingPropertyModifier(GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier);
@@ -439,6 +464,8 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectTypeInteraction newGameObjectTypeInteraction(Long id);
 
+	GameObjectTypeInteraction newGameObjectTypeInteraction(GameObjectTypeInteraction template);
+
 	GameObjectTypeInteraction findGameObjectTypeInteraction(Long id);
 
 	GameObjectTypeInteraction saveGameObjectTypeInteraction(GameObjectTypeInteraction gameObjectTypeInteraction);
@@ -473,6 +500,8 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty();
 
 	GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty(Long id);
+
+	GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty(GameObjectTypeInteractionProperty template);
 
 	GameObjectTypeInteractionProperty findGameObjectTypeInteractionProperty(Long id);
 
@@ -525,6 +554,8 @@ public interface GameWorldRegistryDataService {
 
 	GameClientType newGameClientType(Long id);
 
+	GameClientType newGameClientType(GameClientType template);
+
 	GameClientType findGameClientType(Long id);
 
 	GameClientType saveGameClientType(GameClientType gameClientType);
@@ -545,6 +576,8 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeRepresentation newGameObjectTypeRepresentation();
 
 	GameObjectTypeRepresentation newGameObjectTypeRepresentation(Long id);
+
+	GameObjectTypeRepresentation newGameObjectTypeRepresentation(GameObjectTypeRepresentation template);
 
 	GameObjectTypeRepresentation findGameObjectTypeRepresentation(Long id);
 
@@ -581,7 +614,7 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectTypeState newGameObjectTypeState(Long id);
 
-	GameObjectTypeState newGameObjectTypeState(GameObjectTypeState gameObjectTypeState);
+	GameObjectTypeState newGameObjectTypeState(GameObjectTypeState template);
 
 	GameObjectTypeState findGameObjectTypeState(Long id);
 
@@ -611,6 +644,8 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier();
 
 	GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier(Long id);
+
+	GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier(GameObjectTypeStatePropertyModifier template);
 
 	GameObjectTypeStatePropertyModifier findGameObjectTypeStatePropertyModifier(Long id);
 
@@ -647,6 +682,8 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectTypeClass newGameObjectTypeClass(Long id);
 
+	GameObjectTypeClass newGameObjectTypeClass(GameObjectTypeClass template);
+
 	GameObjectTypeClass findGameObjectTypeClass(Long id);
 
 	GameObjectTypeClass saveGameObjectTypeClass(GameObjectTypeClass gameObjectTypeClass);
@@ -667,6 +704,8 @@ public interface GameWorldRegistryDataService {
 	GameAssetsRepository newGameAssetsRepository();
 
 	GameAssetsRepository newGameAssetsRepository(Long id);
+
+	GameAssetsRepository newGameAssetsRepository(GameAssetsRepository template);
 
 	GameAssetsRepository findGameAssetsRepository(Long id);
 
@@ -689,6 +728,8 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectType newGameObjectType(Long id);
 
+	GameObjectType newGameObjectType(GameObjectType template);
+
 	GameObjectType findGameObjectType(Long id);
 
 	GameObjectType saveGameObjectType(GameObjectType gameObjectType);
@@ -700,6 +741,14 @@ public interface GameWorldRegistryDataService {
 	void deleteGameObjectTypesByIds(List<Long> ids);
 
 	List<GameObjectType> findAllGameObjectTypesByExample(GameObjectType example);
+
+	List<GameObjectType> findAllGameObjectTypesByAncestorGameObjectTypeId(Long ancestorGameObjectTypeId);
+
+	List<GameObjectType> findAllGameObjectTypesByAncestorGameObjectTypeIdAndIds(Long ancestorGameObjectTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypesByAncestorGameObjectTypeIdAndIds(Long ancestorGameObjectTypeId, List<Long> ancestorGameObjectTypeIds);
+
+	void deleteGameObjectTypesByAncestorGameObjectTypeId(Long ancestorGameObjectTypeId);
 
 	List<GameObjectType> findAllGameObjectTypesByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
 
@@ -726,7 +775,7 @@ public interface GameWorldRegistryDataService {
 
 	GameObjectTypeProperty newGameObjectTypeProperty(Long id);
 
-	GameObjectTypeProperty newGameObjectTypeProperty(GameObjectTypeProperty other);
+	GameObjectTypeProperty newGameObjectTypeProperty(GameObjectTypeProperty template);
 
 	GameObjectTypeProperty findGameObjectTypeProperty(Long id);
 
@@ -751,11 +800,50 @@ public interface GameWorldRegistryDataService {
 	GameObjectTypeProperty findGameObjectTypePropertyByPropertyName(String propertyName);
 
 
+	List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstances();
+
+	GameObjectTypePropertyInstance newGameObjectTypePropertyInstance();
+
+	GameObjectTypePropertyInstance newGameObjectTypePropertyInstance(Long id);
+
+	GameObjectTypePropertyInstance newGameObjectTypePropertyInstance(GameObjectTypePropertyInstance template);
+
+	GameObjectTypePropertyInstance findGameObjectTypePropertyInstance(Long id);
+
+	GameObjectTypePropertyInstance saveGameObjectTypePropertyInstance(GameObjectTypePropertyInstance gameObjectTypePropertyInstance);
+
+	List<GameObjectTypePropertyInstance> saveGameObjectTypePropertyInstances(List<GameObjectTypePropertyInstance> gameObjectTypePropertyInstances);
+
+	void deleteGameObjectTypePropertyInstance(GameObjectTypePropertyInstance gameObjectTypePropertyInstance);
+
+	void deleteGameObjectTypePropertyInstancesByIds(List<Long> ids);
+
+	List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByExample(GameObjectTypePropertyInstance example);
+
+	List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypeId(Long gameObjectTypeId);
+
+	List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypeIdAndIds(Long gameObjectTypeIds, List<Long> ids);
+
+	void deleteGameObjectTypePropertyInstancesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> gameObjectTypeIds);
+
+	void deleteGameObjectTypePropertyInstancesByGameObjectTypeId(Long gameObjectTypeId);
+
+	List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypePropertyId(Long gameObjectTypePropertyId);
+
+	List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyIds, List<Long> ids);
+
+	void deleteGameObjectTypePropertyInstancesByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyId, List<Long> gameObjectTypePropertyIds);
+
+	void deleteGameObjectTypePropertyInstancesByGameObjectTypePropertyId(Long gameObjectTypePropertyId);
+
+
 	List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwners();
 
 	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner();
 
 	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long id);
+
+	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(GameAssetsRepositoryOwner template);
 
 	GameAssetsRepositoryOwner findGameAssetsRepositoryOwner(Long id);
 
@@ -777,7 +865,12 @@ public interface GameWorldRegistryDataService {
 
 	void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryId(Long gameAssetsRepositoryId);
 
-	GameAssetsRepositoryOwner findGameAssetsRepositoryOwnerByGameAssetsRepositoryIdAndOwnerId(Long repoId, Long userId);
 
-	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long repId, Long ownerId);
+
+
+	////////////////   ////////////////   ////////////////   ////////////////   ////////////////   ////////////////   ////////////////
+
+	GameAssetsRepositoryOwner findGameAssetsRepositoryOwnerByGameAssetsRepositoryIdAndOwnerId(Long gameAssetsRepositoryId, Long ownerId);
+
+	GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long gameAssetsRepositoryId, Long ownerId);
 }

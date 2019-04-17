@@ -33,7 +33,8 @@ public interface SpringJpaGameAssetsRepositoriesRepository extends CrudRepositor
 		"select distinct gameAssetsRepository from GameAssetsRepositoryEntity gameAssetsRepository " +
 		"where " +
 		"(:uniqueName is null or gameAssetsRepository.uniqueName = :uniqueName) and " + 
-		"(:description is null or gameAssetsRepository.description = :description)"
+		"(:description is null or gameAssetsRepository.description = :description) and " + 
+		"(:pictureHash is null or gameAssetsRepository.pictureHash = :pictureHash)"
 	)
-	List<GameAssetsRepositoryEntity> findAllByExample(String uniqueName, String description);
+	List<GameAssetsRepositoryEntity> findAllByExample(String uniqueName, String description, String pictureHash);
 }

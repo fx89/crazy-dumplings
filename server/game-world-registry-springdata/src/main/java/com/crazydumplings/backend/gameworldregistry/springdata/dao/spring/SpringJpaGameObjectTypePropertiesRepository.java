@@ -49,10 +49,7 @@ public interface SpringJpaGameObjectTypePropertiesRepository extends CrudReposit
 		"select distinct gameObjectTypeProperty from GameObjectTypePropertyEntity gameObjectTypeProperty " +
 		"where " +
 		"(:gameObjectTypeId is null or gameObjectTypeProperty.gameObjectTypeId = :gameObjectTypeId) and " + 
-		"(:propertyName is null or gameObjectTypeProperty.propertyName = :propertyName) and " + 
-		"(:propertyDefaultValue is null or gameObjectTypeProperty.propertyDefaultValue = :propertyDefaultValue) and " + 
-		"(:propertyMinValue is null or gameObjectTypeProperty.propertyMinValue = :propertyMinValue) and " + 
-		"(:propertyMaxValue is null or gameObjectTypeProperty.propertyMaxValue = :propertyMaxValue)"
+		"(:propertyName is null or gameObjectTypeProperty.propertyName = :propertyName)"
 	)
-	List<GameObjectTypePropertyEntity> findAllByExample(Long gameObjectTypeId, String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue);
+	List<GameObjectTypePropertyEntity> findAllByExample(Long gameObjectTypeId, String propertyName);
 }

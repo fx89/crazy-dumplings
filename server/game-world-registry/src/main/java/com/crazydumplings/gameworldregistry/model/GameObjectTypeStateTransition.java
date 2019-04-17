@@ -26,4 +26,5 @@ public interface GameObjectTypeStateTransition extends IdentifiableGameAsset, Co
 
 	void setTriggerActionId(Long triggerActionId);
 
+
 }

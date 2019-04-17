@@ -24,6 +24,7 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObj
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeInteractionEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeInteractionPropertyEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypePropertyEntity;
+import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypePropertyInstanceEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeRepresentationEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeStateEntity;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.model.GameObjectTypeStatePropertyModifierEntity;
@@ -46,6 +47,7 @@ import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.Spring
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeInteractionPropertiesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeInteractionsRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypePropertiesRepository;
+import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypePropertyInstancesRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeRepresentationsRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeStatePropertyModifiersRepository;
 import com.crazydumplings.backend.gameworldregistry.springdata.dao.spring.SpringJpaGameObjectTypeStateTransitionsRepository;
@@ -74,6 +76,7 @@ import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteraction;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeInteractionProperty;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypePropertyInstance;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeRepresentation;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeState;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeStatePropertyModifier;
@@ -156,6 +159,9 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	SpringJpaGameObjectTypePropertiesRepository gameObjectTypePropertiesRepository;
 
 	@Autowired
+	SpringJpaGameObjectTypePropertyInstancesRepository gameObjectTypePropertyInstancesRepository;
+
+	@Autowired
 	SpringJpaGameAssetsRepositoryOwnersRepository gameAssetsRepositoryOwnersRepository;
 
 
@@ -166,6 +172,16 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public PlayableCharacterType newPlayableCharacterType(Long id) {
 		return new PlayableCharacterTypeEntity(id);
+	}
+
+	@Override
+	public PlayableCharacterType newPlayableCharacterType(PlayableCharacterType example) {
+		PlayableCharacterTypeEntity ret = new PlayableCharacterTypeEntity();
+
+		ret.setUniqueCharacterTypeName(example.getUniqueCharacterTypeName());
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+
+		return ret;
 	}
 
 	@Override
@@ -286,6 +302,16 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameWorldSpawnPointType newGameWorldSpawnPointType(Long id) {
 		return new GameWorldSpawnPointTypeEntity(id);
+	}
+
+	@Override
+	public GameWorldSpawnPointType newGameWorldSpawnPointType(GameWorldSpawnPointType example) {
+		GameWorldSpawnPointTypeEntity ret = new GameWorldSpawnPointTypeEntity();
+
+		ret.setSpawnPointGameObjectTypeId(example.getSpawnPointGameObjectTypeId());
+		ret.setSpawnedGameObjectTypeId(example.getSpawnedGameObjectTypeId());
+
+		return ret;
 	}
 
 	@Override
@@ -436,6 +462,16 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameWorldCellType newGameWorldCellType(GameWorldCellType example) {
+		GameWorldCellTypeEntity ret = new GameWorldCellTypeEntity();
+
+		ret.setUniqueName(example.getUniqueName());
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameWorldCellType> findAllGameWorldCellTypes() {
 		try {
 			return StreamSupport.stream(gameWorldCellTypesRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -556,6 +592,19 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameWorld newGameWorld(GameWorld example) {
+		GameWorldEntity ret = new GameWorldEntity();
+
+		ret.setUniqueName(example.getUniqueName());
+		ret.setDescription(example.getDescription());
+		ret.setPictureRefPath(example.getPictureRefPath());
+		ret.setWidth(example.getWidth());
+		ret.setHeight(example.getHeight());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameWorld> findAllGameWorlds() {
 		try {
 			return StreamSupport.stream(gameWorldsRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -637,6 +686,19 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameWorldCell newGameWorldCell(Long id) {
 		return new GameWorldCellEntity(id);
+	}
+
+	@Override
+	public GameWorldCell newGameWorldCell(GameWorldCell example) {
+		GameWorldCellEntity ret = new GameWorldCellEntity();
+
+		ret.setGameWorldId(example.getGameWorldId());
+		ret.setGameWorldCellTypeId(example.getGameWorldCellTypeId());
+		ret.setXIndex(example.getXIndex());
+		ret.setYIndex(example.getYIndex());
+		ret.setAttachedGameWorldSpawnPointTypeId(example.getAttachedGameWorldSpawnPointTypeId());
+
+		return ret;
 	}
 
 	@Override
@@ -832,6 +894,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameWorldCellProperty newGameWorldCellProperty(GameWorldCellProperty example) {
+		GameWorldCellPropertyEntity ret = new GameWorldCellPropertyEntity();
+
+		ret.setGameWorldCellId(example.getGameWorldCellId());
+		ret.setGameObjectTypePropertyId(example.getGameObjectTypePropertyId());
+		ret.setPropertyActualValue(example.getPropertyActualValue());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameWorldCellProperty> findAllGameWorldCellProperties() {
 		try {
 			return StreamSupport.stream(gameWorldCellPropertiesRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -979,6 +1052,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public AutomationObjectProvider newAutomationObjectProvider(AutomationObjectProvider example) {
+		AutomationObjectProviderEntity ret = new AutomationObjectProviderEntity();
+
+		ret.setName(example.getName());
+
+		return ret;
+	}
+
+	@Override
 	public List<AutomationObjectProvider> findAllAutomationObjectProviders() {
 		try {
 			return StreamSupport.stream(automationObjectProvidersRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -1060,6 +1142,16 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectTypeAutomation newGameObjectTypeAutomation(Long id) {
 		return new GameObjectTypeAutomationEntity(id);
+	}
+
+	@Override
+	public GameObjectTypeAutomation newGameObjectTypeAutomation(GameObjectTypeAutomation example) {
+		GameObjectTypeAutomationEntity ret = new GameObjectTypeAutomationEntity();
+
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+		ret.setAutomationObjectProviderId(example.getAutomationObjectProviderId());
+
+		return ret;
 	}
 
 	@Override
@@ -1210,6 +1302,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public Action newAction(Action example) {
+		ActionEntity ret = new ActionEntity();
+
+		ret.setUniqueName(example.getUniqueName());
+
+		return ret;
+	}
+
+	@Override
 	public List<Action> findAllActions() {
 		try {
 			return StreamSupport.stream(actionsRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -1291,6 +1392,18 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectTypeStateTransition newGameObjectTypeStateTransition(Long id) {
 		return new GameObjectTypeStateTransitionEntity(id);
+	}
+
+	@Override
+	public GameObjectTypeStateTransition newGameObjectTypeStateTransition(GameObjectTypeStateTransition example) {
+		GameObjectTypeStateTransitionEntity ret = new GameObjectTypeStateTransitionEntity();
+
+		ret.setSourceGameObjectTypeStateId(example.getSourceGameObjectTypeStateId());
+		ret.setTargetGameObjectTypeStateId(example.getTargetGameObjectTypeStateId());
+		ret.setIsAutomatic(example.getIsAutomatic());
+		ret.setTriggerActionId(example.getTriggerActionId());
+
+		return ret;
 	}
 
 	@Override
@@ -1474,6 +1587,25 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType(Long id) {
 		return new GameObjectTypeAllowedAddonTypeEntity(id);
+	}
+
+	@Override
+	public GameObjectTypeAllowedAddonType newGameObjectTypeAllowedAddonType(GameObjectTypeAllowedAddonType example) {
+		GameObjectTypeAllowedAddonTypeEntity ret = new GameObjectTypeAllowedAddonTypeEntity();
+
+		ret.setUniqueName(example.getUniqueName());
+		ret.setAddonGameObjectTypeId(example.getAddonGameObjectTypeId());
+		ret.setApplicableToGameObjectTypeId(example.getApplicableToGameObjectTypeId());
+		ret.setIsEquipedByDefault(example.getIsEquipedByDefault());
+		ret.setIsIncremental(example.getIsIncremental());
+		ret.setIsTriggered(example.getIsTriggered());
+		ret.setTriggerActionId(example.getTriggerActionId());
+		ret.setIsSpawning(example.getIsSpawning());
+		ret.setSpawnableGameObjectTypeId(example.getSpawnableGameObjectTypeId());
+		ret.setHasLimitedDuration(example.getHasLimitedDuration());
+		ret.setDuration(example.getDuration());
+
+		return ret;
 	}
 
 	@Override
@@ -1705,6 +1837,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameAddonInteractionReceivingPropertyModifier newGameAddonInteractionReceivingPropertyModifier(GameAddonInteractionReceivingPropertyModifier example) {
+		GameAddonInteractionReceivingPropertyModifierEntity ret = new GameAddonInteractionReceivingPropertyModifierEntity();
+
+		ret.setGameObjectTypeAllowedAddonTypeId(example.getGameObjectTypeAllowedAddonTypeId());
+		ret.setAffectedGameObjectTypePropertyId(example.getAffectedGameObjectTypePropertyId());
+		ret.setAppliedPropertyValueMultiplier(example.getAppliedPropertyValueMultiplier());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameAddonInteractionReceivingPropertyModifier> findAllGameAddonInteractionReceivingPropertyModifiers() {
 		try {
 			return StreamSupport.stream(gameAddonInteractionReceivingPropertyModifiersRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -1852,6 +1995,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameObjectTypeInteraction newGameObjectTypeInteraction(GameObjectTypeInteraction example) {
+		GameObjectTypeInteractionEntity ret = new GameObjectTypeInteractionEntity();
+
+		ret.setDonatingGameObjectTypeId(example.getDonatingGameObjectTypeId());
+		ret.setReceivingGameObjectTypeId(example.getReceivingGameObjectTypeId());
+		ret.setRadius(example.getRadius());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameObjectTypeInteraction> findAllGameObjectTypeInteractions() {
 		try {
 			return StreamSupport.stream(gameObjectTypeInteractionsRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -1996,6 +2150,20 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty(Long id) {
 		return new GameObjectTypeInteractionPropertyEntity(id);
+	}
+
+	@Override
+	public GameObjectTypeInteractionProperty newGameObjectTypeInteractionProperty(GameObjectTypeInteractionProperty example) {
+		GameObjectTypeInteractionPropertyEntity ret = new GameObjectTypeInteractionPropertyEntity();
+
+		ret.setGameObjectTypeInteractionId(example.getGameObjectTypeInteractionId());
+		ret.setDonatingGameObjectTypePropertyId(example.getDonatingGameObjectTypePropertyId());
+		ret.setReceivingGameObjectTypePropertyId(example.getReceivingGameObjectTypePropertyId());
+		ret.setOverflowGameObjectTypePropertyId(example.getOverflowGameObjectTypePropertyId());
+		ret.setIsIncremental(example.getIsIncremental());
+		ret.setIsInverted(example.getIsInverted());
+
+		return ret;
 	}
 
 	@Override
@@ -2218,6 +2386,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameClientType newGameClientType(GameClientType example) {
+		GameClientTypeEntity ret = new GameClientTypeEntity();
+
+		ret.setUniqueName(example.getUniqueName());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameClientType> findAllGameClientTypes() {
 		try {
 			return StreamSupport.stream(gameClientTypesRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -2299,6 +2476,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectTypeRepresentation newGameObjectTypeRepresentation(Long id) {
 		return new GameObjectTypeRepresentationEntity(id);
+	}
+
+	@Override
+	public GameObjectTypeRepresentation newGameObjectTypeRepresentation(GameObjectTypeRepresentation example) {
+		GameObjectTypeRepresentationEntity ret = new GameObjectTypeRepresentationEntity();
+
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+		ret.setGameClientTypeId(example.getGameClientTypeId());
+		ret.setObjectHash(example.getObjectHash());
+
+		return ret;
 	}
 
 	@Override
@@ -2449,8 +2637,13 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
-	public GameObjectTypeState newGameObjectTypeState(GameObjectTypeState gameObjectTypeState) {
-		return new GameObjectTypeStateEntity(gameObjectTypeState);
+	public GameObjectTypeState newGameObjectTypeState(GameObjectTypeState example) {
+		GameObjectTypeStateEntity ret = new GameObjectTypeStateEntity();
+
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+		ret.setName(example.getName());
+
+		return ret;
 	}
 
 	@Override
@@ -2571,6 +2764,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier(Long id) {
 		return new GameObjectTypeStatePropertyModifierEntity(id);
+	}
+
+	@Override
+	public GameObjectTypeStatePropertyModifier newGameObjectTypeStatePropertyModifier(GameObjectTypeStatePropertyModifier example) {
+		GameObjectTypeStatePropertyModifierEntity ret = new GameObjectTypeStatePropertyModifierEntity();
+
+		ret.setGameObjectTypeStateId(example.getGameObjectTypeStateId());
+		ret.setGameObjectTypePropertyId(example.getGameObjectTypePropertyId());
+		ret.setPropertyActualValue(example.getPropertyActualValue());
+
+		return ret;
 	}
 
 	@Override
@@ -2721,6 +2925,15 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameObjectTypeClass newGameObjectTypeClass(GameObjectTypeClass example) {
+		GameObjectTypeClassEntity ret = new GameObjectTypeClassEntity();
+
+		ret.setName(example.getName());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameObjectTypeClass> findAllGameObjectTypeClasses() {
 		try {
 			return StreamSupport.stream(gameObjectTypeClassesRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -2805,6 +3018,17 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
+	public GameAssetsRepository newGameAssetsRepository(GameAssetsRepository example) {
+		GameAssetsRepositoryEntity ret = new GameAssetsRepositoryEntity();
+
+		ret.setUniqueName(example.getUniqueName());
+		ret.setDescription(example.getDescription());
+		ret.setPictureHash(example.getPictureHash());
+
+		return ret;
+	}
+
+	@Override
 	public List<GameAssetsRepository> findAllGameAssetsRepositories() {
 		try {
 			return StreamSupport.stream(gameAssetsRepositoriesRepository.findAll().spliterator(), false).collect(Collectors.toList());
@@ -2863,7 +3087,7 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public List<GameAssetsRepository> findAllGameAssetsRepositoriesByExample(GameAssetsRepository example) {
 		try {
-			return new ArrayList<>(gameAssetsRepositoriesRepository.findAllByExample(example.getUniqueName() , example.getDescription() ));
+			return new ArrayList<>(gameAssetsRepositoriesRepository.findAllByExample(example.getUniqueName() , example.getDescription() , example.getPictureHash() ));
 		} catch (Exception ex) {
 			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game assets repositories", ex);
 		}
@@ -2886,6 +3110,20 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public GameObjectType newGameObjectType(Long id) {
 		return new GameObjectTypeEntity(id);
+	}
+
+	@Override
+	public GameObjectType newGameObjectType(GameObjectType example) {
+		GameObjectTypeEntity ret = new GameObjectTypeEntity();
+
+		ret.setAncestorGameObjectTypeId(example.getAncestorGameObjectTypeId());
+		ret.setGameAssetsRepositoryId(example.getGameAssetsRepositoryId());
+		ret.setGameObjectTypeClassId(example.getGameObjectTypeClassId());
+		ret.setUniqueName(example.getUniqueName());
+		ret.setDescription(example.getDescription());
+		ret.setIsExperimental(example.getIsExperimental());
+
+		return ret;
 	}
 
 	@Override
@@ -2947,9 +3185,45 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public List<GameObjectType> findAllGameObjectTypesByExample(GameObjectType example) {
 		try {
-			return new ArrayList<>(gameObjectTypesRepository.findAllByExample(example.getGameAssetsRepositoryId() , example.getGameObjectTypeClassId() , example.getUniqueName() , example.getDescription() , example.getIsExperimental() ));
+			return new ArrayList<>(gameObjectTypesRepository.findAllByExample(example.getAncestorGameObjectTypeId() , example.getGameAssetsRepositoryId() , example.getGameObjectTypeClassId() , example.getUniqueName() , example.getDescription() , example.getIsExperimental() ));
 		} catch (Exception ex) {
 			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object types", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectType> findAllGameObjectTypesByAncestorGameObjectTypeId(Long ancestorGameObjectTypeId) {
+		try {
+			return new ArrayList<>(gameObjectTypesRepository.findAllByAncestorGameObjectTypeId(ancestorGameObjectTypeId));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object types", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectType> findAllGameObjectTypesByAncestorGameObjectTypeIdAndIds(Long ancestorGameObjectTypeId, List<Long> ids) {
+		try {
+			return new ArrayList<>(gameObjectTypesRepository.findAllByAncestorGameObjectTypeIdAndIds(ancestorGameObjectTypeId, ids));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object types", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypesByAncestorGameObjectTypeId(Long ancestorGameObjectTypeId) {
+		try {
+			gameObjectTypesRepository.deleteAllByAncestorGameObjectTypeId(ancestorGameObjectTypeId);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object types", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypesByAncestorGameObjectTypeIdAndIds(Long ancestorGameObjectTypeId, List<Long> ids) {
+		try {
+			gameObjectTypesRepository.deleteAllByAncestorGameObjectTypeIdAndIds(ancestorGameObjectTypeId, ids);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object types", ex);
 		}
 	}
 
@@ -3045,8 +3319,13 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
-	public GameObjectTypeProperty newGameObjectTypeProperty(GameObjectTypeProperty other) {
-		return new GameObjectTypePropertyEntity(other);
+	public GameObjectTypeProperty newGameObjectTypeProperty(GameObjectTypeProperty example) {
+		GameObjectTypePropertyEntity ret = new GameObjectTypePropertyEntity();
+
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+		ret.setPropertyName(example.getPropertyName());
+
+		return ret;
 	}
 
 	@Override
@@ -3108,7 +3387,7 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	@Override
 	public List<GameObjectTypeProperty> findAllGameObjectTypePropertiesByExample(GameObjectTypeProperty example) {
 		try {
-			return new ArrayList<>(gameObjectTypePropertiesRepository.findAllByExample(example.getGameObjectTypeId() , example.getPropertyName() , example.getPropertyDefaultValue() , example.getPropertyMinValue() , example.getPropertyMaxValue() ));
+			return new ArrayList<>(gameObjectTypePropertiesRepository.findAllByExample(example.getGameObjectTypeId() , example.getPropertyName() ));
 		} catch (Exception ex) {
 			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type properties", ex);
 		}
@@ -3160,8 +3439,201 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 
+	public GameObjectTypePropertyInstance newGameObjectTypePropertyInstance() {
+		return new GameObjectTypePropertyInstanceEntity();
+	}
+
+	@Override
+	public GameObjectTypePropertyInstance newGameObjectTypePropertyInstance(Long id) {
+		return new GameObjectTypePropertyInstanceEntity(id);
+	}
+
+	@Override
+	public GameObjectTypePropertyInstance newGameObjectTypePropertyInstance(GameObjectTypePropertyInstance example) {
+		GameObjectTypePropertyInstanceEntity ret = new GameObjectTypePropertyInstanceEntity();
+
+		ret.setGameObjectTypeId(example.getGameObjectTypeId());
+		ret.setGameObjectTypePropertyId(example.getGameObjectTypePropertyId());
+		ret.setPropertyDefaultValue(example.getPropertyDefaultValue());
+		ret.setPropertyMinValue(example.getPropertyMinValue());
+		ret.setPropertyMaxValue(example.getPropertyMaxValue());
+
+		return ret;
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstances() {
+		try {
+			return StreamSupport.stream(gameObjectTypePropertyInstancesRepository.findAll().spliterator(), false).collect(Collectors.toList());
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to retrieve game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public GameObjectTypePropertyInstance findGameObjectTypePropertyInstance(Long id) {
+		try {
+			return gameObjectTypePropertyInstancesRepository.findById(id).orElse(null);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to retrieve game object type property instance", ex);
+		}
+	}
+
+	@Override
+	public GameObjectTypePropertyInstance saveGameObjectTypePropertyInstance(GameObjectTypePropertyInstance gameObjectTypePropertyInstance) {
+		try {
+			return gameObjectTypePropertyInstancesRepository.save((GameObjectTypePropertyInstanceEntity) gameObjectTypePropertyInstance);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game object type property instance", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> saveGameObjectTypePropertyInstances(List<GameObjectTypePropertyInstance> gameObjectTypePropertyInstances) {
+		try {
+			Iterable<GameObjectTypePropertyInstanceEntity> lst = gameObjectTypePropertyInstances.stream().map(a -> (GameObjectTypePropertyInstanceEntity)a).collect(Collectors.toList());
+			lst = gameObjectTypePropertyInstancesRepository.saveAll(lst);
+			return StreamSupport.stream(lst.spliterator(), false).collect(Collectors.toList());
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game object type property instance", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypePropertyInstance(GameObjectTypePropertyInstance gameObjectTypePropertyInstance) {
+		try {
+			gameObjectTypePropertyInstancesRepository.delete((GameObjectTypePropertyInstanceEntity) gameObjectTypePropertyInstance);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game object type property instance", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypePropertyInstancesByIds(List<Long> ids) {
+		try {
+			gameObjectTypePropertyInstancesRepository.deleteAllByIds(ids);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByExample(GameObjectTypePropertyInstance example) {
+		try {
+			return new ArrayList<>(gameObjectTypePropertyInstancesRepository.findAllByExample(example.getGameObjectTypeId() , example.getGameObjectTypePropertyId() , example.getPropertyDefaultValue() , example.getPropertyMinValue() , example.getPropertyMaxValue() ));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypeId(Long gameObjectTypeId) {
+		try {
+			return new ArrayList<>(gameObjectTypePropertyInstancesRepository.findAllByGameObjectTypeId(gameObjectTypeId));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> ids) {
+		try {
+			return new ArrayList<>(gameObjectTypePropertyInstancesRepository.findAllByGameObjectTypeIdAndIds(gameObjectTypeId, ids));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypePropertyInstancesByGameObjectTypeId(Long gameObjectTypeId) {
+		try {
+			gameObjectTypePropertyInstancesRepository.deleteAllByGameObjectTypeId(gameObjectTypeId);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypePropertyInstancesByGameObjectTypeIdAndIds(Long gameObjectTypeId, List<Long> ids) {
+		try {
+			gameObjectTypePropertyInstancesRepository.deleteAllByGameObjectTypeIdAndIds(gameObjectTypeId, ids);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypePropertyId(Long gameObjectTypePropertyId) {
+		try {
+			return new ArrayList<>(gameObjectTypePropertyInstancesRepository.findAllByGameObjectTypePropertyId(gameObjectTypePropertyId));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public List<GameObjectTypePropertyInstance> findAllGameObjectTypePropertyInstancesByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyId, List<Long> ids) {
+		try {
+			return new ArrayList<>(gameObjectTypePropertyInstancesRepository.findAllByGameObjectTypePropertyIdAndIds(gameObjectTypePropertyId, ids));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypePropertyInstancesByGameObjectTypePropertyId(Long gameObjectTypePropertyId) {
+		try {
+			gameObjectTypePropertyInstancesRepository.deleteAllByGameObjectTypePropertyId(gameObjectTypePropertyId);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameObjectTypePropertyInstancesByGameObjectTypePropertyIdAndIds(Long gameObjectTypePropertyId, List<Long> ids) {
+		try {
+			gameObjectTypePropertyInstancesRepository.deleteAllByGameObjectTypePropertyIdAndIds(gameObjectTypePropertyId, ids);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game object type property instances", ex);
+		}
+	}
+
+
 	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner() {
 		return new GameAssetsRepositoryOwnerEntity();
+	}
+
+	@Override
+	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long id) {
+		return new GameAssetsRepositoryOwnerEntity(id);
+	}
+
+	@Override
+	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(GameAssetsRepositoryOwner example) {
+		GameAssetsRepositoryOwnerEntity ret = new GameAssetsRepositoryOwnerEntity();
+
+		ret.setGameAssetsRepositoryId(example.getGameAssetsRepositoryId());
+		ret.setOwnerUserId(example.getOwnerUserId());
+
+		return ret;
+	}
+
+	@Override
+	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwners() {
+		try {
+			return StreamSupport.stream(gameAssetsRepositoryOwnersRepository.findAll().spliterator(), false).collect(Collectors.toList());
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to retrieve game assets repository owners", ex);
+		}
+	}
+
+	@Override
+	public GameAssetsRepositoryOwner findGameAssetsRepositoryOwner(Long id) {
+		try {
+			return gameAssetsRepositoryOwnersRepository.findById(id).orElse(null);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to retrieve game assets repository owner", ex);
+		}
 	}
 
 	@Override
@@ -3170,6 +3642,62 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 			return gameAssetsRepositoryOwnersRepository.save((GameAssetsRepositoryOwnerEntity) gameAssetsRepositoryOwner);
 		} catch (Exception ex) {
 			throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game assets repository owner", ex);
+		}
+	}
+
+	@Override
+	public List<GameAssetsRepositoryOwner> saveGameAssetsRepositoryOwners(List<GameAssetsRepositoryOwner> gameAssetsRepositoryOwners) {
+		try {
+			Iterable<GameAssetsRepositoryOwnerEntity> lst = gameAssetsRepositoryOwners.stream().map(a -> (GameAssetsRepositoryOwnerEntity)a).collect(Collectors.toList());
+			lst = gameAssetsRepositoryOwnersRepository.saveAll(lst);
+			return StreamSupport.stream(lst.spliterator(), false).collect(Collectors.toList());
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPushingException("Unable to save game assets repository owner", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameAssetsRepositoryOwner(GameAssetsRepositoryOwner gameAssetsRepositoryOwner) {
+		try {
+			gameAssetsRepositoryOwnersRepository.delete((GameAssetsRepositoryOwnerEntity) gameAssetsRepositoryOwner);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to delete game assets repository owner", ex);
+		}
+	}
+
+	@Override
+	public void deleteGameAssetsRepositoryOwnersByIds(List<Long> ids) {
+		try {
+			gameAssetsRepositoryOwnersRepository.deleteAllByIds(ids);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game assets repository owners", ex);
+		}
+	}
+
+	@Override
+	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByExample(GameAssetsRepositoryOwner example) {
+		try {
+			return new ArrayList<>(gameAssetsRepositoryOwnersRepository.findAllByExample(example.getGameAssetsRepositoryId() , example.getOwnerUserId() ));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game assets repository owners", ex);
+		}
+	}
+
+	@Override
+	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByGameAssetsRepositoryId(Long gameAssetsRepositoryId) {
+		try {
+			return new ArrayList<>(gameAssetsRepositoryOwnersRepository.findAllByGameAssetsRepositoryId(gameAssetsRepositoryId));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game assets repository owners", ex);
+		}
+	}
+
+	@Override
+	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> ids) {
+		try {
+			return new ArrayList<>(gameAssetsRepositoryOwnersRepository.findAllByGameAssetsRepositoryIdAndIds(gameAssetsRepositoryId, ids));
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryPullingException("Unable to find game assets repository owners", ex);
 		}
 	}
 
@@ -3183,59 +3711,12 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 	}
 
 	@Override
-	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long repId, Long repOwnerId) {
-		return new GameAssetsRepositoryOwnerEntity(repId, repOwnerId);
-	}
-
-	@Override
-	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwners() {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long id) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public GameAssetsRepositoryOwner findGameAssetsRepositoryOwner(Long id) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public List<GameAssetsRepositoryOwner> saveGameAssetsRepositoryOwners(
-			List<GameAssetsRepositoryOwner> gameAssetsRepositoryOwners) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryOwner(GameAssetsRepositoryOwner gameAssetsRepositoryOwner) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryOwnersByIds(List<Long> ids) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByExample(GameAssetsRepositoryOwner example) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByGameAssetsRepositoryId(Long gameAssetsRepositoryId) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public List<GameAssetsRepositoryOwner> findAllGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryIds, List<Long> ids) {
-		throw new UnsupportedOperationException("not implemented");
-	}
-
-	@Override
-	public void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> gameAssetsRepositoryIds) {
-		throw new UnsupportedOperationException("not implemented");
+	public void deleteGameAssetsRepositoryOwnersByGameAssetsRepositoryIdAndIds(Long gameAssetsRepositoryId, List<Long> ids) {
+		try {
+			gameAssetsRepositoryOwnersRepository.deleteAllByGameAssetsRepositoryIdAndIds(gameAssetsRepositoryId, ids);
+		} catch (Exception ex) {
+			throw new CrazyDumplingsSpringDataGameWorldRegistryExpungingException("Unable to find game assets repository owners", ex);
+		}
 	}
 
 	@Override
@@ -3247,6 +3728,14 @@ public class SpringDataGameWorldRegistryDataService implements GameWorldRegistry
 		}
 
 		return repOwners.get(0);
+	}
+
+	@Override
+	public GameAssetsRepositoryOwner newGameAssetsRepositoryOwner(Long gameAssetsRepositoryId, Long ownerId) {
+		GameAssetsRepositoryOwnerEntity ret = new GameAssetsRepositoryOwnerEntity();
+		ret.setGameAssetsRepositoryId(gameAssetsRepositoryId);
+		ret.setOwnerUserId(ownerId);
+		return ret;
 	}
 
 }

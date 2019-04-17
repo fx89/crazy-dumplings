@@ -39,10 +39,22 @@ public class GameWorldSpawnPointTypeEntity implements GameWorldSpawnPointType {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameWorldSpawnPointType gameWorldSpawnPointType) {
+		this.spawnPointGameObjectTypeId = gameWorldSpawnPointType.getSpawnPointGameObjectTypeId();
+		this.spawnedGameObjectTypeId = gameWorldSpawnPointType.getSpawnedGameObjectTypeId();
+	}
+
 	public GameWorldSpawnPointTypeEntity(GameWorldSpawnPointTypeEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.spawnPointGameObjectTypeId = entity.spawnPointGameObjectTypeId;
-		this.spawnedGameObjectTypeId = entity.spawnedGameObjectTypeId;
+	}
+
+	public GameWorldSpawnPointTypeEntity(GameWorldSpawnPointTypeEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameWorldSpawnPointTypeEntity(GameWorldSpawnPointType gameWorldSpawnPointType) {
+		this.copyAttributesFromEntity(gameWorldSpawnPointType);
 	}
 
 	@Column(name = "SPAWN_POINT_GAME_OBJECT_TYPE_ID")

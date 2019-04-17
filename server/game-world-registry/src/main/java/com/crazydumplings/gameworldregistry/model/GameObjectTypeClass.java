@@ -15,4 +15,5 @@ public interface GameObjectTypeClass extends IdentifiableGameAsset, Comparable<G
 
 	void setName(String name);
 
+
 }

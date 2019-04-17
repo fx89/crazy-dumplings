@@ -41,13 +41,25 @@ public class GameWorldEntity implements GameWorld {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameWorld gameWorld) {
+		this.uniqueName = gameWorld.getUniqueName();
+		this.description = gameWorld.getDescription();
+		this.pictureRefPath = gameWorld.getPictureRefPath();
+		this.width = gameWorld.getWidth();
+		this.height = gameWorld.getHeight();
+	}
+
 	public GameWorldEntity(GameWorldEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueName = entity.uniqueName;
-		this.description = entity.description;
-		this.pictureRefPath = entity.pictureRefPath;
-		this.width = entity.width;
-		this.height = entity.height;
+	}
+
+	public GameWorldEntity(GameWorldEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameWorldEntity(GameWorld gameWorld) {
+		this.copyAttributesFromEntity(gameWorld);
 	}
 
 	@Column(name = "UNIQUE_NAME")

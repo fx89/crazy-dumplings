@@ -11,6 +11,10 @@ import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 @Generated(value="fx.codegen.builder version 1.0.0")
 public interface GameObjectType extends IdentifiableGameAsset, Comparable<GameObjectType> {
 
+	Long getAncestorGameObjectTypeId();
+
+	void setAncestorGameObjectTypeId(Long ancestorGameObjectTypeId);
+
 	Long getGameAssetsRepositoryId();
 
 	void setGameAssetsRepositoryId(Long gameAssetsRepositoryId);
@@ -30,5 +34,6 @@ public interface GameObjectType extends IdentifiableGameAsset, Comparable<GameOb
 	Boolean getIsExperimental();
 
 	void setIsExperimental(Boolean isExperimental);
+
 
 }

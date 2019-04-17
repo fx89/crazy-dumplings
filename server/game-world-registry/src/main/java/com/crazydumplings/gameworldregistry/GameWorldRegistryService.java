@@ -18,7 +18,7 @@ import com.crazydumplings.gameworldregistry.model.GameAssetsRepository;
 import com.crazydumplings.gameworldregistry.model.GameAssetsRepositoryOwner;
 import com.crazydumplings.gameworldregistry.model.GameObjectType;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeClass;
-import com.crazydumplings.gameworldregistry.model.GameObjectTypeProperty;
+import com.crazydumplings.gameworldregistry.model.GameObjectTypePropertyInstance;
 import com.crazydumplings.gameworldregistry.model.GameObjectTypeState;
 import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
 import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
@@ -31,7 +31,7 @@ public class GameWorldRegistryService {
     private GameWorldRegistryDataService dataService;
 
 
-    private GenericOperationsDelegate<GameObjectTypeProperty> gameObjectTypePropertiesOperationsDelegate;
+    private GenericOperationsDelegate<GameObjectTypePropertyInstance> gameObjectTypePropertyInstancesOperationsDelegate;
     private GenericOperationsDelegate<GameObjectTypeState> gameObjectTypeStatesOperationsDelegate;
 
 
@@ -52,29 +52,29 @@ public class GameWorldRegistryService {
 
     @PostConstruct
     public void init() {
-        gameObjectTypePropertiesOperationsDelegate = new GenericOperationsDelegate<>(
+        gameObjectTypePropertyInstancesOperationsDelegate = new GenericOperationsDelegate<>(
              // Bulk save operation
-                (assets) -> dataService.saveGameObjectTypeProperties(
+                (assets) -> dataService.saveGameObjectTypePropertyInstances(
                 				assets.stream()
-                						.map(asset -> dataService.newGameObjectTypeProperty(asset))
+                						.map(asset -> dataService.newGameObjectTypePropertyInstance(asset))
                 						.collect(Collectors.toList())
                 	        ),
 
              // Bulk search operation
-                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeIdAndIds(parentAsset.getId(), childAssetIds),
+                (parentAsset, childAssetIds) -> dataService.findAllGameObjectTypePropertyInstancesByGameObjectTypeIdAndIds(parentAsset.getId(), childAssetIds),
 
              // Parent search operation
                 (repoId, parentAssetId) -> getGameObjectTypeOrThrow(repoId, parentAssetId),
 
              // Search by parent function
-                (parentAsset) -> dataService.findAllGameObjectTypePropertiesByGameObjectTypeId(parentAsset.getId()),
+                (parentAsset) -> dataService.findAllGameObjectTypePropertyInstancesByGameObjectTypeId(parentAsset.getId()),
 
              // Properties update operation (inputData = what comes from the front end, registeredAsset = what's in the registry)
                 (inputData, registeredAsset) -> {
-                    if (inputData.getPropertyName()         != null) registeredAsset.setPropertyName        (inputData.getPropertyName());
-                    if (inputData.getPropertyDefaultValue() != null) registeredAsset.setPropertyDefaultValue(inputData.getPropertyDefaultValue());
-                    if (inputData.getPropertyMinValue()     != null) registeredAsset.setPropertyMinValue    (inputData.getPropertyMinValue());
-                    if (inputData.getPropertyMaxValue()     != null) registeredAsset.setPropertyMaxValue    (inputData.getPropertyMaxValue());
+                    if (inputData.getGameObjectTypePropertyId() != null) registeredAsset.setGameObjectTypePropertyId(inputData.getGameObjectTypePropertyId());
+                    if (inputData.getPropertyDefaultValue()     != null) registeredAsset.setPropertyDefaultValue    (inputData.getPropertyDefaultValue());
+                    if (inputData.getPropertyMinValue()         != null) registeredAsset.setPropertyMinValue        (inputData.getPropertyMinValue());
+                    if (inputData.getPropertyMaxValue()         != null) registeredAsset.setPropertyMaxValue        (inputData.getPropertyMaxValue());
                 },
 
              // Bulk delete operation
@@ -256,52 +256,52 @@ public class GameWorldRegistryService {
 
 
     /**
-     * List the properties of the referenced game object type
+     * List the property instances of the referenced game object type
      */
-    public List<GameObjectTypeProperty> getGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId) {
-        return gameObjectTypePropertiesOperationsDelegate.getByParentId(repositoryId, gameObjectTypeId);
+    public List<GameObjectTypePropertyInstance> getGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId) {
+        return gameObjectTypePropertyInstancesOperationsDelegate.getByParentId(repositoryId, gameObjectTypeId);
     }
 
     /**
-     * Update or create a game object type property depending on the presence of a valid gameObjectTypePropertyId
+     * Update or create a game object type property instance depending on the presence of a valid gameObjectTypePropertyInstanceId
      */
-    public GameObjectTypeProperty saveGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, GameObjectTypeProperty property) throws CrazyDumplingsGameWorldRegistryException {
-        property.setGameObjectTypeId(gameObjectTypeId);
-        return bulkSaveGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(property)).get(0);
+    public GameObjectTypePropertyInstance saveGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, GameObjectTypePropertyInstance propertyInstance) throws CrazyDumplingsGameWorldRegistryException {
+        propertyInstance.setGameObjectTypeId(gameObjectTypeId);
+        return bulkSaveGameObjectTypePropertyInstances(repositoryId, gameObjectTypeId, List.of(propertyInstance)).get(0);
     }
 
     /**
-     * Update or save one or more game object properties
+     * Update or save one or more game object property instances
      */
-    public List<GameObjectTypeProperty> bulkSaveGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId, List<GameObjectTypeProperty> gameObjectTypeProperties) {
-        return gameObjectTypePropertiesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, gameObjectTypeProperties);
+    public List<GameObjectTypePropertyInstance> bulkSaveGameObjectTypePropertyInstances(Long repositoryId, Long gameObjectTypeId, List<GameObjectTypePropertyInstance> gameObjectTypePropertyInstances) {
+        return gameObjectTypePropertyInstancesOperationsDelegate.bulkSaveGameAssets(repositoryId, gameObjectTypeId, gameObjectTypePropertyInstances);
     }
 
     /**
-     * Delete one or more game object properties
+     * Delete one or more game object property instances
      */
     public void bulkDeleteGameObjectTypeProperties(Long repositoryId, Long gameObjectTypeId, List<Long> gameObjectTypePropertyIds) {
-        gameObjectTypePropertiesOperationsDelegate.bulkDeleteGameAssets(repositoryId, gameObjectTypeId, gameObjectTypePropertyIds);
+        gameObjectTypePropertyInstancesOperationsDelegate.bulkDeleteGameAssets(repositoryId, gameObjectTypeId, gameObjectTypePropertyIds);
     }
 
     /**
-     * Delete a game object property
+     * Delete a game object property instance
      */
     public void deleteGameObjectTypeProperty(Long repositoryId, Long gameObjectTypeId, Long gameObjectTypePropertyId) {
         bulkDeleteGameObjectTypeProperties(repositoryId, gameObjectTypeId, List.of(gameObjectTypePropertyId));
     }
 
     /**
-     * Create a new game object type property in memory and without saving it into the registry
+     * Create a new game object type property instance in memory and without saving it into the registry
      */
-    public GameObjectTypeProperty createGameObjectTypePropertyInstance(
-            Long gameObjectTypeId, Long gameObjectTypePropertyId,
-            String propertyName, Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
+    public GameObjectTypePropertyInstance createGameObjectTypePropertyInstance(
+            Long gameObjectTypeId, Long gameObjectTypePropertyId, Long gameObjectTypePropertyInstanceId,
+            Double propertyDefaultValue, Double propertyMinValue, Double propertyMaxValue
     ) {
-        GameObjectTypeProperty ret = dataService.newGameObjectTypeProperty(gameObjectTypePropertyId);
+        GameObjectTypePropertyInstance ret = dataService.newGameObjectTypePropertyInstance(gameObjectTypePropertyInstanceId);
 
         ret.setGameObjectTypeId(gameObjectTypeId);
-        ret.setPropertyName(propertyName);
+        ret.setGameObjectTypePropertyId(gameObjectTypePropertyId);
         ret.setPropertyDefaultValue(propertyDefaultValue);
         ret.setPropertyMinValue(propertyMinValue);
         ret.setPropertyMaxValue(propertyMaxValue);

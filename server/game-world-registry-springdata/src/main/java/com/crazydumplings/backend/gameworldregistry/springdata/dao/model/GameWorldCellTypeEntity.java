@@ -41,10 +41,22 @@ public class GameWorldCellTypeEntity implements GameWorldCellType {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameWorldCellType gameWorldCellType) {
+		this.uniqueName = gameWorldCellType.getUniqueName();
+		this.gameObjectTypeId = gameWorldCellType.getGameObjectTypeId();
+	}
+
 	public GameWorldCellTypeEntity(GameWorldCellTypeEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueName = entity.uniqueName;
-		this.gameObjectTypeId = entity.gameObjectTypeId;
+	}
+
+	public GameWorldCellTypeEntity(GameWorldCellTypeEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameWorldCellTypeEntity(GameWorldCellType gameWorldCellType) {
+		this.copyAttributesFromEntity(gameWorldCellType);
 	}
 
 	@Column(name = "UNIQUE_NAME")

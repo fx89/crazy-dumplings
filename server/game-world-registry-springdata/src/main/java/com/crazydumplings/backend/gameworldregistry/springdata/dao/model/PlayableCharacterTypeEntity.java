@@ -41,10 +41,22 @@ public class PlayableCharacterTypeEntity implements PlayableCharacterType {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(PlayableCharacterType playableCharacterType) {
+		this.uniqueCharacterTypeName = playableCharacterType.getUniqueCharacterTypeName();
+		this.gameObjectTypeId = playableCharacterType.getGameObjectTypeId();
+	}
+
 	public PlayableCharacterTypeEntity(PlayableCharacterTypeEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueCharacterTypeName = entity.uniqueCharacterTypeName;
-		this.gameObjectTypeId = entity.gameObjectTypeId;
+	}
+
+	public PlayableCharacterTypeEntity(PlayableCharacterTypeEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public PlayableCharacterTypeEntity(PlayableCharacterType playableCharacterType) {
+		this.copyAttributesFromEntity(playableCharacterType);
 	}
 
 	@Column(name = "UNIQUE_CHARACTER_TYPE_NAME")

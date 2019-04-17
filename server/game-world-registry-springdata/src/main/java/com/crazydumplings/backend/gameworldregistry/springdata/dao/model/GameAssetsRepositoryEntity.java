@@ -41,10 +41,23 @@ public class GameAssetsRepositoryEntity implements GameAssetsRepository {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameAssetsRepository gameAssetsRepository) {
+		this.uniqueName = gameAssetsRepository.getUniqueName();
+		this.description = gameAssetsRepository.getDescription();
+		this.pictureHash = gameAssetsRepository.getPictureHash();
+	}
+
 	public GameAssetsRepositoryEntity(GameAssetsRepositoryEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueName = entity.uniqueName;
-		this.description = entity.description;
+	}
+
+	public GameAssetsRepositoryEntity(GameAssetsRepositoryEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameAssetsRepositoryEntity(GameAssetsRepository gameAssetsRepository) {
+		this.copyAttributesFromEntity(gameAssetsRepository);
 	}
 
 	@Column(name = "UNIQUE_NAME")

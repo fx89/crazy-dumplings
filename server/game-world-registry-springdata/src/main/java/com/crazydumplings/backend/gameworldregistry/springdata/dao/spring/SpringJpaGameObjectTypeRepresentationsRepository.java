@@ -65,5 +65,5 @@ public interface SpringJpaGameObjectTypeRepresentationsRepository extends CrudRe
 		"(:gameClientTypeId is null or gameObjectTypeRepresentation.gameClientTypeId = :gameClientTypeId) and " + 
 		"(:objectHash is null or gameObjectTypeRepresentation.objectHash = :objectHash)"
 	)
-	List<GameObjectTypeRepresentationEntity> findAllByExample(Long gameObjectTypeId, Long gameClientTypeId, Boolean objectHash);
+	List<GameObjectTypeRepresentationEntity> findAllByExample(Long gameObjectTypeId, Long gameClientTypeId, String objectHash);
 }

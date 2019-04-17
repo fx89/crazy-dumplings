@@ -55,4 +55,5 @@ public interface GameObjectTypeAllowedAddonType extends IdentifiableGameAsset, C
 
 	void setDuration(Integer duration);
 
+
 }

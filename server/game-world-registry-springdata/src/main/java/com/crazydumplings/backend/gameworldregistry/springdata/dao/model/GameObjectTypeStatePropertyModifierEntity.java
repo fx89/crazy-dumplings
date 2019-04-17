@@ -39,11 +39,23 @@ public class GameObjectTypeStatePropertyModifierEntity implements GameObjectType
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeStatePropertyModifier gameObjectTypeStatePropertyModifier) {
+		this.gameObjectTypeStateId = gameObjectTypeStatePropertyModifier.getGameObjectTypeStateId();
+		this.gameObjectTypePropertyId = gameObjectTypeStatePropertyModifier.getGameObjectTypePropertyId();
+		this.propertyActualValue = gameObjectTypeStatePropertyModifier.getPropertyActualValue();
+	}
+
 	public GameObjectTypeStatePropertyModifierEntity(GameObjectTypeStatePropertyModifierEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.gameObjectTypeStateId = entity.gameObjectTypeStateId;
-		this.gameObjectTypePropertyId = entity.gameObjectTypePropertyId;
-		this.propertyActualValue = entity.propertyActualValue;
+	}
+
+	public GameObjectTypeStatePropertyModifierEntity(GameObjectTypeStatePropertyModifierEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeStatePropertyModifierEntity(GameObjectTypeStatePropertyModifier gameObjectTypeStatePropertyModifier) {
+		this.copyAttributesFromEntity(gameObjectTypeStatePropertyModifier);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_STATE_ID")

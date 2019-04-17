@@ -39,10 +39,22 @@ public class GameObjectTypeAutomationEntity implements GameObjectTypeAutomation 
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeAutomation gameObjectTypeAutomation) {
+		this.gameObjectTypeId = gameObjectTypeAutomation.getGameObjectTypeId();
+		this.automationObjectProviderId = gameObjectTypeAutomation.getAutomationObjectProviderId();
+	}
+
 	public GameObjectTypeAutomationEntity(GameObjectTypeAutomationEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.gameObjectTypeId = entity.gameObjectTypeId;
-		this.automationObjectProviderId = entity.automationObjectProviderId;
+	}
+
+	public GameObjectTypeAutomationEntity(GameObjectTypeAutomationEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeAutomationEntity(GameObjectTypeAutomation gameObjectTypeAutomation) {
+		this.copyAttributesFromEntity(gameObjectTypeAutomation);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_ID")

@@ -39,11 +39,23 @@ public class GameAddonInteractionReceivingPropertyModifierEntity implements Game
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier) {
+		this.gameObjectTypeAllowedAddonTypeId = gameAddonInteractionReceivingPropertyModifier.getGameObjectTypeAllowedAddonTypeId();
+		this.affectedGameObjectTypePropertyId = gameAddonInteractionReceivingPropertyModifier.getAffectedGameObjectTypePropertyId();
+		this.appliedPropertyValueMultiplier = gameAddonInteractionReceivingPropertyModifier.getAppliedPropertyValueMultiplier();
+	}
+
 	public GameAddonInteractionReceivingPropertyModifierEntity(GameAddonInteractionReceivingPropertyModifierEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.gameObjectTypeAllowedAddonTypeId = entity.gameObjectTypeAllowedAddonTypeId;
-		this.affectedGameObjectTypePropertyId = entity.affectedGameObjectTypePropertyId;
-		this.appliedPropertyValueMultiplier = entity.appliedPropertyValueMultiplier;
+	}
+
+	public GameAddonInteractionReceivingPropertyModifierEntity(GameAddonInteractionReceivingPropertyModifierEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameAddonInteractionReceivingPropertyModifierEntity(GameAddonInteractionReceivingPropertyModifier gameAddonInteractionReceivingPropertyModifier) {
+		this.copyAttributesFromEntity(gameAddonInteractionReceivingPropertyModifier);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_ALLOWED_ADDON_TYPE_ID")

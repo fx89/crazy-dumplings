@@ -15,4 +15,5 @@ public interface Action extends IdentifiableGameAsset, Comparable<Action> {
 
 	void setUniqueName(String uniqueName);
 
+
 }

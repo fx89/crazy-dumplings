@@ -41,22 +41,22 @@ public class GameObjectTypePropertyEntity implements GameObjectTypeProperty {
 		this.id = id;
 	}
 
-	public GameObjectTypePropertyEntity(GameObjectTypePropertyEntity entity, Long id) {
-		this.id = id;
-		this.gameObjectTypeId = entity.gameObjectTypeId;
-		this.propertyName = entity.propertyName;
-		this.propertyDefaultValue = entity.propertyDefaultValue;
-		this.propertyMinValue = entity.propertyMinValue;
-		this.propertyMaxValue = entity.propertyMaxValue;
+	private void copyAttributesFromEntity(GameObjectTypeProperty gameObjectTypeProperty) {
+		this.gameObjectTypeId = gameObjectTypeProperty.getGameObjectTypeId();
+		this.propertyName = gameObjectTypeProperty.getPropertyName();
 	}
 
-	public GameObjectTypePropertyEntity(GameObjectTypeProperty other) {
-		this.id = other.getId();
-		this.gameObjectTypeId = other.getGameObjectTypeId();
-		this.propertyName = other.getPropertyName();
-		this.propertyDefaultValue = other.getPropertyDefaultValue();
-		this.propertyMinValue = other.getPropertyMinValue();
-		this.propertyMaxValue = other.getPropertyMaxValue();
+	public GameObjectTypePropertyEntity(GameObjectTypePropertyEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
+		this.id = id;
+	}
+
+	public GameObjectTypePropertyEntity(GameObjectTypePropertyEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypePropertyEntity(GameObjectTypeProperty gameObjectTypeProperty) {
+		this.copyAttributesFromEntity(gameObjectTypeProperty);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_ID")
@@ -65,15 +65,6 @@ public class GameObjectTypePropertyEntity implements GameObjectTypeProperty {
 	@Column(name = "PROPERTY_NAME")
 	@Size(max = 250)
 	private String propertyName;
-
-	@Column(name = "PROPERTY_DEFAULT_VALUE")
-	private Double propertyDefaultValue;
-
-	@Column(name = "PROPERTY_MIN_VALUE")
-	private Double propertyMinValue;
-
-	@Column(name = "PROPERTY_MAX_VALUE")
-	private Double propertyMaxValue;
 
 	public Long getGameObjectTypeId() {
 		return gameObjectTypeId;
@@ -89,30 +80,6 @@ public class GameObjectTypePropertyEntity implements GameObjectTypeProperty {
 
 	public void setPropertyName(String propertyName) {
 		this.propertyName = propertyName;
-	}
-
-	public Double getPropertyDefaultValue() {
-		return propertyDefaultValue;
-	}
-
-	public void setPropertyDefaultValue(Double propertyDefaultValue) {
-		this.propertyDefaultValue = propertyDefaultValue;
-	}
-
-	public Double getPropertyMinValue() {
-		return propertyMinValue;
-	}
-
-	public void setPropertyMinValue(Double propertyMinValue) {
-		this.propertyMinValue = propertyMinValue;
-	}
-
-	public Double getPropertyMaxValue() {
-		return propertyMaxValue;
-	}
-
-	public void setPropertyMaxValue(Double propertyMaxValue) {
-		this.propertyMaxValue = propertyMaxValue;
 	}
 
 	@Override

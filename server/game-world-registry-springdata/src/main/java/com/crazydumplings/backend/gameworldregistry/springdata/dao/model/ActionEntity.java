@@ -41,9 +41,21 @@ public class ActionEntity implements Action {
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(Action action) {
+		this.uniqueName = action.getUniqueName();
+	}
+
 	public ActionEntity(ActionEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.uniqueName = entity.uniqueName;
+	}
+
+	public ActionEntity(ActionEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public ActionEntity(Action action) {
+		this.copyAttributesFromEntity(action);
 	}
 
 	@Column(name = "UNIQUE_NAME")

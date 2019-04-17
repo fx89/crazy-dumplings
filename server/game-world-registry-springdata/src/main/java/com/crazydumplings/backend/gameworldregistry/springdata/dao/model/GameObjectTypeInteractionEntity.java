@@ -39,11 +39,23 @@ public class GameObjectTypeInteractionEntity implements GameObjectTypeInteractio
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeInteraction gameObjectTypeInteraction) {
+		this.donatingGameObjectTypeId = gameObjectTypeInteraction.getDonatingGameObjectTypeId();
+		this.receivingGameObjectTypeId = gameObjectTypeInteraction.getReceivingGameObjectTypeId();
+		this.radius = gameObjectTypeInteraction.getRadius();
+	}
+
 	public GameObjectTypeInteractionEntity(GameObjectTypeInteractionEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.donatingGameObjectTypeId = entity.donatingGameObjectTypeId;
-		this.receivingGameObjectTypeId = entity.receivingGameObjectTypeId;
-		this.radius = entity.radius;
+	}
+
+	public GameObjectTypeInteractionEntity(GameObjectTypeInteractionEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeInteractionEntity(GameObjectTypeInteraction gameObjectTypeInteraction) {
+		this.copyAttributesFromEntity(gameObjectTypeInteraction);
 	}
 
 	@Column(name = "DONATING_GAME_OBJECT_TYPE_ID")

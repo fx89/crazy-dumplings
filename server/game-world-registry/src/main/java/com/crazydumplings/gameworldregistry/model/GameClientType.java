@@ -15,4 +15,5 @@ public interface GameClientType extends IdentifiableGameAsset, Comparable<GameCl
 
 	void setUniqueName(String uniqueName);
 
+
 }

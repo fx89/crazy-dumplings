@@ -22,4 +22,5 @@ public interface GameObjectTypeInteraction extends IdentifiableGameAsset, Compar
 
 	void setRadius(Integer radius);
 
+
 }

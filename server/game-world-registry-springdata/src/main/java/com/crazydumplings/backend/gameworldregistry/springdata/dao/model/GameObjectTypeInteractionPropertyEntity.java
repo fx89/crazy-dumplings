@@ -39,14 +39,26 @@ public class GameObjectTypeInteractionPropertyEntity implements GameObjectTypeIn
 		this.id = id;
 	}
 
+	private void copyAttributesFromEntity(GameObjectTypeInteractionProperty gameObjectTypeInteractionProperty) {
+		this.gameObjectTypeInteractionId = gameObjectTypeInteractionProperty.getGameObjectTypeInteractionId();
+		this.donatingGameObjectTypePropertyId = gameObjectTypeInteractionProperty.getDonatingGameObjectTypePropertyId();
+		this.receivingGameObjectTypePropertyId = gameObjectTypeInteractionProperty.getReceivingGameObjectTypePropertyId();
+		this.overflowGameObjectTypePropertyId = gameObjectTypeInteractionProperty.getOverflowGameObjectTypePropertyId();
+		this.isIncremental = gameObjectTypeInteractionProperty.getIsIncremental();
+		this.isInverted = gameObjectTypeInteractionProperty.getIsInverted();
+	}
+
 	public GameObjectTypeInteractionPropertyEntity(GameObjectTypeInteractionPropertyEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
 		this.id = id;
-		this.gameObjectTypeInteractionId = entity.gameObjectTypeInteractionId;
-		this.donatingGameObjectTypePropertyId = entity.donatingGameObjectTypePropertyId;
-		this.receivingGameObjectTypePropertyId = entity.receivingGameObjectTypePropertyId;
-		this.overflowGameObjectTypePropertyId = entity.overflowGameObjectTypePropertyId;
-		this.isIncremental = entity.isIncremental;
-		this.isInverted = entity.isInverted;
+	}
+
+	public GameObjectTypeInteractionPropertyEntity(GameObjectTypeInteractionPropertyEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeInteractionPropertyEntity(GameObjectTypeInteractionProperty gameObjectTypeInteractionProperty) {
+		this.copyAttributesFromEntity(gameObjectTypeInteractionProperty);
 	}
 
 	@Column(name = "GAME_OBJECT_TYPE_INTERACTION_ID")

@@ -18,4 +18,5 @@ public interface GameWorldSpawnPointType extends IdentifiableGameAsset, Comparab
 
 	void setSpawnedGameObjectTypeId(Long spawnedGameObjectTypeId);
 
+
 }

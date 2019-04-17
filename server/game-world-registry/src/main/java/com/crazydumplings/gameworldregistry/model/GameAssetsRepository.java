@@ -23,4 +23,5 @@ public interface GameAssetsRepository extends IdentifiableGameAsset, Comparable<
 
 	void setPictureHash(String pictureHash);
 
+
 }

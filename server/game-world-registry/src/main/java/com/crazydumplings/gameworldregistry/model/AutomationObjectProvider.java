@@ -15,4 +15,5 @@ public interface AutomationObjectProvider extends IdentifiableGameAsset, Compara
 
 	void setName(String name);
 
+
 }

@@ -22,4 +22,5 @@ public interface GameAddonInteractionReceivingPropertyModifier extends Identifia
 
 	void setAppliedPropertyValueMultiplier(Double appliedPropertyValueMultiplier);
 
+
 }

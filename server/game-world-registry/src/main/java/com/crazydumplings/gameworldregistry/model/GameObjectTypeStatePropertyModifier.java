@@ -5,10 +5,10 @@ package com.crazydumplings.gameworldregistry.model;
 import javax.annotation.Generated;
 
 
-import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
 @Generated(value="fx.codegen.builder version 1.0.0")
-public interface GameObjectTypeStatePropertyModifier extends IdentifiableGameAsset, Comparable<GameObjectTypeStatePropertyModifier> {
+public interface GameObjectTypeStatePropertyModifier extends ParentableGameAsset, Comparable<GameObjectTypeStatePropertyModifier> {
 
 	Long getGameObjectTypeStateId();
 
@@ -21,5 +21,14 @@ public interface GameObjectTypeStatePropertyModifier extends IdentifiableGameAss
 	Double getPropertyActualValue();
 
 	void setPropertyActualValue(Double propertyActualValue);
+
+
+	default Long getParentId() {
+		return getGameObjectTypeStateId();
+	}
+
+	default void setParentId(Long parentId) {
+		setGameObjectTypeStateId(parentId);
+	}
 
 }

@@ -45,8 +45,8 @@ public interface SpringJpaGameAssetsRepositoryOwnersRepository extends CrudRepos
 	@Query(
 		"select distinct gameAssetsRepositoryOwner from GameAssetsRepositoryOwnerEntity gameAssetsRepositoryOwner " +
 		"where " +
-		"(?1 is null or gameAssetsRepositoryOwner.gameAssetsRepositoryId = ?1) and " + 
-		"(?2 is null or gameAssetsRepositoryOwner.ownerUserId = ?2)"
+		"(:gameAssetsRepositoryId is null or gameAssetsRepositoryOwner.gameAssetsRepositoryId = :gameAssetsRepositoryId) and " + 
+		"(:ownerUserId is null or gameAssetsRepositoryOwner.ownerUserId = :ownerUserId)"
 	)
 	List<GameAssetsRepositoryOwnerEntity> findAllByExample(Long gameAssetsRepositoryId, Long ownerUserId);
 }

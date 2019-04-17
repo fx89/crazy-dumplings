@@ -4,6 +4,8 @@ package com.crazydumplings.gameworldregistry.model;
 
 import javax.annotation.Generated;
 
+
+
 import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
 @Generated(value="fx.codegen.builder version 1.0.0")
@@ -17,6 +19,7 @@ public interface GameObjectTypeState extends ParentableGameAsset, Comparable<Gam
 
 	void setName(String name);
 
+
 	default Long getParentId() {
 		return getGameObjectTypeId();
 	}
@@ -24,4 +27,5 @@ public interface GameObjectTypeState extends ParentableGameAsset, Comparable<Gam
 	default void setParentId(Long parentId) {
 		setGameObjectTypeId(parentId);
 	}
+
 }

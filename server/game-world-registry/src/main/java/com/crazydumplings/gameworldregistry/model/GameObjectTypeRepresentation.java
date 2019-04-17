@@ -5,10 +5,10 @@ package com.crazydumplings.gameworldregistry.model;
 import javax.annotation.Generated;
 
 
-import com.crazydumplings.gameworldregistry.model.generic.IdentifiableGameAsset;
+import com.crazydumplings.gameworldregistry.model.generic.ParentableGameAsset;
 
 @Generated(value="fx.codegen.builder version 1.0.0")
-public interface GameObjectTypeRepresentation extends IdentifiableGameAsset, Comparable<GameObjectTypeRepresentation> {
+public interface GameObjectTypeRepresentation extends ParentableGameAsset, Comparable<GameObjectTypeRepresentation> {
 
 	Long getGameObjectTypeId();
 
@@ -18,8 +18,17 @@ public interface GameObjectTypeRepresentation extends IdentifiableGameAsset, Com
 
 	void setGameClientTypeId(Long gameClientTypeId);
 
-	Boolean getObjectHash();
+	String getObjectHash();
 
-	void setObjectHash(Boolean objectHash);
+	void setObjectHash(String objectHash);
+
+
+	default Long getParentId() {
+		return getGameObjectTypeId();
+	}
+
+	default void setParentId(Long parentId) {
+		setGameObjectTypeId(parentId);
+	}
 
 }

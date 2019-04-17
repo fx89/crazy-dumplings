@@ -41,14 +41,30 @@ public class GameObjectTypeEntity implements GameObjectType {
 		this.id = id;
 	}
 
-	public GameObjectTypeEntity(GameObjectTypeEntity entity, Long id) {
-		this.id = id;
-		this.gameAssetsRepositoryId = entity.gameAssetsRepositoryId;
-		this.gameObjectTypeClassId = entity.gameObjectTypeClassId;
-		this.uniqueName = entity.uniqueName;
-		this.description = entity.description;
-		this.isExperimental = entity.isExperimental;
+	private void copyAttributesFromEntity(GameObjectType gameObjectType) {
+		this.ancestorGameObjectTypeId = gameObjectType.getAncestorGameObjectTypeId();
+		this.gameAssetsRepositoryId = gameObjectType.getGameAssetsRepositoryId();
+		this.gameObjectTypeClassId = gameObjectType.getGameObjectTypeClassId();
+		this.uniqueName = gameObjectType.getUniqueName();
+		this.description = gameObjectType.getDescription();
+		this.isExperimental = gameObjectType.getIsExperimental();
 	}
+
+	public GameObjectTypeEntity(GameObjectTypeEntity entity, Long id) {
+		this.copyAttributesFromEntity(entity);
+		this.id = id;
+	}
+
+	public GameObjectTypeEntity(GameObjectTypeEntity entity) {
+		this.copyAttributesFromEntity(entity);
+	}
+
+	public GameObjectTypeEntity(GameObjectType gameObjectType) {
+		this.copyAttributesFromEntity(gameObjectType);
+	}
+
+	@Column(name = "ANCESTOR_GAME_OBJECT_TYPE_ID")
+	private Long ancestorGameObjectTypeId;
 
 	@Column(name = "GAME_ASSETS_REPOSITORY_ID")
 	private Long gameAssetsRepositoryId;
@@ -65,6 +81,14 @@ public class GameObjectTypeEntity implements GameObjectType {
 
 	@Column(name = "IS_EXPERIMENTAL")
 	private Boolean isExperimental;
+
+	public Long getAncestorGameObjectTypeId() {
+		return ancestorGameObjectTypeId;
+	}
+
+	public void setAncestorGameObjectTypeId(Long ancestorGameObjectTypeId) {
+		this.ancestorGameObjectTypeId = ancestorGameObjectTypeId;
+	}
 
 	public Long getGameAssetsRepositoryId() {
 		return gameAssetsRepositoryId;

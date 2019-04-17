@@ -19,4 +19,5 @@ public interface GameWorldCellType extends IdentifiableGameAsset, Comparable<Gam
 
 	void setGameObjectTypeId(Long gameObjectTypeId);
 
+
 }
